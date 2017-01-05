@@ -1,0 +1,68 @@
+public class UserSystemET {
+
+	private int uID;
+	private string uFirstName;
+	private string uLastName;
+	private string uPassword;
+	private string uUserName;
+	private boolean uOnline;
+	private string uEMail;
+	private string uPermission;
+
+	public int getUID() {
+		return this.uID;
+	}
+
+	public void setUID(int uID) {
+		this.uID = uID;
+	}
+
+	public string getUFirstName() {
+		return this.uFirstName;
+	}
+
+	public void setUFirstName(string uFirstName) {
+		this.uFirstName = uFirstName;
+	}
+
+	public string getULastName() {
+		return this.uLastName;
+	}
+
+	public void setULastName(string uLastName) {
+		this.uLastName = uLastName;
+	}
+
+	public string getUPassword() {
+		return this.uPassword;
+	}
+
+	public void setUPassword(string uPassword) {
+		this.uPassword = uPassword;
+	}
+
+	public string getUUserName() {
+		return this.uUserName;
+	}
+
+	public void setUUserName(string uUserName) {
+		this.uUserName = uUserName;
+	}
+
+	public boolean isUOnline() {
+		return this.uOnline;
+	}
+
+	public void setUOnline(boolean uOnline) {
+		this.uOnline = uOnline;
+	}
+
+	public string getUEMail() {
+		return this.uEMail;
+	}
+
+	public void setUEMail(string uEMail) {
+		this.uEMail = uEMail;
+	}
+
+}
