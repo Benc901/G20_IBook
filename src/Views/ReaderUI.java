@@ -32,7 +32,7 @@ import javax.swing.JProgressBar;
 public class ReaderUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebButton btnHeatingFuel;
+	public WebButton btnSearchReview;
 	private JPanel panel;
 	public JLabel lblUsername;
 	public JLabel lblUsernameVar;
@@ -40,6 +40,7 @@ public class ReaderUI extends JPanel {
 	public JLabel lblTelephonVAR; 
 	public JLabel lblPoints;
 	public WebButton btnLogout;
+	public WebButton btnSearchBook;
 	public JLabel profile;
 	
 	public JProgressBar Rank;
@@ -122,14 +123,14 @@ public class ReaderUI extends JPanel {
 		
 		//*** DO NOT DELETE! - END ***//
 		
-		WebButton btnFueling = new WebButton("Search book");
-		btnFueling.setBounds(58, 203, 146, 54);
-		add(btnFueling);
+		btnSearchBook = new WebButton("Search book");
+		btnSearchBook.setBounds(58, 203, 146, 54);
+		add(btnSearchBook);
 		
 		
-		btnHeatingFuel = new WebButton("Search review");
-		btnHeatingFuel.setBounds(58, 273, 146, 54);
-		add(btnHeatingFuel);
+		btnSearchReview = new WebButton("Search review");
+		btnSearchReview.setBounds(58, 273, 146, 54);
+		add(btnSearchReview);
 		
 		WebButton CheckOrderBtn = new WebButton("Publish review");
 		CheckOrderBtn.setBounds(58, 343, 146, 54);
@@ -149,14 +150,12 @@ public class ReaderUI extends JPanel {
 		add(lblNewLabel);
 		
 		if(userET.getPermission()==3|| userET.getPermission()==4){
-		WebButton wbtnLibririan = new WebButton("Publish review");
-		wbtnLibririan.setText("Libririan menu");
+		WebButton wbtnLibririan = new WebButton("Libririan menu");
 		wbtnLibririan.setBounds(282, 490, 146, 30);
 		add(wbtnLibririan);}
 		
 		if(userET.getPermission()==4){
-		WebButton wbtnManagerMenu = new WebButton("Publish review");
-		wbtnManagerMenu.setText("Manager menu");
+		WebButton wbtnManagerMenu = new WebButton("Manager menu");
 		wbtnManagerMenu.setBounds(471, 490, 146, 30);
 		add(wbtnManagerMenu);}
 

@@ -44,7 +44,7 @@ public class LibririanUI extends JPanel {
 	
 	public JProgressBar Rank;
 	
-	/**
+	/*
 	 * Create the application.
 	 * @throws URISyntaxException 
 	 */

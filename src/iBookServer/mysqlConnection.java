@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import Entities.BookET;
+import Entities.ReviewET;
 import Entities.UserET;
 
 import ocsf.server.ConnectionToClient;
@@ -123,6 +125,72 @@ public Object logout(Object obj) {
 	return null;
 	
 }//End logout
+
+	public Object SearchBook(String text,String cb){
+		ArrayList<BookET> returnObj=new ArrayList<BookET>();
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM books");
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+				// user found).
+				display("No Results");
+				return "1";
+			}
+			else{
+				while(rs.next()){
+					if((rs.getString(Integer.parseInt(cb)).toLowerCase()).contains(text.toLowerCase())){
+						returnObj.add(
+								new BookET(rs.getInt(1),
+										rs.getString(2),rs.getString(3),
+										rs.getString(4),rs.getString(5),
+										rs.getString(6),rs.getString(7),
+										rs.getString(8),rs.getString(9),
+										rs.getInt(10),rs.getInt(11),
+										rs.getInt(12),rs.getInt(13),
+										rs.getInt(14)
+								));
+				}}
+				rs.close();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnObj;
+	}
+	
+	public Object SearchReview(String text,String cb){
+		ArrayList<ReviewET> returnObj=new ArrayList<ReviewET>();
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM review");
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+				// user found).
+				display("No Results");
+				return "1";
+			}
+			else{
+				while(rs.next()){
+					if((rs.getString(Integer.parseInt(cb)).toLowerCase()).contains(text.toLowerCase())){
+						returnObj.add(
+								new ReviewET(rs.getInt(1),
+										rs.getInt(2),rs.getString(3),
+										rs.getString(4),rs.getInt(5),
+										rs.getString(6),rs.getString(7),
+										rs.getString(8),rs.getInt(9),
+										rs.getInt(10)	,rs.getInt(11)
+								));
+				}}
+				rs.close();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnObj;
+	}	
 	public void closeSqlConnection(){
 
 		

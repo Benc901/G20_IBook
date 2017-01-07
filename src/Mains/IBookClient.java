@@ -32,6 +32,7 @@ public class IBookClient extends ObservableClient {
 		}
 		return firstInstance;
 	}
+	
 
 	public void handleMessageFromUI(Object obj) {
 	
@@ -58,6 +59,7 @@ public class IBookClient extends ObservableClient {
 				}
 			}
 		}
+		
 		setChanged();
 		notifyObservers(obj);
 	}

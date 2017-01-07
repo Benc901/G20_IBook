@@ -12,9 +12,12 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import Entities.UserET;
 import Mains.IBookClient;
+import Mains.Main;
 import Views.LoginUI;
 import Views.MainUI;
 import Views.ReaderUI;
+import Views.SearchBookUI;
+import Views.SearchReviewUI;
 
 
 
@@ -23,12 +26,16 @@ import Views.ReaderUI;
 
 public class UserCT implements Observer, ActionListener {
 
-	static UserCT userCT;
-	private static IBookClient client;
+	public static UserCT userCT;
+	public static IBookClient client;
 	private static LoginUI loginFrame;
 	private static ReaderUI readerFrame;
 	private static UserET userET;
-	private final int port;
+	private static SearchBookUI searchbookFrame;
+	private static SearchReviewUI searchreviewFrame;
+	public static int port;
+	public  static String host;
+	public static Object current;
 	
 	public UserCT(LoginUI frame, int port){
 		userCT=this;
@@ -38,17 +45,46 @@ public class UserCT implements Observer, ActionListener {
 		
 		
 	}
+	public void changeObserver(Observer a,Observer b){
+		client.addObserver(a);
+		client.deleteObserver(b);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == loginFrame.btnLogin){
-			client = IBookClient.getInstance(loginFrame.getIP(), port);
+			host=loginFrame.getIP();
+			client = IBookClient.getInstance(host, port);
 			client.addObserver(this);
 			login(loginFrame.getUsername(), loginFrame.getPassword());
 		}
-		if(readerFrame!=null)
+		if(readerFrame!=null){
 			if(e.getSource()==readerFrame.btnLogout){
 			logout();
 			}
+			if(e.getSource()==readerFrame.btnSearchBook){
+			searchbookFrame=new SearchBookUI();
+			searchbookFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(searchbookFrame);
+			}
+			if(e.getSource()==readerFrame.btnSearchReview){
+			searchreviewFrame=new SearchReviewUI();
+			searchreviewFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(searchreviewFrame);
+			}
+		}
+		if(searchbookFrame!=null){
+			if(e.getSource()==searchbookFrame.btnBack){
+				changeObserver(this,BookCT.bookCT);
+				MainUI.MV.setView(readerFrame);
+			}
+			
+		}
+		if(searchreviewFrame!=null){
+			if(e.getSource()==searchreviewFrame.btnBack){
+				changeObserver(this,ReviewCT.reviewCT);
+				MainUI.MV.setView(readerFrame);
+			}
+		}
 		
 	}
 
@@ -92,45 +128,26 @@ public class UserCT implements Observer, ActionListener {
 					userET = (UserET) map.get("obj");
 					//loginFrame.setVisible(false);
 					// Build the GUI depends on the permission.
-					
-					switch (userET.getPermission()) {
-						case 1:{
+
 							readerFrame=new ReaderUI(userET);
 							readerFrame.btnLogout.addActionListener((ActionListener) this);
+							readerFrame.btnSearchBook.addActionListener((ActionListener) this);
+							readerFrame.btnSearchReview.addActionListener((ActionListener) this);
 							MainUI.MV.setView(readerFrame);
-							break;
-						}
-						case 2:{
-							readerFrame=new ReaderUI(userET);
-							readerFrame.btnLogout.addActionListener((ActionListener) this);
-							MainUI.MV.setView(readerFrame);
-							break;
-						}
-						case 3:{
-							readerFrame=new ReaderUI(userET);
-							readerFrame.btnLogout.addActionListener((ActionListener) this);
-							MainUI.MV.setView(readerFrame);
-							break;
-						}
-						case 4:{
-							readerFrame=new ReaderUI(userET);
-							readerFrame.btnLogout.addActionListener((ActionListener) this);
-							MainUI.MV.setView(readerFrame);
-							break;
-						}
-					//PanelFactory.setPanels(clinicStuff.getPermission(), map.get("obj"));
+							
 				}
 				break;
 
-			}
 			case "Logout":
 				if (map.get("obj").equals("User logged out of the system"))
 					JOptionPane.showMessageDialog(null,
 							"User is logged out from the system",
 							"User Is LoggedOut", JOptionPane.WARNING_MESSAGE);
 				MainUI.MV.setView(loginFrame);
+				loginFrame.clearFields();
 				break;
-				
+			default : 
+				System.out.println("problem here");
 		}//end switch case
 		}//end else
 		
