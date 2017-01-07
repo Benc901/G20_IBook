@@ -64,7 +64,7 @@ CREATE TABLE `books` (
   `content` varchar(45) NOT NULL,
   `genre` varchar(45) NOT NULL,
   `subject` varchar(45) NOT NULL,
-  `keywords` varchar(45) NOT NULL,
+  `photo` varchar(45) NOT NULL,
   `numOfSearch` int(11) DEFAULT NULL,
   `numOfPurchace` int(11) NOT NULL,
   `hidden` int(11) NOT NULL,
@@ -80,10 +80,39 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'twelight','Moshe','English','s','s','one','two','s',1,1,1,1,1),(2,'book1','Ori','Hebraw','s','s','three','four','s',1,1,1,1,1);
+INSERT INTO `books` VALUES (1,'twelight','Moshe','English','s','s','one','two','arthur',1,1,1,1,1),(2,'book1','Ori','Hebraw','s','s','three','four','arthur',1,1,1,1,1);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+DROP TABLE IF EXISTS `review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review` (
+  `id` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `author` varchar(45) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `userphoto` varchar(45) NOT NULL,
+  `review` varchar(200) NOT NULL,
+  `rate`int(11) NOT NULL,
+  `confirm` varchar(45) NOT NULL,
+  `workerId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,2,'book1','Moshe',1,'Ben','profile_picture','Perfect book',4,1,12),(2,2,'twelight','Itsik',1,'Ben','profile_picture','Perfect book',4,1,12);
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
