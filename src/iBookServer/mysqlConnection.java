@@ -214,6 +214,26 @@ public Object logout(Object obj) {
 		}
 		return true;
 	}
+	
+	public boolean EnablePayment(ArrayList<Object> details,UserET user){
+	
+		try {
+			Statement  rStmt = con.createStatement();
+			rStmt.executeUpdate("INSERT INTO reader VALUES ("+user.getId()+","
+															 +details.get(0)+","
+															+"\""+details.get(1)+"\""+","
+															+"\""+details.get(2)+"\""+","
+															+"\""+details.get(3)+"\""+","
+															+"\""+details.get(4)+"\""+","
+															+"\""+details.get(5)+"\""+","
+															+0+","+details.get(6));
+			display(" User sent enable payment");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	public void closeSqlConnection(){
 
 		
