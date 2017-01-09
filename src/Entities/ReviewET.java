@@ -10,6 +10,7 @@ public class ReviewET implements Serializable {
 	private int userId;
 	private String userName;
 	private String userPhoto;
+	private String bookphoto;
 	private String review;
 	private int rate;
 	private int confirm;
@@ -19,7 +20,7 @@ public class ReviewET implements Serializable {
 
 	
 	
-	public ReviewET(int id, int bookId, String bookName,String author, int userId, String userName, String userPhoto, String review,
+	public ReviewET(int id, int bookId, String bookName,String author, int userId, String userName, String userPhoto,String bookphoto ,String review,
 			int rate, int confirm, int workerId) {
 		super();
 		this.id = id;
@@ -29,6 +30,7 @@ public class ReviewET implements Serializable {
 		this.userId = userId;
 		this.userName = userName;
 		this.userPhoto = userPhoto;
+		this.bookphoto=bookphoto;
 		this.review = review;
 		this.rate = rate;
 		this.confirm = confirm;
@@ -92,6 +94,14 @@ public class ReviewET implements Serializable {
 	public void setUserPhoto(String userPhoto) {
 		this.userPhoto = userPhoto;
 	}
+	
+	public String getBookphoto() {
+		return bookphoto;
+	}
+
+	public void setBookphoto(String bookphoto) {
+		this.bookphoto = bookphoto;
+	}
 
 	public String getReview() {
 		return review;
@@ -124,7 +134,8 @@ public class ReviewET implements Serializable {
 	public void setWorkerId(int workerId) {
 		this.workerId = workerId;
 	}
-	
-	
+
+
+
 	
 }
