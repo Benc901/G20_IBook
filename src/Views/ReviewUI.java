@@ -1,11 +1,14 @@
 package Views;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 
 import Entities.BookET;
 import Entities.ReviewET;
 import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 import javax.swing.JLabel;
 
@@ -25,6 +28,7 @@ import javax.swing.JButton;
 public class ReviewUI extends JPanel {
 	private JTextField textField;
 	private JButton btnBack;
+
 	
 	public ReviewUI(ReviewET review){
 		this.setBounds(0, 0, 677, 562);
@@ -36,53 +40,11 @@ public class ReviewUI extends JPanel {
 		
 		JLabel lblNewBookName = new JLabel(review.getBookName());
 		lblNewBookName.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewBookName.setBounds(297, 149, 439, 35);
+		lblNewBookName.setBounds(250, 165, 439, 35);
 		add(lblNewBookName);
-		/*
-		JLabel lblAuthor = new JLabel("Author: "+book.getBAuthor());
-		lblAuthor.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblAuthor.setBounds(297, 214, 250, 20);
-		add(lblAuthor);
-		
-		JLabel lblGenere = new JLabel("Genere: "+book.getBGenre());
-		lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGenere.setBounds(297, 245, 250, 20);
-		add(lblGenere);
-		
-		JLabel lblSubject = new JLabel("Subject: "+book.getBSubject());
-		lblSubject.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSubject.setBounds(297, 276, 250, 20);
-		add(lblSubject);
-		
-		JLabel lblLanguage = new JLabel("Language: "+book.getBLanguage());
-		lblLanguage.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLanguage.setBounds(297, 307, 250, 20);
-		add(lblLanguage);
-		
-		JLabel lblSummery = new JLabel("Summery: ");
-		lblSummery.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSummery.setBounds(297, 338, 250, 20);
-		add(lblSummery);
-		
-		textField = new JTextField(book.getBSummary());
-		textField.setBounds(297, 369, 360, 100);
-		add(textField);
-		textField.setColumns(10);
-		
-		
-		JLabel profile = new JLabel("");
-		profile.setBounds(30, 149, 250, 320);
-		profile.setBorder(new LineBorder(new Color(0, 0, 0)));
-		add(profile);
-		profile.setIcon(new GUIimage(book.getBPhoto(),profile.getWidth(),profile.getHeight()).image);
-		
-		JButton btnNewButton = new JButton("Get this book");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNewButton.setBounds(297, 480, 360, 50);
-		add(btnNewButton);
-		*/
+
 		btnBack = new JButton("Back");
-		btnBack.setBounds(30, 480, 250, 50);
+		btnBack.setBounds(31, 482, 75, 23);
 		add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,6 +53,57 @@ public class ReviewUI extends JPanel {
 				}
 			}
 		});
+		JPanel panel = new JPanel();
+		panel.setBounds(250, 375, 360, 100);
+		add(panel);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 360, 100);
+		panel.add(scrollPane);
+		
+		JTextArea textArea = new JTextArea(review.getReview());
+		textArea.setLineWrap(true);
+		textArea.setBounds(0, 0, 360, 100);
+		scrollPane.setViewportView(textArea);
+		
+
+		JLabel profile = new JLabel("");
+		profile.setBounds(28, 149, 209, 251);
+		profile.setBorder(new LineBorder(new Color(0, 0, 0)));
+		add(profile);
+		profile.setIcon(new GUIimagejpg("/books/"+review.getBookphoto(),profile.getWidth(),profile.getHeight()).image);
+		
+		JLabel profile1 = new JLabel("");
+		profile1.setBounds(509,226,75,78);
+		profile1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		add(profile1);
+		profile1.setIcon(new GUIimagejpg("/"+review.getUserPhoto(),profile1.getWidth(),profile1.getHeight()).image);
+
+		JLabel label = new JLabel("");
+		label.setBounds(43, 202, 46, 14);
+		add(label);
+		
+		JLabel Username = new JLabel("Review by :"+review.getUserName());
+		Username.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Username.setBounds(499, 185, 150, 30);
+		add(Username);
+		
+		JLabel lblNewLabel = new JLabel("Author : "+review.getAuthor());
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(248, 249, 300, 30);
+		add(lblNewLabel);
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("Rate :"+review.getRate());
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(250, 290, 46, 30);
+		add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("The review :");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setBounds(250, 331, 100, 30);
+		add(lblNewLabel_3);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
