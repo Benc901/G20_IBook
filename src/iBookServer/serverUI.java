@@ -46,7 +46,7 @@ import java.awt.SystemColor;
 public class serverUI extends JFrame implements CommonIF {
 	
 	private JPanel contentPane;
-	private IBookServer server;
+	public IBookServer server;
 	private JTextArea textArea;
 	private JTextField textFieldPort;
 	private JTextField textFieldSQLuser;
@@ -54,8 +54,9 @@ public class serverUI extends JFrame implements CommonIF {
 	public JLabel label_2;
 	public JLabel lblSQL;
 	public JLabel lblIp;
+	private JButton stopBtn;
 	
-	public serverUI(IBookServer server){
+	public serverUI(IBookServer server1){
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if ("Nimbus".equals(info.getName())) {
@@ -67,7 +68,7 @@ public class serverUI extends JFrame implements CommonIF {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		getContentPane().setBackground(SystemColor.menu);
-		this.server=server;
+		this.server=server1;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 566);
 		getContentPane().setLayout(null);
@@ -147,7 +148,7 @@ public class serverUI extends JFrame implements CommonIF {
 		label_3.setBounds(134, 223, 66, 14);
 		getContentPane().add(label_3);
 		
-		JButton stopBtn = new JButton("STOP");
+		stopBtn = new JButton("STOP");
 		stopBtn.setBackground(Color.WHITE);
 		stopBtn.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		stopBtn.setBounds(101, 262, 140, 55);
