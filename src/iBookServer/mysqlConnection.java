@@ -200,19 +200,31 @@ public Object logout(Object obj) {
 	public boolean EnablePayment(ArrayList<Object> details,UserET user){
 	
 		try {
+			System.out.println("3");
 			Statement  rStmt = con.createStatement();
+			System.out.println("INSERT INTO reader VALUES ("+user.getId()+","
+					 +details.get(0)+","
+					+"\'"+details.get(1)+"\'"+","
+					+"\'"+details.get(2)+"\'"+","
+					+"\'"+details.get(3)+"\'"+","
+					+"\'"+details.get(4)+"\'"+","
+					+"\'"+details.get(5)+"\'"+","
+					+0+","+details.get(6)+")");
 			rStmt.executeUpdate("INSERT INTO reader VALUES ("+user.getId()+","
 															 +details.get(0)+","
-															+"\""+details.get(1)+"\""+","
-															+"\""+details.get(2)+"\""+","
-															+"\""+details.get(3)+"\""+","
-															+"\""+details.get(4)+"\""+","
-															+"\""+details.get(5)+"\""+","
-															+0+","+details.get(6));
+															+"\'"+details.get(1)+"\'"+","
+															+"\'"+details.get(2)+"\'"+","
+															+"\'"+details.get(3)+"\'"+","
+															+"\'"+details.get(4)+"\'"+","
+															+"\'"+details.get(5)+"\'"+","
+															+0+","+details.get(6)+")");
 			display(" User sent enable payment");
+			System.out.println("4");
 		} catch (SQLException e) {
+			System.out.println("5");
 			e.printStackTrace();
 			return false;
+			
 		}
 		return true;
 	}

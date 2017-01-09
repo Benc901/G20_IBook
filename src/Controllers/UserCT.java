@@ -212,8 +212,10 @@ public class UserCT implements Observer, ActionListener {
 				MainUI.MV.setView(loginFrame);
 				loginFrame.clearFields();
 				break;
-			default : 
-				System.out.println("problem here");
+			case "EnablePayment": System.out.println("8");break;
+				
+			default : System.out.println("problem here");
+				
 		}//end switch case
 		}//end else
 		
@@ -263,7 +265,7 @@ public class UserCT implements Observer, ActionListener {
 		hmap.put("op", "EnablePayment");
 		hmap.put("us", userET);
 		hmap.put("obj", obj);
-
+		System.out.println("1");
 		client.handleMessageFromUI(hmap);
 	}
 

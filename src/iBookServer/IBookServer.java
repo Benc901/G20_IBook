@@ -92,6 +92,7 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("arr", sqlCon.SearchReview((String)map.get("text"),(String)map.get("cb")));
 				break;	
 			case "EnablePayment":
+				System.out.println("2");
 				display(" : " + op, client);
 				returnObj.put("op", "EnablePayment");
 				returnObj.put("arr", sqlCon.EnablePayment((ArrayList<Object>)map.get("obj"),(UserET)map.get("us")));
