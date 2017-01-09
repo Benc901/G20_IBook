@@ -182,8 +182,8 @@ public Object logout(Object obj) {
 										rs.getInt(2),rs.getString(3),
 										rs.getString(4),rs.getInt(5),
 										rs.getString(6),rs.getString(7),
-										rs.getString(8),rs.getInt(9),
-										rs.getInt(10)	,rs.getInt(11)
+										rs.getString(8),rs.getString(98),rs.getInt(10),
+										rs.getInt(11)	,rs.getInt(12)
 								));
 				}}
 				rs.close();
