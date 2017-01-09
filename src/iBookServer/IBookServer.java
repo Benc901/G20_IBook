@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import Entities.UserET;
 import iBookServer.serverUI;
 
 import ocsf.server.*;
@@ -90,6 +91,11 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "SearchReview");
 				returnObj.put("arr", sqlCon.SearchReview((String)map.get("text"),(String)map.get("cb")));
 				break;	
+			case "EnablePayment":
+				display(" : " + op, client);
+				returnObj.put("op", "EnablePayment");
+				returnObj.put("arr", sqlCon.EnablePayment((ArrayList<Object>)map.get("obj"),(UserET)map.get("us")));
+				break;
 		}
 		
 		try {

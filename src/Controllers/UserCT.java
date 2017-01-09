@@ -2,6 +2,7 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -87,6 +88,7 @@ public class UserCT implements Observer, ActionListener {
 				}
 				else if(readerFrame.btnEnablePublish.getText()=="Enable payment"){
 					enablepaymentFrame=new EnablePaymentUI();
+					enablepaymentFrame.btnSendApplication.addActionListener((ActionListener)this);
 					enablepaymentFrame.btnBack.addActionListener((ActionListener)this);
 					MainUI.MV.setView(enablepaymentFrame);
 				}
@@ -126,6 +128,10 @@ public class UserCT implements Observer, ActionListener {
 		if(enablepaymentFrame!=null){
 			if(e.getSource()==enablepaymentFrame.btnBack){
 				//changeObserver(this,ReviewCT.reviewCT);
+				MainUI.MV.setView(readerFrame);
+			}
+			if(e.getSource()==enablepaymentFrame.btnSendApplication){
+				enablePayment();
 				MainUI.MV.setView(readerFrame);
 			}
 		}
@@ -236,6 +242,27 @@ public class UserCT implements Observer, ActionListener {
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "Logout");
 		hmap.put("obj", userET);
+
+		client.handleMessageFromUI(hmap);
+	}
+	
+	public void enablePayment(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		ArrayList<Object> obj=new ArrayList<Object>();
+		int sub=enablepaymentFrame.cbPmethod.getSelectedIndex();
+		int bookLeft=0;
+		if(sub==1) bookLeft=10;
+		if(sub==2) bookLeft=30;
+		obj.add((int)sub);
+		obj.add((String)enablepaymentFrame.tfCnumber.getText());
+		obj.add((String)enablepaymentFrame.cbMvalid.getSelectedItem());
+		obj.add((String)enablepaymentFrame.cbYvalid.getSelectedItem());
+		obj.add((String)enablepaymentFrame.tfCvv.getText());
+		obj.add((String)enablepaymentFrame.tfId.getText());
+		obj.add((int)bookLeft);
+		hmap.put("op", "EnablePayment");
+		hmap.put("us", userET);
+		hmap.put("obj", obj);
 
 		client.handleMessageFromUI(hmap);
 	}
