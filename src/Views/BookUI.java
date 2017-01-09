@@ -26,7 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 public class BookUI extends JPanel {
-	
+	public JButton btnBack;
 	
 	public BookUI(BookET book){
 		this.setBounds(0, 0, 677, 562);
@@ -87,12 +87,12 @@ public class BookUI extends JPanel {
 		add(profile);
 		profile.setIcon(new GUIimagejpg("/books/" +book.getBPhoto(),profile.getWidth(),profile.getHeight()).image);
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 480, 250, 35);
 		add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(btnBack.getText().equals("Back")){// if start:
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==btnBack){// if start:
 					MainUI.MV.setView(BookCT.bookCT.searchFrame);
 				}
 			}

@@ -24,7 +24,7 @@ import javax.swing.JButton;
 
 public class ReviewUI extends JPanel {
 	private JTextField textField;
-	
+	private JButton btnBack;
 	
 	public ReviewUI(ReviewET review){
 		this.setBounds(0, 0, 677, 562);
@@ -81,7 +81,7 @@ public class ReviewUI extends JPanel {
 		btnNewButton.setBounds(297, 480, 360, 50);
 		add(btnNewButton);
 		*/
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(30, 480, 250, 50);
 		add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
