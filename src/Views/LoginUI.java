@@ -49,13 +49,16 @@ public class LoginUI extends JPanel {
 
 	
 	public LoginUI(String host,int port) {
-		
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
+		
+		
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
+		
+		
 		
 		JLabel lblLogIn = new JLabel("Log In");
 		lblLogIn.setFont(new Font("Lucida Grande", Font.BOLD, 22));
@@ -169,10 +172,6 @@ public class LoginUI extends JPanel {
 		textFieldServerIP.setBounds(298, 333, 165, 28);
 		add(textFieldServerIP);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(292, 488, 89, 23);
-		add(btnBack);
-		
 		JLabel lblServerPort = new JLabel("Server port:");
 		lblServerPort.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblServerPort.setBounds(197, 372, 96, 28);
@@ -203,6 +202,11 @@ public class LoginUI extends JPanel {
 		btnForgot.setEnabled(true);
 		btnForgot.setBounds(346, 424, 163, 53);
 		add(btnForgot);
+		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
 		
 	}
 

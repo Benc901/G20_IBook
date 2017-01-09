@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFoldsAction;
@@ -77,21 +78,20 @@ public class BookCT implements Observer, ActionListener{
 	
 	public void SearchBook(){
 		Map<String, Object> hmap = new HashMap<String, Object>();
-		String selection;
-	
-		switch((String)searchFrame.comboBox.getSelectedItem()){
-			case "Id": selection=new String("1"); break;
-			case "Name": selection=new String("2"); break;
-			case "Author": selection=new String("3"); break;
-			case "Genre": selection=new String("7"); break;
-			case "Subject": selection=new String("8"); break;
-			case "Language": selection=new String("4"); break;
-			default:selection=new String("1");
-			//new String[] {"Language", "Subject", "Genre", "Author", "Name", "Id"}))
-		}
+		
+		ArrayList <Integer> selected=new ArrayList<Integer>();
+		if(searchFrame.chckbxTitle.isSelected())selected.add(2);
+		if(searchFrame.chckbxAuthor.isSelected())selected.add(3);
+		if(searchFrame.chckbxSummery.isSelected())selected.add(5);
+		if(searchFrame.chckbxGenre.isSelected())selected.add(8);
+		if(searchFrame.checkBoxLanguage.isSelected())selected.add(4);
+		if(searchFrame.chckbxKeywords.isSelected())selected.add(7);
+		
+		
+
 		hmap.put("op", "SearchBook");
 		hmap.put("text",searchFrame.GetText());
-		hmap.put("cb",selection);
+		hmap.put("cb",selected);
 		client.handleMessageFromUI(hmap);
 	}
 	

@@ -1,6 +1,7 @@
 package Views;
 
 import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,6 +43,9 @@ public class ReaderUI extends JPanel {
 	public WebButton btnLogout;
 	public WebButton btnSearchBook;
 	public JLabel profile;
+	public WebButton btnEnablePublish;
+	public WebButton wbtnLibririan;
+	public WebButton wbtnManagerMenu;
 	
 	public JProgressBar Rank;
 	
@@ -76,7 +80,7 @@ public class ReaderUI extends JPanel {
 		
 
 		
-		profile.setIcon(new GUIimage("profile_picture",profile.getWidth(),profile.getHeight()).image);
+		profile.setIcon(new GUIimagejpg("/" +userET.getPhoto(),profile.getWidth(),profile.getHeight()).image);
 		
 		lblUsername = new JLabel("Name:");
 		lblUsername.setBounds(15, 162, 61, 16);
@@ -132,10 +136,10 @@ public class ReaderUI extends JPanel {
 		btnSearchReview.setBounds(58, 273, 146, 54);
 		add(btnSearchReview);
 		
-		WebButton CheckOrderBtn = new WebButton("Publish review");
-		CheckOrderBtn.setBounds(58, 343, 146, 54);
-		add(CheckOrderBtn);
-		if(userET.getPermission()==1) CheckOrderBtn.setText("Enable payment");
+		btnEnablePublish = new WebButton("Publish review");
+		btnEnablePublish.setBounds(58, 343, 146, 54);
+		add(btnEnablePublish);
+		if(userET.getPermission()==1) btnEnablePublish.setText("Enable payment");
 		
 		
 		btnLogout = new WebButton("   Logout");
@@ -150,14 +154,19 @@ public class ReaderUI extends JPanel {
 		add(lblNewLabel);
 		
 		if(userET.getPermission()==3|| userET.getPermission()==4){
-		WebButton wbtnLibririan = new WebButton("Libririan menu");
+		wbtnLibririan = new WebButton("Libririan menu");
 		wbtnLibririan.setBounds(282, 490, 146, 30);
 		add(wbtnLibririan);}
 		
 		if(userET.getPermission()==4){
-		WebButton wbtnManagerMenu = new WebButton("Manager menu");
+		wbtnManagerMenu = new WebButton("Manager menu");
 		wbtnManagerMenu.setBounds(471, 490, 146, 30);
 		add(wbtnManagerMenu);}
+		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
 
 	}
 }

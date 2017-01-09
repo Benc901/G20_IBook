@@ -92,6 +92,10 @@ public class ReviewUI extends JPanel {
 			}
 		});
 		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
 		
 	}
 }

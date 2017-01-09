@@ -83,7 +83,7 @@ public class IBookServer extends AbstractServer {
 			case "SearchBook": 
 				display(" : " + op, client);
 				returnObj.put("op", "SearchBook");
-				returnObj.put("arr", sqlCon.SearchBook((String)map.get("text"),(String)map.get("cb")));
+				returnObj.put("arr", sqlCon.SearchBook((String)map.get("text"),(ArrayList<Integer>)map.get("cb")));
 				break;
 			case "SearchReview": 
 				display(" : " + op, client);

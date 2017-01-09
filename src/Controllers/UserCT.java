@@ -13,8 +13,12 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import Entities.UserET;
 import Mains.IBookClient;
 import Mains.Main;
+import Views.EnablePaymentUI;
+import Views.LibririanUI;
 import Views.LoginUI;
 import Views.MainUI;
+import Views.ManagerUI;
+import Views.PublishReviewUI;
 import Views.ReaderUI;
 import Views.SearchBookUI;
 import Views.SearchReviewUI;
@@ -30,9 +34,13 @@ public class UserCT implements Observer, ActionListener {
 	public static IBookClient client;
 	private static LoginUI loginFrame;
 	private static ReaderUI readerFrame;
-	private static UserET userET;
+	public static UserET userET;
 	private static SearchBookUI searchbookFrame;
 	private static SearchReviewUI searchreviewFrame;
+	private static PublishReviewUI publishreviewFrame;
+	private static EnablePaymentUI enablepaymentFrame;
+	private static LibririanUI libririanFrame;
+	private static ManagerUI managerFrame;
 	public static int port;
 	public  static String host;
 	public static Object current;
@@ -71,6 +79,30 @@ public class UserCT implements Observer, ActionListener {
 			searchreviewFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(searchreviewFrame);
 			}
+			if(e.getSource()==readerFrame.btnEnablePublish){
+				if(readerFrame.btnEnablePublish.getText()=="Publish review"){
+					publishreviewFrame=new PublishReviewUI();
+					publishreviewFrame.btnBack.addActionListener((ActionListener)this);
+					MainUI.MV.setView(publishreviewFrame);
+				}
+				else if(readerFrame.btnEnablePublish.getText()=="Enable payment"){
+					enablepaymentFrame=new EnablePaymentUI();
+					enablepaymentFrame.btnBack.addActionListener((ActionListener)this);
+					MainUI.MV.setView(enablepaymentFrame);
+				}
+			}
+			if(e.getSource()==readerFrame.wbtnLibririan){
+				libririanFrame=new LibririanUI();
+				libririanFrame.btnBack.addActionListener((ActionListener)this);
+				MainUI.MV.setView(libririanFrame);
+			}
+			 
+			if(e.getSource()==readerFrame.wbtnManagerMenu){
+				managerFrame=new ManagerUI();
+				managerFrame.btnBack.addActionListener((ActionListener)this);
+				MainUI.MV.setView(managerFrame);
+			}
+			
 		}
 		if(searchbookFrame!=null){
 			if(e.getSource()==searchbookFrame.btnBack){
@@ -85,7 +117,29 @@ public class UserCT implements Observer, ActionListener {
 				MainUI.MV.setView(readerFrame);
 			}
 		}
-		
+		if(publishreviewFrame!=null){
+			if(e.getSource()==publishreviewFrame.btnBack){
+				//changeObserver(this,ReviewCT.reviewCT);
+				MainUI.MV.setView(readerFrame);
+			}
+		}
+		if(enablepaymentFrame!=null){
+			if(e.getSource()==enablepaymentFrame.btnBack){
+				//changeObserver(this,ReviewCT.reviewCT);
+				MainUI.MV.setView(readerFrame);
+			}
+		}
+		if(libririanFrame!=null){
+			if(e.getSource()==libririanFrame.btnBack){
+				//changeObserver(this,ReviewCT.reviewCT);
+				MainUI.MV.setView(readerFrame);
+			}}
+			if(managerFrame!=null){
+				if(e.getSource()==managerFrame.btnBack){
+					//changeObserver(this,ReviewCT.reviewCT);
+					MainUI.MV.setView(readerFrame);
+				}
+		}
 	}
 
 	@Override
@@ -133,6 +187,12 @@ public class UserCT implements Observer, ActionListener {
 							readerFrame.btnLogout.addActionListener((ActionListener) this);
 							readerFrame.btnSearchBook.addActionListener((ActionListener) this);
 							readerFrame.btnSearchReview.addActionListener((ActionListener) this);
+							readerFrame.btnEnablePublish.addActionListener((ActionListener) this);
+							if(userET.getPermission()==3|userET.getPermission()==4)
+								readerFrame.wbtnLibririan.addActionListener((ActionListener) this);
+							if(userET.getPermission()==4)
+								readerFrame.wbtnManagerMenu.addActionListener((ActionListener) this);
+							
 							MainUI.MV.setView(readerFrame);
 							
 				}

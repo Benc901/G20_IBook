@@ -5,6 +5,7 @@ import javax.swing.JSeparator;
 
 import Entities.BookET;
 import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 import javax.swing.JLabel;
 
@@ -17,11 +18,14 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import Controllers.BookCT;
+import Controllers.UserCT;
 
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class BookUI extends JPanel {
-	private JTextField textField;
 	
 	
 	public BookUI(BookET book){
@@ -62,20 +66,29 @@ public class BookUI extends JPanel {
 		lblSummery.setBounds(297, 338, 250, 20);
 		add(lblSummery);
 		
-		textField = new JTextField(book.getBSummary());
-		textField.setBounds(297, 369, 360, 100);
-		add(textField);
-		textField.setColumns(10);
+		JPanel panel = new JPanel();
+		panel.setBounds(297, 369, 360, 100);
+		add(panel);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 360, 100);
+		panel.add(scrollPane);
+		
+		JTextArea textArea = new JTextArea(book.getBSummary());
+		textArea.setLineWrap(true);
+		textArea.setBounds(0, 0, 360, 100);
+		scrollPane.setViewportView(textArea);
 		
 		
 		JLabel profile = new JLabel("");
 		profile.setBounds(30, 149, 250, 320);
 		profile.setBorder(new LineBorder(new Color(0, 0, 0)));
 		add(profile);
-		profile.setIcon(new GUIimage(book.getBPhoto(),profile.getWidth(),profile.getHeight()).image);
+		profile.setIcon(new GUIimagejpg("/books/" +book.getBPhoto(),profile.getWidth(),profile.getHeight()).image);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(30, 480, 250, 50);
+		btnBack.setBounds(30, 480, 250, 35);
 		add(btnBack);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -84,10 +97,16 @@ public class BookUI extends JPanel {
 				}
 			}
 		});
-		
+		if(UserCT.userCT.userET.getPermission()!=1){
 		JButton btnNewButton = new JButton("Get this book");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNewButton.setBounds(297, 480, 360, 50);
+		btnNewButton.setBounds(297, 480, 360, 35);
 		add(btnNewButton);
+		}
+		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
 	}
 }

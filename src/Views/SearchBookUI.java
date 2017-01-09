@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 
 import Controllers.BookCT;
 import Controllers.UserCT;
+import graphics.GUIimage;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -24,6 +25,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import java.awt.Color;
 
 public class SearchBookUI extends JPanel {
 	 public JButton btnBack;
@@ -31,9 +33,16 @@ public class SearchBookUI extends JPanel {
 	 private JTextField textField;
 	 public JTable Orderstable;
 	 public DefaultTableModel model;
+	 public JCheckBox chckbxTitle;
+	 public JCheckBox chckbxAuthor;
+	 public JCheckBox chckbxSummery;
+	 public JCheckBox chckbxGenre;
+	 public JCheckBox checkBoxLanguage;
+	 public JCheckBox chckbxKeywords;
 	
 	 
 	public SearchBookUI() {
+		setBackground(new Color(153, 204, 204));
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
 		
@@ -48,7 +57,7 @@ public class SearchBookUI extends JPanel {
 		
 		JLabel lblSearchBy = new JLabel("Search By :");
 		lblSearchBy.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSearchBy.setBounds(16, 190, 113, 30);
+		lblSearchBy.setBounds(40, 190, 113, 30);
 		add(lblSearchBy);
 		
 		JLabel lblSearchText = new JLabel("Search text :");
@@ -57,7 +66,7 @@ public class SearchBookUI extends JPanel {
 		add(lblSearchText);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(16, 499, 89, 23);
+		btnBack.setBounds(40, 486, 89, 30);
 		add(btnBack);
 		
 		btnSearch = new JButton("Search");
@@ -95,29 +104,44 @@ public class SearchBookUI extends JPanel {
 		scrollPane.setViewportView(Orderstable);
 		add(scrollPane);
 		
-		JCheckBox chckbxTitle = new JCheckBox("Title");
-		chckbxTitle.setBounds(104, 197, 104, 18);
+		chckbxTitle = new JCheckBox("Title");
+		chckbxTitle.setBounds(128, 197, 104, 18);
 		add(chckbxTitle);
 		
-		JCheckBox chckbxLanguage = new JCheckBox("Language");
-		chckbxLanguage.setBounds(104, 218, 104, 18);
-		add(chckbxLanguage);
+		chckbxAuthor = new JCheckBox("Author");
+		chckbxAuthor.setBounds(128, 218, 104, 18);
+		add(chckbxAuthor);
 		
-		JCheckBox chckbxSummery = new JCheckBox("Summery");
-		chckbxSummery.setBounds(230, 197, 104, 18);
+		chckbxSummery = new JCheckBox("Summery");
+		chckbxSummery.setBounds(254, 197, 104, 18);
 		add(chckbxSummery);
 		
-		JCheckBox chckbxGenre = new JCheckBox("Genre");
-		chckbxGenre.setBounds(230, 218, 104, 18);
+		chckbxGenre = new JCheckBox("Genre");
+		chckbxGenre.setBounds(254, 218, 104, 18);
 		add(chckbxGenre);
+		
+		checkBoxLanguage = new JCheckBox("Language");
+		checkBoxLanguage.setBounds(128, 240, 104, 18);
+		add(checkBoxLanguage);
+		
+		chckbxKeywords = new JCheckBox("Keywords");
+		chckbxKeywords.setBounds(254, 240, 104, 18);
+		add(chckbxKeywords);
 		
 		Orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
 		    @Override
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		        int row = Orderstable.rowAtPoint(evt.getPoint());
-		        BookCT.bookCT.viewBook(row);
+		        if(row!=-1)BookCT.bookCT.viewBook(row);
+		        
 		    }
 		});
+		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
+		
 		
 		
 		//scrollPane.setBounds(37, 236, 608, 239);
@@ -132,7 +156,5 @@ public class SearchBookUI extends JPanel {
 	public String GetText(){
 		return textField.getText();
 	}
-	public String GetCB(){
-		return comboBox.getActionCommand();
-	}
+
 }

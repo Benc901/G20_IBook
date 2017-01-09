@@ -19,6 +19,7 @@ import graphics.SlideContainer;
 
 
 import com.alee.laf.progressbar.WebProgressBar;
+import javax.swing.ImageIcon;
 
 public class MainUI {
 
@@ -137,7 +138,7 @@ public class MainUI {
 		MV.slideContainer = new SlideContainer();
 		MV.slideContainer.setBounds(0, 0, 677, 562);
 		
-		MV.frame.add(MV.slideContainer);
+		MV.frame.getContentPane().add(MV.slideContainer);
 		
 		MV.slideContainer.add(panel);
 		

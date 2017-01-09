@@ -9,6 +9,7 @@ public class BookET implements Serializable {
 		private String bLanguage;
 		private String bSummary;
 		private String bContent;
+		private String bKeywords;
 		private String bGenre;
 		private String bSubject;
 		private String bPhoto;
@@ -22,7 +23,7 @@ public class BookET implements Serializable {
 			
 		}
 		public BookET(int bID, String bTitle, String bAuthor, String bLanguage, String bSummary, String bContent,
-				String bGenre, String bSubject, String bPhoto, int bNumOfSearch, int bNumOfPurchace,
+				String bKeywords,String bGenre, String bSubject, String bPhoto, int bNumOfSearch, int bNumOfPurchace,
 				int bHidden, int bTotalRank, int bGenreRank) {
 			super();
 			this.bID = bID;
@@ -31,6 +32,7 @@ public class BookET implements Serializable {
 			this.bLanguage = bLanguage;
 			this.bSummary = bSummary;
 			this.bContent = bContent;
+			this.bKeywords=bKeywords;
 			this.bGenre = bGenre;
 			this.bSubject = bSubject;
 			this.bPhoto = bPhoto;
@@ -64,6 +66,12 @@ public class BookET implements Serializable {
 			this.bAuthor = bAuthor;
 		}
 
+		public String getbKeywords() {
+			return bKeywords;
+		}
+		public void setbKeywords(String bKeywords) {
+			this.bKeywords = bKeywords;
+		}
 		public String getBLanguage() {
 			return this.bLanguage;
 		}

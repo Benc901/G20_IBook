@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controllers.BookCT;
 import Controllers.ReviewCT;
+import graphics.GUIimage;
 
 public class SearchReviewUI extends JPanel {
 	
@@ -55,11 +56,11 @@ public class SearchReviewUI extends JPanel {
 		add(lblSearchText);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(16, 499, 89, 23);
+		btnBack.setBounds(16, 497, 89, 23);
 		add(btnBack);
 		
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(580, 190, 89, 30);
+		btnSearch.setBounds(578, 190, 77, 30);
 		add(btnSearch);
 		
 		
@@ -101,6 +102,11 @@ public class SearchReviewUI extends JPanel {
 		});
 		
 		new ReviewCT(this);
+		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
 	}
 	public String GetText(){
 			return textField.getText();

@@ -12,6 +12,7 @@ public class UserET implements Serializable {
 	private String lastName;
 	private String email;
 	private int id;
+	private String photo;
 	
 	public UserET(String userName,String passWord){
 		
@@ -19,14 +20,22 @@ public class UserET implements Serializable {
 		this.passWord=passWord;
 		
 	}
-public void SetFromSQL(int id,int permission,String firstName,String lastName,String email){
+public void SetFromSQL(int id,int permission,String firstName,String lastName,String email,String photo){
 		this.id=id;
 		this.permission=permission;
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.email=email;
+		this.photo=photo;
 		
 	}
+
+	public String getPhoto() {
+	return photo;
+}
+public void setPhoto(String photo) {
+	this.photo = photo;
+}
 	public String getEmail() {
 	return email;
 }

@@ -86,7 +86,7 @@ public Object login(Object obj) {
 				}
 
 				else if (rs.next()) { // Build the entity and return it to the
-							returnObj.SetFromSQL(rs.getInt(1),rs.getInt(4),rs.getString(6), rs.getString(7),rs.getString(8));
+							returnObj.SetFromSQL(rs.getInt(1),rs.getInt(4),rs.getString(6), rs.getString(7),rs.getString(8),rs.getString(9));
 										// server and then to the client.
 					rs.close();
 					
@@ -126,7 +126,7 @@ public Object logout(Object obj) {
 	
 }//End logout
 
-	public Object SearchBook(String text,String cb){
+	public Object SearchBook(String text,ArrayList<Integer> cb){
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
 		try {
 			PreparedStatement pStmt = con
@@ -139,17 +139,20 @@ public Object logout(Object obj) {
 			}
 			else{
 				while(rs.next()){
-					if((rs.getString(Integer.parseInt(cb)).toLowerCase()).contains(text.toLowerCase())){
-						returnObj.add(
+					for(int i=0;i<cb.size();i++){
+						if((rs.getString(cb.get(i)).toLowerCase()).contains(text.toLowerCase())){
+							i=cb.size()-1;
+							returnObj.add(
 								new BookET(rs.getInt(1),
 										rs.getString(2),rs.getString(3),
 										rs.getString(4),rs.getString(5),
 										rs.getString(6),rs.getString(7),
 										rs.getString(8),rs.getString(9),
-										rs.getInt(10),rs.getInt(11),
+										rs.getString(10),rs.getInt(11),
 										rs.getInt(12),rs.getInt(13),
-										rs.getInt(14)
+										rs.getInt(14),rs.getInt(15)
 								));
+						}
 				}}
 				rs.close();
 			}
