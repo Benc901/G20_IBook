@@ -27,6 +27,7 @@ import javax.swing.ScrollPaneConstants;
 
 public class BookUI extends JPanel {
 	public JButton btnBack;
+	public JButton btnGetbook;
 	
 	public BookUI(BookET book){
 		this.setBounds(0, 0, 677, 562);
@@ -98,10 +99,10 @@ public class BookUI extends JPanel {
 			}
 		});
 		if(UserCT.userCT.userET.getPermission()!=1){
-		JButton btnNewButton = new JButton("Get this book");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNewButton.setBounds(297, 480, 360, 35);
-		add(btnNewButton);
+		btnGetbook = new JButton("Get this book");
+		btnGetbook.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnGetbook.setBounds(297, 480, 360, 35);
+		add(btnGetbook);
 		}
 		
 		JLabel lblBackground = new JLabel("New label");

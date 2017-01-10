@@ -30,7 +30,7 @@ import java.awt.Color;
 public class SearchBookUI extends JPanel {
 	 public JButton btnBack;
 	 public JButton btnSearch;
-	 private JTextField textField;
+	 public JTextField textField;
 	 public JTable Orderstable;
 	 public DefaultTableModel model;
 	 public JCheckBox chckbxTitle;

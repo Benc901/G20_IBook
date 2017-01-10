@@ -11,6 +11,7 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import Entities.ReaderET;
 import Entities.UserET;
 import Mains.IBookClient;
 import Mains.Main;
@@ -34,8 +35,9 @@ public class UserCT implements Observer, ActionListener {
 	public static UserCT userCT;
 	public static IBookClient client;
 	private static LoginUI loginFrame;
-	private static ReaderUI readerFrame;
+	public static ReaderUI readerFrame;
 	public static UserET userET;
+	public static ReaderET readerET;
 	private static SearchBookUI searchbookFrame;
 	private static SearchReviewUI searchreviewFrame;
 	private static PublishReviewUI publishreviewFrame;
@@ -212,7 +214,13 @@ public class UserCT implements Observer, ActionListener {
 				MainUI.MV.setView(loginFrame);
 				loginFrame.clearFields();
 				break;
-			case "EnablePayment": System.out.println("8");break;
+			case "EnablePayment": { if((int)map.get("rdr")==1)
+										JOptionPane.showMessageDialog(null,"Request successful");
+									else JOptionPane.showMessageDialog(null,"Request failed","Request failed", JOptionPane.ERROR_MESSAGE);
+			
+				
+								//	readerET=(ReaderET)map.get("rdr");
+									break;}
 				
 			default : System.out.println("problem here");
 				
@@ -265,7 +273,6 @@ public class UserCT implements Observer, ActionListener {
 		hmap.put("op", "EnablePayment");
 		hmap.put("us", userET);
 		hmap.put("obj", obj);
-		System.out.println("1");
 		client.handleMessageFromUI(hmap);
 	}
 

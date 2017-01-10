@@ -14,6 +14,16 @@ public class UserET implements Serializable {
 	private int id;
 	private String photo;
 	
+	public UserET(UserET user){
+		this.userName=user.userName;
+		this.passWord=user.passWord;
+		this.id=user.id;
+		this.permission=user.permission;
+		this.firstName=user.firstName;
+		this.lastName=user.lastName;
+		this.email=user.email;
+		this.photo=user.photo;
+	}
 	public UserET(String userName,String passWord){
 		
 		this.userName=userName;

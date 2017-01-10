@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Entities.BookET;
+import Entities.ReaderET;
 import Entities.ReviewET;
 import Entities.UserET;
 
@@ -197,19 +198,11 @@ public Object logout(Object obj) {
 	
 
 	
-	public boolean EnablePayment(ArrayList<Object> details,UserET user){
+	public int EnablePayment(ArrayList<Object> details,UserET user){
 	
 		try {
-			System.out.println("3");
 			Statement  rStmt = con.createStatement();
-			System.out.println("INSERT INTO reader VALUES ("+user.getId()+","
-					 +details.get(0)+","
-					+"\'"+details.get(1)+"\'"+","
-					+"\'"+details.get(2)+"\'"+","
-					+"\'"+details.get(3)+"\'"+","
-					+"\'"+details.get(4)+"\'"+","
-					+"\'"+details.get(5)+"\'"+","
-					+0+","+details.get(6)+")");
+			
 			rStmt.executeUpdate("INSERT INTO reader VALUES ("+user.getId()+","
 															 +details.get(0)+","
 															+"\'"+details.get(1)+"\'"+","
@@ -218,16 +211,63 @@ public Object logout(Object obj) {
 															+"\'"+details.get(4)+"\'"+","
 															+"\'"+details.get(5)+"\'"+","
 															+0+","+details.get(6)+")");
+			
 			display(" User sent enable payment");
-			System.out.println("4");
+			/*
+			PreparedStatement pStmt = con
+					.prepareStatement("UPDATE user SET permission = 2 WHERE userName = ?");
+			pStmt.setString(1, user.getUserName());
+			pStmt.executeUpdate();
+			*/
 		} catch (SQLException e) {
-			System.out.println("5");
 			e.printStackTrace();
-			return false;
+			return 0;
 			
 		}
-		return true;
+		/*
+		ReaderET reader=new ReaderET(user,(int)details.get(0),(String)details.get(1),(String)details.get(2),
+				(String)details.get(3),(String)details.get(4),(String)details.get(5),(int)0,(int)details.get(6));
+		return reader;
+		*/
+		return 1;
 	}
+	
+	public int GetBook(UserET user,BookET book){
+		try {
+			System.out.println("sqlcon");
+			Statement  rStmt = con.createStatement();
+			
+			rStmt.executeUpdate("INSERT INTO reader_book VALUES ("+user.getId()+","
+															 +book.getBID()+","
+															+"\'"+book.getBTitle()+"\')");
+			System.out.println("added");
+			display(" Book added to User");
+			
+			PreparedStatement pStmt = con
+					.prepareStatement("UPDATE reader SET book_left=book_left-1 WHERE id = ?");
+			pStmt.setInt(1, user.getId());
+			pStmt.executeUpdate();
+			
+			pStmt = con
+					.prepareStatement("UPDATE books SET numOfPurchace=numOfPurchace+1 WHERE id = ?");
+			pStmt.setInt(1, book.getBID());
+			pStmt.executeUpdate();
+			/*
+			PreparedStatement pStmt = con
+					.prepareStatement("UPDATE user SET permission = 2 WHERE userName = ?");
+			pStmt.setString(1, user.getUserName());
+			pStmt.executeUpdate();
+			*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+			
+		}
+		
+		return 1;
+	}
+	
+	
 	public void closeSqlConnection(){
 
 		

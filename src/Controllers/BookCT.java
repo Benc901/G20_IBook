@@ -11,6 +11,7 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFoldsAction;
@@ -18,6 +19,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFo
 import Entities.BookET;
 import Mains.IBookClient;
 import Views.BookUI;
+import Views.GetBookUI;
 import Views.MainUI;
 import Views.SearchBookUI;
 
@@ -26,7 +28,10 @@ public class BookCT implements Observer, ActionListener{
 	public static IBookClient client;
 	public static BookCT bookCT;
 	public static SearchBookUI searchFrame;
+	public static BookUI bookUI;
+	public static GetBookUI getbookUI;
 	public ArrayList<BookET> books;
+	public static BookET bookET;
 	
 	public BookCT(SearchBookUI search){
 		this.searchFrame=search;
@@ -39,7 +44,26 @@ public class BookCT implements Observer, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == searchFrame.btnSearch){
+			if(searchFrame.textField.getText()==null || searchFrame.textField.getText()==" "){
+				JOptionPane.showMessageDialog(null,"Empty text");
+			}
 			SearchBook();
+		}
+		if(bookUI!=null){
+			if(e.getSource()==bookUI.btnGetbook){
+				getbookUI=new GetBookUI();
+				getbookUI.btnBack.addActionListener((ActionListener)this);
+				getbookUI.btnDownload.addActionListener((ActionListener)this);
+				MainUI.MV.setView(getbookUI);
+				}
+		}
+		if(getbookUI!=null){
+			if(e.getSource()==getbookUI.btnBack){
+				MainUI.MV.setView(bookUI);
+				}
+			if(e.getSource()==getbookUI.btnDownload){
+				download();
+				}
 		}
 		
 	}
@@ -58,8 +82,9 @@ public class BookCT implements Observer, ActionListener{
 			// what operation was made in the server and how to respond.
 			switch (op) {
 			case "SearchBook":{
-				for(int i=0 ; i<searchFrame.model.getRowCount() ; i++) searchFrame.model.removeRow(i);
+				for(int i=0 ; i<searchFrame.model.getRowCount() ; i++) {searchFrame.model.removeRow(i);}
 				System.out.println("now here");
+				
 				books=(ArrayList<BookET>)map.get("arr");
 				//ArrayList<BookET> returnObj=(ArrayList<BookET>)map.get("arr");
 				for(int i=0 ; i<books.size(); i++){
@@ -67,11 +92,14 @@ public class BookCT implements Observer, ActionListener{
 							books.get(i).getBID(),books.get(i).getBTitle(),
 							books.get(i).getBAuthor(),books.get(i).getBGenre(),
 							books.get(i).getBSubject(),books.get(i).getBLanguage(),
-							books.get(i).getBNumOfPurchace()
-					
-				});
-				}
-			}
+							books.get(i).getBNumOfPurchace()});
+					}
+				}break;
+			case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
+							else JOptionPane.showMessageDialog(null,"Failed");
+							MainUI.MV.setView(UserCT.readerFrame);
+							//System.out.println((int)map.get("obj"));
+							break;}
 			}
 		}
 	}
@@ -96,7 +124,20 @@ public class BookCT implements Observer, ActionListener{
 	}
 	
 	public void viewBook(int row){
-		MainUI.MV.setView(new BookUI(books.get(row)));
+		
+		bookET=books.get(row);
+		bookUI=new BookUI(bookET);
+		bookUI.btnGetbook.addActionListener((ActionListener)this);
+		MainUI.MV.setView(bookUI);
+	}
+	
+	public void download(){
+		System.out.println("download");
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "GetBook");
+		hmap.put("user", UserCT.userCT.userET);
+		hmap.put("book", bookET);
+		client.handleMessageFromUI(hmap);
 	}
 
 }

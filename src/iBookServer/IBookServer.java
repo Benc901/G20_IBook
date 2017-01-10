@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import Entities.BookET;
 import Entities.UserET;
 import iBookServer.serverUI;
 
@@ -92,10 +93,15 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("arr", sqlCon.SearchReview((String)map.get("text"),(String)map.get("cb")));
 				break;	
 			case "EnablePayment":
-				System.out.println("2");
 				display(" : " + op, client);
 				returnObj.put("op", "EnablePayment");
-				returnObj.put("arr", sqlCon.EnablePayment((ArrayList<Object>)map.get("obj"),(UserET)map.get("us")));
+				returnObj.put("rdr", sqlCon.EnablePayment((ArrayList<Object>)map.get("obj"),(UserET)map.get("us")));
+				break;
+			case "GetBook":
+				System.out.println("server");
+				display(" : " + op, client);
+				returnObj.put("op", "GetBook");
+				returnObj.put("obj", sqlCon.GetBook((UserET)map.get("user"),(BookET)map.get("book")));
 				break;
 		}
 		

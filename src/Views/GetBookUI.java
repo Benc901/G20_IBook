@@ -6,6 +6,8 @@ import javax.swing.JSeparator;
 
 import graphics.GUIimage;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -13,6 +15,9 @@ import javax.swing.DefaultComboBoxModel;
 
 public class GetBookUI extends JPanel{
 	public JComboBox comboBox; 
+	public JButton btnBack;
+	public JButton btnDownload;
+	
 	public GetBookUI(){
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -26,11 +31,13 @@ public class GetBookUI extends JPanel{
 		lblGetBook.setBounds(287, 149, 100, 30);
 		add(lblGetBook);
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.setBounds(57, 447, 89, 30);
 		add(btnBack);
+	    
+
 		
-		JButton btnDownload = new JButton("Download");
+		btnDownload = new JButton("Download");
 		btnDownload.setBounds(287, 271, 89, 30);
 		add(btnDownload);
 		
