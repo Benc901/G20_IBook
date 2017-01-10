@@ -44,10 +44,10 @@ public class BookCT implements Observer, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == searchFrame.btnSearch){
-			if(searchFrame.textField.getText()==null || searchFrame.textField.getText()==" "){
-				JOptionPane.showMessageDialog(null,"Empty text");
-			}
-			SearchBook();
+			if(searchFrame.textField.getText().equals(null)|| searchFrame.textField.getText().equals("")){
+				JOptionPane.showMessageDialog(null,"Please insert text text");
+			}else SearchBook();
+			
 		}
 		if(bookUI!=null){
 			if(e.getSource()==bookUI.btnGetbook){
@@ -82,11 +82,13 @@ public class BookCT implements Observer, ActionListener{
 			// what operation was made in the server and how to respond.
 			switch (op) {
 			case "SearchBook":{
+				System.out.println("delete number:"+searchFrame.model.getRowCount());
 				for(int i=0 ; i<searchFrame.model.getRowCount() ; i++) {searchFrame.model.removeRow(i);}
-				System.out.println("now here");
+				
 				
 				books=(ArrayList<BookET>)map.get("arr");
 				//ArrayList<BookET> returnObj=(ArrayList<BookET>)map.get("arr");
+				System.out.println("books res number:"+books.size());
 				for(int i=0 ; i<books.size(); i++){
 					searchFrame.model.addRow(new Object[] {
 							books.get(i).getBID(),books.get(i).getBTitle(),
@@ -97,6 +99,7 @@ public class BookCT implements Observer, ActionListener{
 				}break;
 			case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
 							else JOptionPane.showMessageDialog(null,"Failed");
+							UserCT.userCT.changeObserver(UserCT.userCT,this);
 							MainUI.MV.setView(UserCT.readerFrame);
 							//System.out.println((int)map.get("obj"));
 							break;}
@@ -114,13 +117,16 @@ public class BookCT implements Observer, ActionListener{
 		if(searchFrame.chckbxGenre.isSelected())selected.add(8);
 		if(searchFrame.checkBoxLanguage.isSelected())selected.add(4);
 		if(searchFrame.chckbxKeywords.isSelected())selected.add(7);
-		
-		
-
+		if(selected.size()==0){
+			JOptionPane.showMessageDialog(null,"Please select option");
+			MainUI.MV.setView(searchFrame);
+		}else{
+		System.out.println("books res number:"+selected.size());	
 		hmap.put("op", "SearchBook");
 		hmap.put("text",searchFrame.GetText());
 		hmap.put("cb",selected);
 		client.handleMessageFromUI(hmap);
+		}
 	}
 	
 	public void viewBook(int row){
