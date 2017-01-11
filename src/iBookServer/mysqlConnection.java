@@ -238,7 +238,37 @@ public Object logout(Object obj) {
 			  window.lblSQL.setForeground(Color.GREEN);
 		}
 	}
-	
+	public int AddUser(Object obj) {
+		UserET user = (UserET) obj;
+		try
+		{
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM user");
+			ResultSet rs = pStmt.executeQuery();
+			int id=0;
+			while(rs.next()){
+				id=rs.getInt(1);
+			}
+			id=+1;
+			con.prepareStatement("SELECT * FROM user WHERE userName = ?");
+			pStmt.setString(1, user.getUserName());
+			pStmt.executeUpdate();
+			if (!rs.isBeforeFirst()) 
+			{
+				pStmt.executeUpdate("INSERT INTO user VALUES ( "+id+",'"+user.getUserName()+"','"+user.getPassWord()+"','"+user.getPermission()+"',+0+,'"+user.getFirstName()+"','"+user.getLastName()+"','"+user.getEmail()+"','"+user.getUserName()+"')");
+						display(" User insert to DB");
+				return 1;
+			}
+			display("The UserName already in the DB.");
+			return 0;
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 
 	

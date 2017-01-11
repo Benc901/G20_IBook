@@ -25,7 +25,7 @@ public class SET_DB_WITH_SQL_FILE {
 	
 	private static Connection conn;
 	private static String SQLusername = "root";
-	private static String SQLpassword = "1234";
+	private static String SQLpassword = "root";
 	private static boolean catched;
 	
 	public static void main(String[] args) {

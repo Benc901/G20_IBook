@@ -90,6 +90,10 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "SearchReview");
 				returnObj.put("arr", sqlCon.SearchReview((String)map.get("text"),(String)map.get("cb")));
 				break;	
+			case "AddUser":
+				display(" : " + op, client);
+				returnObj.put("op", "AddUser");
+				returnObj.put("obj", sqlCon.AddUser(map.get("obj")));
 		}
 		
 		try {

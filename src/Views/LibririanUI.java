@@ -5,8 +5,11 @@ import graphics.GUIimage;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import java.net.URISyntaxException;
+
 import javax.swing.JSeparator;
+
 
 
 
@@ -23,6 +26,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import com.alee.laf.button.WebButton;
 
+import Controllers.LibrarianCT;
 import Entities.UserET;
 
 import java.awt.Font;
@@ -85,9 +89,12 @@ public class LibririanUI extends JPanel {
 		btnCstructure.setBounds(365, 270, 146, 54);
 		add(btnCstructure);
 		
+		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(58, 483, 89, 30);
 		add(btnBack);
+		
+		new LibrarianCT(this);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
@@ -95,4 +102,5 @@ public class LibririanUI extends JPanel {
 		add(lblBackground);
 		
 	}
+	
 }

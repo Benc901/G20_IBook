@@ -107,7 +107,7 @@ public class SearchBookUI extends JPanel {
 		chckbxTitle = new JCheckBox("Title");
 		chckbxTitle.setBounds(128, 197, 104, 18);
 		add(chckbxTitle);
-		
+		 
 		chckbxAuthor = new JCheckBox("Author");
 		chckbxAuthor.setBounds(128, 218, 104, 18);
 		add(chckbxAuthor);
