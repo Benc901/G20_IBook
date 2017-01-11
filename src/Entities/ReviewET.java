@@ -20,7 +20,7 @@ public class ReviewET implements Serializable {
 
 	
 	
-	public ReviewET(int id, int bookId, String bookName,String author, int userId, String userName, String userPhoto,String bookphoto ,String review,
+	public ReviewET(int id, int bookId, String bookName,String author, int userId, String userName, String userPhoto,String bookphoto,String review,
 			int rate, int confirm, int workerId) {
 		super();
 		this.id = id;
