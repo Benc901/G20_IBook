@@ -13,7 +13,7 @@ USE `test`;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
@@ -73,7 +73,7 @@ CREATE TABLE `reader` (
 
 LOCK TABLES `reader` WRITE;
 /*!40000 ALTER TABLE `reader` DISABLE KEYS */;
-INSERT INTO `reader` VALUES (3,0,'1234123412341234','02','2018','365','305061632',1,0),(2,0,'5678567856785678','08','2021','899','203484571',1,0),(4,0,'1234123412341234','01','2019','112','253786483',1,10);
+INSERT INTO `reader` VALUES (3,0,'1234123412341234','02','2018','365','305061632',1,10),(2,0,'5678567856785678','08','2021','899','203484571',1,10),(4,0,'1234123412341234','01','2019','112','253786483',1,10);
 /*!40000 ALTER TABLE `reader` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,6 +121,28 @@ INSERT INTO `books` VALUES (1,'Robin hobb','Assassins Apprentice','English','You
 UNLOCK TABLES;
 
 
+DROP TABLE IF EXISTS `reader_book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reader_book` (
+  `id` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`,`bookId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `reader_book` WRITE;
+/*!40000 ALTER TABLE `reader_book` DISABLE KEYS */;
+INSERT INTO `reader_book` VALUES (2,1,'Robin hobb'),(2,2,'The Hunger Games'),(2,3,'Twilight');
+/*!40000 ALTER TABLE `reader_book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -132,6 +154,7 @@ CREATE TABLE `review` (
   `userId` int(11) NOT NULL,
   `username` varchar(45) NOT NULL,
   `userphoto` varchar(45) NOT NULL,
+  `bookphoto` varchar(45) NOT NULL,
   `review` varchar(200) NOT NULL,
   `rate`int(11) NOT NULL,
   `confirm` varchar(45) NOT NULL,
@@ -146,7 +169,8 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,1,'Robin hobb','Assassins Apprentice',1,'Ben','profile_picture','Perfect book',4,1,12),(2,2,'twelight','Itsik',1,'Ben','profile_picture','Perfect book',4,1,12);
+INSERT INTO `review` VALUES (1,1,'Robin hobb','Assassins Apprentice',1,'Shany','shany','RobinHobb','Perfect book',4,1,12),
+(2,2,'Twilight','Stephenie Meyer',1,'Ben','ben','twilight','The book is very good, interesting and nice',4,1,12);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 

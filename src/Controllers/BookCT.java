@@ -49,7 +49,7 @@ public class BookCT implements Observer, ActionListener{
 			}else SearchBook();
 			
 		}
-		if(bookUI!=null){
+		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
 			if(e.getSource()==bookUI.btnGetbook){
 				getbookUI=new GetBookUI();
 				getbookUI.btnBack.addActionListener((ActionListener)this);
@@ -133,7 +133,8 @@ public class BookCT implements Observer, ActionListener{
 		
 		bookET=books.get(row);
 		bookUI=new BookUI(bookET);
-		bookUI.btnGetbook.addActionListener((ActionListener)this);
+		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
+			bookUI.btnGetbook.addActionListener((ActionListener)this);}
 		MainUI.MV.setView(bookUI);
 	}
 	
