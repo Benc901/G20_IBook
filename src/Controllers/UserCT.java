@@ -89,10 +89,7 @@ public class UserCT implements Observer, ActionListener {
 					BookList();
 				}
 				else if(readerFrame.btnEnablePublish.getText()=="Enable payment"){
-					enablepaymentFrame=new EnablePaymentUI();
-					enablepaymentFrame.btnSendApplication.addActionListener((ActionListener)this);
-					enablepaymentFrame.btnBack.addActionListener((ActionListener)this);
-					MainUI.MV.setView(enablepaymentFrame);
+					CheckApplication();
 				}
 			}
 			if(e.getSource()==readerFrame.wbtnLibririan){
@@ -237,7 +234,17 @@ public class UserCT implements Observer, ActionListener {
 							  }
 							  
 							break;}
-				
+			case "CheckApplication": { if((int)map.get("obj")==2)
+											JOptionPane.showMessageDialog(null,"Your application denied,please contact with libririan stuff");
+									   else if((int)map.get("obj")==0)
+											JOptionPane.showMessageDialog(null,"Your application still in process");
+									   else {
+										   	enablepaymentFrame=new EnablePaymentUI();
+											enablepaymentFrame.btnSendApplication.addActionListener((ActionListener)this);
+											enablepaymentFrame.btnBack.addActionListener((ActionListener)this);
+											MainUI.MV.setView(enablepaymentFrame);
+									   }
+							break;}	
 			default : System.out.println("Wrong CT or add break;");
 				
 		}//end switch case
@@ -297,6 +304,13 @@ public class UserCT implements Observer, ActionListener {
 		hmap.put("op", "BookList");
 		hmap.put("us", userET.getId());
 		System.out.println("booklist-UserCT");
+		client.handleMessageFromUI(hmap);
+	}
+	
+	public void CheckApplication(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "CheckApplication");
+		hmap.put("us", userET.getId());
 		client.handleMessageFromUI(hmap);
 	}
 	}

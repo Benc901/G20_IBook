@@ -296,6 +296,24 @@ public Object logout(Object obj) {
 
 	}
 	
+	public int CheckApplication(int id){
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM reader WHERE id = ? ");
+			pStmt.setInt(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { return 3;}
+			else {
+				if(rs.next()) return rs.getInt(8);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;			
+		}
+		return 1;
+	}
+	
 	public void closeSqlConnection(){
 
 		
