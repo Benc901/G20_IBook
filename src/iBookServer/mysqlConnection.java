@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Entities.BookET;
 import Entities.ReaderET;
@@ -265,6 +267,34 @@ public Object logout(Object obj) {
 		return 1;
 	}
 	
+	public Object BookList(int id){
+		ArrayList<Integer> booklist1=new ArrayList <Integer>();
+		ArrayList<String> booklist2=new ArrayList <String>();
+		Map<String,Object> booklist=new HashMap<String,Object>();
+
+		try {
+			System.out.println("booklist-sqlcon before");
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM reader_book WHERE id = ? ");
+			pStmt.setInt(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()){
+				booklist1.add(rs.getInt(2));
+				booklist2.add(rs.getString(3));
+			}
+			
+			System.out.println("booklist-sqlcon after");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+			
+		}
+		System.out.println("size:"+booklist1.size());
+		booklist.put("int", booklist1);
+		booklist.put("String", booklist2);
+		return booklist;
+
+	}
 	
 	public void closeSqlConnection(){
 

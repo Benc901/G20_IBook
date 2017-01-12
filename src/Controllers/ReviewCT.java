@@ -14,6 +14,7 @@ import Entities.BookET;
 import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.MainUI;
+import Views.PublishReviewUI;
 import Views.ReviewUI;
 import Views.SearchReviewUI;
 
@@ -22,6 +23,7 @@ public class ReviewCT implements Observer, ActionListener {
 	public static IBookClient client;
 	public static ReviewCT reviewCT;
 	public static SearchReviewUI searchFrame;
+	public static PublishReviewUI publishFrame;
 	public ArrayList<ReviewET> reviews;
 	
 	public ReviewCT(SearchReviewUI search){
@@ -31,7 +33,16 @@ public class ReviewCT implements Observer, ActionListener {
 		searchFrame.btnSearch.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
-
+	
+	public ReviewCT(PublishReviewUI publish){
+		client = IBookClient.getInstance();
+		this.reviewCT=this;
+		this.publishFrame=publish;
+		publishFrame.btnBack.addActionListener((ActionListener)this);
+		publishFrame.btnPublish.addActionListener((ActionListener)this);
+		UserCT.userCT.changeObserver(this,UserCT.userCT);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == searchFrame.btnSearch){
