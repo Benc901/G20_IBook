@@ -103,8 +103,13 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "GetBook");
 				returnObj.put("obj", sqlCon.GetBook((UserET)map.get("user"),(BookET)map.get("book")));
 				break;
+			case "BookList":
+				display(" : " + op, client);
+				returnObj.put("op", "BookList");
+				returnObj.put("obj", sqlCon.BookList((int)map.get("us")));
+				break;
 		}
-		
+		System.out.println("booklist-Server return");
 		try {
 			client.sendToClient(returnObj);
 		} catch (IOException e) {

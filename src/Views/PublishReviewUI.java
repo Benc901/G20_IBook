@@ -15,6 +15,8 @@ import javax.swing.JButton;
 
 public class PublishReviewUI extends JPanel{
 	public JButton btnBack ;
+	public JButton btnPublish ;
+	public JComboBox comboBox;
 	public PublishReviewUI() {
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -28,7 +30,7 @@ public class PublishReviewUI extends JPanel{
 		lblPublishReview.setBounds(252, 149, 180, 30);
 		add(lblPublishReview);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(131, 214, 163, 20);
 		add(comboBox);
 		
@@ -60,9 +62,9 @@ public class PublishReviewUI extends JPanel{
 		btnBack.setBounds(41, 492, 89, 30);
 		add(btnBack);
 		
-		JButton btnNewButton = new JButton("Publish");
-		btnNewButton.setBounds(555, 492, 89, 30);
-		add(btnNewButton);
+		btnPublish = new JButton("Publish");
+		btnPublish.setBounds(555, 492, 89, 30);
+		add(btnPublish);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);

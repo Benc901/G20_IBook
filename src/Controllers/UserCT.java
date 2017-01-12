@@ -3,11 +3,13 @@ package Controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -84,9 +86,7 @@ public class UserCT implements Observer, ActionListener {
 			}
 			if(e.getSource()==readerFrame.btnEnablePublish){
 				if(readerFrame.btnEnablePublish.getText()=="Publish review"){
-					publishreviewFrame=new PublishReviewUI();
-					publishreviewFrame.btnBack.addActionListener((ActionListener)this);
-					MainUI.MV.setView(publishreviewFrame);
+					BookList();
 				}
 				else if(readerFrame.btnEnablePublish.getText()=="Enable payment"){
 					enablepaymentFrame=new EnablePaymentUI();
@@ -221,6 +221,22 @@ public class UserCT implements Observer, ActionListener {
 				
 								//	readerET=(ReaderET)map.get("rdr");
 									break;}
+			case "BookList":{System.out.println("booklist-update");
+							  if(((ArrayList)((HashMap) map.get("obj")).get("int")).size()==0)
+													JOptionPane.showMessageDialog(null,"The book List is Empty");
+			
+							  else{
+								  System.out.println("booklist-update else");
+								  
+								  	Object[]al=((ArrayList)((HashMap) map.get("obj")).get("String")).toArray();
+								  	String[]booklist=Arrays.copyOf(al,al.length,String[].class);
+								    publishreviewFrame=new PublishReviewUI();
+									publishreviewFrame.btnBack.addActionListener((ActionListener)this);
+									publishreviewFrame.comboBox.setModel(new DefaultComboBoxModel(booklist));
+									MainUI.MV.setView(publishreviewFrame);
+							  }
+							  
+							break;}
 				
 			default : System.out.println("problem here");
 				
@@ -275,5 +291,12 @@ public class UserCT implements Observer, ActionListener {
 		hmap.put("obj", obj);
 		client.handleMessageFromUI(hmap);
 	}
-
-}
+	
+	public void BookList(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "BookList");
+		hmap.put("us", userET.getId());
+		System.out.println("booklist-UserCT");
+		client.handleMessageFromUI(hmap);
+	}
+	}
