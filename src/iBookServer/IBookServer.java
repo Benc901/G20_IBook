@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import Entities.BookET;
+import Entities.ReviewET;
 import Entities.UserET;
 import iBookServer.serverUI;
 
@@ -111,7 +112,12 @@ public class IBookServer extends AbstractServer {
 				display(" : " + op, client);
 				returnObj.put("op", "CheckApplication");
 				returnObj.put("obj", sqlCon.CheckApplication((int)map.get("us")));
-				break;			
+				break;		
+			case "PublishReview":
+				display(" : " + op, client);
+				returnObj.put("op", "PublishReview");
+				returnObj.put("obj", sqlCon.PublishReview((ReviewET)map.get("obj")));
+				break;	
 		}
 		System.out.println("booklist-Server return");
 		try {

@@ -24,6 +24,7 @@ public class ReviewCT implements Observer, ActionListener {
 	public static ReviewCT reviewCT;
 	public static SearchReviewUI searchFrame;
 	public static PublishReviewUI publishFrame;
+	public static HashMap booklist;
 	public ArrayList<ReviewET> reviews;
 	
 	public ReviewCT(SearchReviewUI search){
@@ -38,18 +39,23 @@ public class ReviewCT implements Observer, ActionListener {
 		client = IBookClient.getInstance();
 		this.reviewCT=this;
 		this.publishFrame=publish;
-		publishFrame.btnBack.addActionListener((ActionListener)this);
 		publishFrame.btnPublish.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(searchFrame!=null){
 		if (e.getSource() == searchFrame.btnSearch){
 			if(searchFrame.GetText().equals(null) || searchFrame.GetText().equals(""))
 				JOptionPane.showMessageDialog(null,"Please insert text");
 			else 	SearchReview();
-		}
+		}}
+		if(publishFrame!=null){
+		if (e.getSource() == publishFrame.btnPublish){
+			PublishReview();
+
+		}}
 		
 	}
 
@@ -76,11 +82,16 @@ public class ReviewCT implements Observer, ActionListener {
 					searchFrame.model.addRow(new Object[] {
 							reviews.get(i).getId(),reviews.get(i).getBookName(),
 							reviews.get(i).getAuthor(),reviews.get(i).getUserName(),
-							reviews.get(i).getRate()
-					
-				});
-				}
-			}
+							reviews.get(i).getRate()		});
+					}
+								break;}
+			
+			case "PublishReview":{
+				if((int)map.get("obj")==0)JOptionPane.showMessageDialog(null,"Faild publish review");
+				if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successfully publish review application");
+				UserCT.userCT.changeObserver(UserCT.userCT, this);
+				MainUI.MV.setView(UserCT.readerFrame);
+					break;}
 			}
 		}
 		
@@ -106,5 +117,17 @@ public class ReviewCT implements Observer, ActionListener {
 	
 	public void viewReview(int row){
 		MainUI.MV.setView(new ReviewUI(reviews.get(row)));
+	}
+	
+	public void PublishReview(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		ArrayList <String>book= (ArrayList)booklist.get("String");
+		ArrayList <Integer>bookid= (ArrayList)booklist.get("int");
+		int index=book.indexOf(publishFrame.comboBox.getSelectedItem());
+		int id=bookid.get(index);
+		ReviewET review=new ReviewET(id,(String)publishFrame.comboBox.getSelectedItem(),UserCT.userCT.userET.getId(),UserCT.userCT.userET.getUserName(),UserCT.userCT.userET.getPhoto(),publishFrame.textArea.getText(),Integer.parseInt((String)publishFrame.comboBox_1.getSelectedItem()));
+		hmap.put("op", "PublishReview");
+		hmap.put("obj",review);
+		client.handleMessageFromUI(hmap);
 	}
 }

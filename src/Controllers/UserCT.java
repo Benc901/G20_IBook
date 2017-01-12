@@ -228,6 +228,7 @@ public class UserCT implements Observer, ActionListener {
 								  	Object[]al=((ArrayList)((HashMap) map.get("obj")).get("String")).toArray();
 								  	String[]booklist=Arrays.copyOf(al,al.length,String[].class);
 								    publishreviewFrame=new PublishReviewUI();
+								    ReviewCT.reviewCT.booklist=((HashMap) map.get("obj"));
 									publishreviewFrame.btnBack.addActionListener((ActionListener)this);
 									publishreviewFrame.comboBox.setModel(new DefaultComboBoxModel(booklist));
 									MainUI.MV.setView(publishreviewFrame);

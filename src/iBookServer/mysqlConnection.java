@@ -241,7 +241,7 @@ public Object logout(Object obj) {
 			
 			rStmt.executeUpdate("INSERT INTO reader_book VALUES ("+user.getId()+","
 															 +book.getBID()+","
-															+"\'"+book.getBTitle()+"\')");
+															+"\'"+book.getBTitle()+"\',"+0+")");
 			display(" Book added to User");
 			PreparedStatement pStmt = con
 					.prepareStatement("UPDATE reader SET book_left=book_left-1 WHERE id = ?");
@@ -279,8 +279,10 @@ public Object logout(Object obj) {
 			pStmt.setInt(1, id);
 			ResultSet rs = pStmt.executeQuery();
 			while(rs.next()){
+				if(rs.getInt(4)==0){
 				booklist1.add(rs.getInt(2));
 				booklist2.add(rs.getString(3));
+				}
 			}
 			
 			System.out.println("booklist-sqlcon after");
@@ -312,6 +314,52 @@ public Object logout(Object obj) {
 			return 0;			
 		}
 		return 1;
+	}
+	
+	public int PublishReview(ReviewET review){
+		ReviewET reviewET=review;
+		try {
+			int id=0;
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM review ");
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()){
+				id=rs.getInt(1);
+			}
+			pStmt = con
+					.prepareStatement("SELECT * FROM books WHERE id = ? ");
+			pStmt.setInt(1, review.getBookId());
+			rs = pStmt.executeQuery();
+			if(rs.next()){
+				reviewET.setAuthor(rs.getString(4));
+				reviewET.setBookphoto(rs.getString(8));
+			}
+			Statement  rStmt = con.createStatement();
+			rStmt.executeUpdate("INSERT INTO review VALUES ("+(id+1)+","
+															 +reviewET.getBookId()+","
+															+"\'"+reviewET.getBookName()+"\'"+","
+															+"\'"+reviewET.getAuthor()+"\'"+","
+															+reviewET.getUserId()+","
+															+"\'"+reviewET.getUserName()+"\'"+","
+															+"\'"+reviewET.getUserPhoto()+"\'"+","
+															+"\'"+reviewET.getBookphoto()+"\'"+","
+															+"\'"+reviewET.getReview()+"\'"+","
+															+reviewET.getRate()+","
+															+0+","+0+")");
+			
+			display(" User sent new review");
+			PreparedStatement qStmt = con
+					.prepareStatement("UPDATE reader_book SET review = 1 WHERE id = ? AND bookId=? ");
+			qStmt.setInt(1, reviewET.getUserId());
+			qStmt.setInt(2, reviewET.getBookId());
+			qStmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();	
+			return 0;
+		}
+		return 1;
+		
 	}
 	
 	public void closeSqlConnection(){

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import Controllers.ReviewCT;
 import graphics.GUIimage;
 
 import java.awt.Font;
@@ -12,11 +13,14 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class PublishReviewUI extends JPanel{
 	public JButton btnBack ;
 	public JButton btnPublish ;
 	public JComboBox comboBox;
+	public JComboBox comboBox_1 ;
+	public JTextArea textArea ;
 	public PublishReviewUI() {
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -44,7 +48,7 @@ public class PublishReviewUI extends JPanel{
 		lblRate.setBounds(41, 247, 80, 20);
 		add(lblRate);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
 		comboBox_1.setBounds(131, 249, 42, 20);
 		add(comboBox_1);
@@ -54,21 +58,33 @@ public class PublishReviewUI extends JPanel{
 		lblReview.setBounds(41, 278, 80, 20);
 		add(lblReview);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(41, 309, 603, 172);
-		add(scrollPane);
-		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(41, 492, 89, 30);
+		btnBack.setBounds(41, 462, 89, 30);
 		add(btnBack);
 		
 		btnPublish = new JButton("Publish");
-		btnPublish.setBounds(555, 492, 89, 30);
+		btnPublish.setBounds(551, 462, 89, 30);
 		add(btnPublish);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(41, 324, 600, 120);
+		add(panel);
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 600, 120);
+		panel.add(scrollPane);
+		
+		textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		textArea.setBounds(0, 0, 360, 100);
+		scrollPane.setViewportView(textArea);
+		
+		new ReviewCT(this);
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
+		
 	}
 }

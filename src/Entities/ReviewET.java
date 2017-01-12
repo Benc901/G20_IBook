@@ -41,6 +41,16 @@ public class ReviewET implements Serializable {
 		
 	}
 
+	public ReviewET(int bookId,String bookName,int userId,String userName,String userPhoto,String review,int rate){
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.userId = userId;
+		this.userName = userName;
+		this.userPhoto = userPhoto;
+		this.review = review;
+		this.rate = rate;
+	}
+
 	public int getId() {
 		return id;
 	}
