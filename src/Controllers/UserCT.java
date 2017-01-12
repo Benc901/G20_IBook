@@ -222,7 +222,7 @@ public class UserCT implements Observer, ActionListener {
 								//	readerET=(ReaderET)map.get("rdr");
 									break;}
 				
-			default : System.out.println("problem here");
+			default : System.out.println("Wrong CT or add break;");
 				
 		}//end switch case
 		}//end else

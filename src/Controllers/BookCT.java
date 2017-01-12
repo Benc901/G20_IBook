@@ -87,11 +87,8 @@ public class BookCT implements Observer, ActionListener{
                     	searchFrame.model.removeRow(i);
                     }
                 }
-				
-				
+
 				books=(ArrayList<BookET>)map.get("arr");
-				//ArrayList<BookET> returnObj=(ArrayList<BookET>)map.get("arr");
-				System.out.println("books res number:"+books.size());
 				for(int i=0 ; i<books.size(); i++){
 					searchFrame.model.addRow(new Object[] {
 							books.get(i).getBID(),books.get(i).getBTitle(),
@@ -104,7 +101,6 @@ public class BookCT implements Observer, ActionListener{
 							else JOptionPane.showMessageDialog(null,"Failed");
 							UserCT.userCT.changeObserver(UserCT.userCT,this);
 							MainUI.MV.setView(UserCT.readerFrame);
-							//System.out.println((int)map.get("obj"));
 							break;}
 			}
 		}
@@ -122,12 +118,11 @@ public class BookCT implements Observer, ActionListener{
 		if(searchFrame.chckbxKeywords.isSelected())selected.add(7);
 		if(selected.size()==0){
 			JOptionPane.showMessageDialog(null,"Please select option");
-		}else{
-		System.out.println("books selected number:"+selected.size());	
-		hmap.put("op", "SearchBook");
-		hmap.put("text",searchFrame.GetText());
-		hmap.put("cb",selected);
-		client.handleMessageFromUI(hmap);
+		}else{	
+			hmap.put("op", "SearchBook");
+			hmap.put("text",searchFrame.GetText());
+			hmap.put("cb",selected);
+			client.handleMessageFromUI(hmap);
 		}
 	}
 	
@@ -141,7 +136,6 @@ public class BookCT implements Observer, ActionListener{
 	}
 	
 	public void download(){
-		System.out.println("download");
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "GetBook");
 		hmap.put("user", UserCT.userCT.userET);

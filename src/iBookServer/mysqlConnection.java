@@ -235,15 +235,12 @@ public Object logout(Object obj) {
 	
 	public int GetBook(UserET user,BookET book){
 		try {
-			System.out.println("sqlcon");
 			Statement  rStmt = con.createStatement();
 			
 			rStmt.executeUpdate("INSERT INTO reader_book VALUES ("+user.getId()+","
 															 +book.getBID()+","
 															+"\'"+book.getBTitle()+"\')");
-			System.out.println("added");
 			display(" Book added to User");
-			
 			PreparedStatement pStmt = con
 					.prepareStatement("UPDATE reader SET book_left=book_left-1 WHERE id = ?");
 			pStmt.setInt(1, user.getId());

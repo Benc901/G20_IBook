@@ -61,7 +61,6 @@ public class ReviewCT implements Observer, ActionListener {
                     }
                 }
 				reviews=(ArrayList<ReviewET>)map.get("arr");
-				System.out.println("here: "+reviews.size());
 				for(int i=0 ; i<reviews.size(); i++){
 					searchFrame.model.addRow(new Object[] {
 							reviews.get(i).getId(),reviews.get(i).getBookName(),
@@ -77,7 +76,6 @@ public class ReviewCT implements Observer, ActionListener {
 	}
 	
 	public void SearchReview(){
-		System.out.println("SearchReview");
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		String selection;
 	

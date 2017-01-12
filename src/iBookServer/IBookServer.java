@@ -98,7 +98,6 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("rdr", sqlCon.EnablePayment((ArrayList<Object>)map.get("obj"),(UserET)map.get("us")));
 				break;
 			case "GetBook":
-				System.out.println("server");
 				display(" : " + op, client);
 				returnObj.put("op", "GetBook");
 				returnObj.put("obj", sqlCon.GetBook((UserET)map.get("user"),(BookET)map.get("book")));
