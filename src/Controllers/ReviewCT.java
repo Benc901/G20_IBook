@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import Entities.BookET;
 import Entities.ReviewET;
 import Mains.IBookClient;
@@ -33,7 +35,9 @@ public class ReviewCT implements Observer, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == searchFrame.btnSearch){
-			SearchReview();
+			if(searchFrame.GetText().equals(null) || searchFrame.GetText().equals(""))
+				JOptionPane.showMessageDialog(null,"Please insert text");
+			else 	SearchReview();
 		}
 		
 	}
@@ -51,8 +55,11 @@ public class ReviewCT implements Observer, ActionListener {
 			// what operation was made in the server and how to respond.
 			switch (op) {
 			case "SearchReview":{
-				for(int i=0 ; i<searchFrame.model.getRowCount() ; i++) searchFrame.model.removeRow(i);
-				System.out.println("now here");
+				if (searchFrame.model.getRowCount() > 0) {
+                    for (int i = searchFrame.model.getRowCount() - 1; i > -1; i--) {
+                    	searchFrame.model.removeRow(i);
+                    }
+                }
 				reviews=(ArrayList<ReviewET>)map.get("arr");
 				System.out.println("here: "+reviews.size());
 				for(int i=0 ; i<reviews.size(); i++){
@@ -80,7 +87,7 @@ public class ReviewCT implements Observer, ActionListener {
 			case "Keywords": selection=new String("8"); break;
 			
 			default:selection=new String("3");
-			//new String[] {"Language", "Subject", "Genre", "Author", "Name", "Id"}))
+		
 		}
 		hmap.put("op", "SearchReview");
 		hmap.put("text",searchFrame.GetText());

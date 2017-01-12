@@ -45,7 +45,7 @@ public class BookCT implements Observer, ActionListener{
 		// TODO Auto-generated method stub
 		if (e.getSource() == searchFrame.btnSearch){
 			if(searchFrame.textField.getText().equals(null)|| searchFrame.textField.getText().equals("")){
-				JOptionPane.showMessageDialog(null,"Please insert text text");
+				JOptionPane.showMessageDialog(null,"Please insert text");
 			}else SearchBook();
 			
 		}
@@ -82,8 +82,11 @@ public class BookCT implements Observer, ActionListener{
 			// what operation was made in the server and how to respond.
 			switch (op) {
 			case "SearchBook":{
-				System.out.println("delete number:"+searchFrame.model.getRowCount());
-				for(int i=0 ; i<searchFrame.model.getRowCount() ; i++) {searchFrame.model.removeRow(i);}
+				if (searchFrame.model.getRowCount() > 0) {
+                    for (int i = searchFrame.model.getRowCount() - 1; i > -1; i--) {
+                    	searchFrame.model.removeRow(i);
+                    }
+                }
 				
 				
 				books=(ArrayList<BookET>)map.get("arr");
@@ -119,9 +122,8 @@ public class BookCT implements Observer, ActionListener{
 		if(searchFrame.chckbxKeywords.isSelected())selected.add(7);
 		if(selected.size()==0){
 			JOptionPane.showMessageDialog(null,"Please select option");
-			MainUI.MV.setView(searchFrame);
 		}else{
-		System.out.println("books res number:"+selected.size());	
+		System.out.println("books selected number:"+selected.size());	
 		hmap.put("op", "SearchBook");
 		hmap.put("text",searchFrame.GetText());
 		hmap.put("cb",selected);

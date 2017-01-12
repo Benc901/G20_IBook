@@ -139,7 +139,8 @@ public Object logout(Object obj) {
 				return "1";
 			}
 			else{
-				while(rs.next()){
+				while(rs.next())
+					if(rs.getInt(13)==0){
 					for(int i=0;i<cb.size();i++){
 						if((rs.getString(cb.get(i)).toLowerCase()).contains(text.toLowerCase())){
 							i=cb.size()-1;
@@ -177,6 +178,7 @@ public Object logout(Object obj) {
 			}
 			else{
 				while(rs.next()){
+					if(rs.getInt(11)==1){
 					if((rs.getString(Integer.parseInt(cb)).toLowerCase()).contains(text.toLowerCase())){
 						returnObj.add(
 								new ReviewET(rs.getInt(1),
@@ -186,10 +188,9 @@ public Object logout(Object obj) {
 										rs.getString(8),rs.getString(9),rs.getInt(10),
 										rs.getInt(11)	,rs.getInt(12)
 								));
-				}}
+				}}}
 				rs.close();
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
