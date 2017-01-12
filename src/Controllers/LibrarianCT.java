@@ -82,12 +82,12 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if((int)map.get("obj") == 0)
 			{
-				JOptionPane.showMessageDialog(null, "The user name already in DB", "The user name already in DB", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "The user name already in DB", "The user name already in DB", JOptionPane.INFORMATION_MESSAGE);
 				adduserFrame.clearFields();	
 			}
 			else if ((int)map.get("obj")==1) 
 			{
-				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.INFORMATION_MESSAGE);
 				adduserFrame.clearFields();
 			}
 	}
@@ -101,7 +101,6 @@ public class LibrarianCT implements Observer, ActionListener{
 		userET.setLastName(LastN);
 		userET.setPermission(1);
 		
-		//JOptionPane.showMessageDialog(null, "The "+ userET.getEmail(), "The "+ userET.getEmail(), JOptionPane.ERROR_MESSAGE);
 		
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "AddUser");
