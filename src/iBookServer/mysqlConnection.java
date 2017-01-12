@@ -10,10 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Entities.BookET;
 import Entities.ReviewET;
 import Entities.UserET;
-
 import ocsf.server.ConnectionToClient;
 
 public class mysqlConnection {
@@ -242,21 +243,57 @@ public Object logout(Object obj) {
 		UserET user = (UserET) obj;
 		try
 		{
-			PreparedStatement pStmt = con
-					.prepareStatement("SELECT * FROM user");
-			ResultSet rs = pStmt.executeQuery();
+			Statement pStmt = con.createStatement();
+			pStmt.execute("SELECT MAX(id) FROM user");
+			ResultSet rs = pStmt.getResultSet();
 			int id=0;
-			while(rs.next()){
-				id=rs.getInt(1);
-			}
-			id=+1;
-			con.prepareStatement("SELECT * FROM user WHERE userName = ?");
-			pStmt.setString(1, user.getUserName());
-			pStmt.executeUpdate();
+			if(rs.next())
+				id=(int) rs.getObject(1);
+			id+=1;
+			display(Integer.toString(id));
+			PreparedStatement rStmt = con.prepareStatement("SELECT * FROM user WHERE userName = ?");
+			rStmt.setString(1, user.getUserName());
+			rs = rStmt.executeQuery();
 			if (!rs.isBeforeFirst()) 
 			{
-				pStmt.executeUpdate("INSERT INTO user VALUES ( "+id+",'"+user.getUserName()+"','"+user.getPassWord()+"','"+user.getPermission()+"',+0+,'"+user.getFirstName()+"','"+user.getLastName()+"','"+user.getEmail()+"','"+user.getUserName()+"')");
-						display(" User insert to DB");
+				/*
+				String query = "INSERT INTO Users ("
+					    + " id,"
+					    + " userName,"
+					    + " passWord,"
+					    + " permission,"
+					    + " status,"
+					    + " firstName,"
+					    + " lastName,"
+					    + " email,"
+					    + " photo ) VALUES ("
+					    + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				
+				
+				rStmt =  con.prepareStatement(query);
+				rStmt.setInt(1, id);
+				rStmt.setString(2, user.getUserName());
+				rStmt.setString(3, user.getPassWord());
+				rStmt.setInt(4, 1);
+				rStmt.setInt(5, 0);
+				rStmt.setString(6, user.getFirstName());
+				rStmt.setString(7, user.getLastName());
+				rStmt.setString(8, user.getEmail());
+				rStmt.setString(9, user.getFirstName());
+				rStmt.executeUpdate();*/
+				
+				display(" User insert to DB");
+				/*display("INSERT INTO Users ("
+					    + " id,"
+					    + " userName,"
+					    + " passWord,"
+					    + " permission,"
+					    + " status,"
+					    + " firstName,"
+					    + " lastName,"
+					    + " email,"
+					    + " photo ) VALUES ("
+					    + "?, ?, ?, ?, ?, ?, ?, ?, ?)");*/
 				return 1;
 			}
 			display("The UserName already in the DB.");

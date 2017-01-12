@@ -30,8 +30,10 @@ public class LibrarianCT implements Observer, ActionListener{
 	public LibrarianCT(LibririanUI frame) {
 		// TODO Auto-generated constructor stub
 		librarianCT=this;
+		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
+		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	
 
@@ -42,6 +44,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		if(e.getSource()==libririanFrame.btnAdduser){
 			adduserFrame = new AddUserUI();
 			adduserFrame.btnBack.addActionListener((ActionListener)this);
+			adduserFrame.btnAddUser.addActionListener((ActionListener)this);
 			MainUI.MV.setView(adduserFrame);
 		}	
 		if(adduserFrame!=null){
@@ -61,10 +64,14 @@ public class LibrarianCT implements Observer, ActionListener{
 	@Override
 	public void update(Observable o, Object obj) {
 		// TODO Auto-generated method stub
+		if (obj instanceof String)
+			System.out.println(obj);
+		else{
 		Map<String, Object> map = (HashMap<String, Object>) obj;
 
 		String op = (String) map.get("op");
-		
+		JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.ERROR_MESSAGE);
+		adduserFrame.clearFields();
 		switch (op) 
 		{
 		case "AddUser": 
@@ -78,11 +85,12 @@ public class LibrarianCT implements Observer, ActionListener{
 				JOptionPane.showMessageDialog(null, "The user name already in DB", "The user name already in DB", JOptionPane.ERROR_MESSAGE);
 				adduserFrame.clearFields();	
 			}
-			else 
+			else if ((int)map.get("obj")==1) 
 			{
 				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.ERROR_MESSAGE);
 				adduserFrame.clearFields();
 			}
+	}
 	}
 	}
 	public void AddUser(String UserName,String UserPassword,String FirstN,String LastN,String eMail)
@@ -92,6 +100,8 @@ public class LibrarianCT implements Observer, ActionListener{
 		userET.setFirstName(FirstN);
 		userET.setLastName(LastN);
 		userET.setPermission(1);
+		
+		//JOptionPane.showMessageDialog(null, "The "+ userET.getEmail(), "The "+ userET.getEmail(), JOptionPane.ERROR_MESSAGE);
 		
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "AddUser");

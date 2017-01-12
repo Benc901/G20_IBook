@@ -42,9 +42,9 @@ public class AddUserUI extends JPanel{
 		btnBack.setBounds(40, 458, 104, 58);
 		add(btnBack);
 		
-		JButton button_1 = new JButton("Add User");
-		button_1.setBounds(535, 458, 104, 58);
-		add(button_1);
+		 btnAddUser = new JButton("Add User");
+		btnAddUser.setBounds(535, 458, 104, 58);
+		add(btnAddUser);
 		
 		JLabel lblUserName = new JLabel("User Name");
 		lblUserName.setBounds(192, 239, 74, 14);
