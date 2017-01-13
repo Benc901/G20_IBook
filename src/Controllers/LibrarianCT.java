@@ -70,8 +70,6 @@ public class LibrarianCT implements Observer, ActionListener{
 		Map<String, Object> map = (HashMap<String, Object>) obj;
 
 		String op = (String) map.get("op");
-		JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.ERROR_MESSAGE);
-		adduserFrame.clearFields();
 		switch (op) 
 		{
 		case "AddUser": 

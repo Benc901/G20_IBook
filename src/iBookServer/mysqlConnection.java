@@ -112,8 +112,7 @@ public Object login(Object obj) {
 public Object logout(Object obj) {
 	UserET returnObj = (UserET) obj;
 	try {
-		PreparedStatement rStmt = con
-				.prepareStatement("UPDATE user SET status = 0 WHERE userName = ?");
+		PreparedStatement rStmt = con.prepareStatement("UPDATE user SET status = 0 WHERE userName = ?");
 		rStmt.setString(1, returnObj.getUserName());
 		rStmt.executeUpdate();
 		rStmt.close();
@@ -250,50 +249,24 @@ public Object logout(Object obj) {
 			if(rs.next())
 				id=(int) rs.getObject(1);
 			id+=1;
-			display(Integer.toString(id));
 			PreparedStatement rStmt = con.prepareStatement("SELECT * FROM user WHERE userName = ?");
 			rStmt.setString(1, user.getUserName());
 			rs = rStmt.executeQuery();
 			if (!rs.isBeforeFirst()) 
 			{
-				/*
-				String query = "INSERT INTO Users ("
-					    + " id,"
-					    + " userName,"
-					    + " passWord,"
-					    + " permission,"
-					    + " status,"
-					    + " firstName,"
-					    + " lastName,"
-					    + " email,"
-					    + " photo ) VALUES ("
-					    + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				
-				
-				rStmt =  con.prepareStatement(query);
-				rStmt.setInt(1, id);
-				rStmt.setString(2, user.getUserName());
-				rStmt.setString(3, user.getPassWord());
-				rStmt.setInt(4, 1);
-				rStmt.setInt(5, 0);
-				rStmt.setString(6, user.getFirstName());
-				rStmt.setString(7, user.getLastName());
-				rStmt.setString(8, user.getEmail());
-				rStmt.setString(9, user.getFirstName());
-				rStmt.executeUpdate();*/
-				
-				display(" User insert to DB");
-				/*display("INSERT INTO Users ("
-					    + " id,"
-					    + " userName,"
-					    + " passWord,"
-					    + " permission,"
-					    + " status,"
-					    + " firstName,"
-					    + " lastName,"
-					    + " email,"
-					    + " photo ) VALUES ("
-					    + "?, ?, ?, ?, ?, ?, ?, ?, ?)");*/
+				String SQL = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement pstmt = con.prepareStatement(SQL);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, user.getUserName());
+				pstmt.setString(3, user.getPassWord());
+				pstmt.setInt(4, 1);
+				pstmt.setInt(5, 0);
+				pstmt.setString(6, user.getFirstName());
+				pstmt.setString(7, user.getLastName());
+				pstmt.setString(8, user.getEmail());
+				pstmt.setString(9, user.getFirstName());
+				pstmt.executeUpdate();
+				pstmt.close();
 				return 1;
 			}
 			display("The UserName already in the DB.");
