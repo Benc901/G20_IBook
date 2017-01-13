@@ -50,57 +50,57 @@ public class AddUserUI extends JPanel{
 		
 		JLabel lblUserName = new JLabel("User Name: ");
 		lblUserName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblUserName.setBounds(197, 235, 96, 28);
+		lblUserName.setBounds(170, 235, 96, 28);
 		add(lblUserName);
 		
 		JLabel lblUserpassword = new JLabel("User Password: ");
 		lblUserpassword.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblUserpassword.setBounds(197, 235, 96, 28);
+		lblUserpassword.setBounds(170, 265, 125, 28);
 		add(lblUserpassword);
 		
-		JLabel lblFirstName = new JLabel("First Name");
-		lblFirstName.setBounds(197, 235, 96, 28);
+		JLabel lblFirstName = new JLabel("First Name: ");
+		lblFirstName.setBounds(170, 295, 96, 28);
 		lblFirstName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		add(lblFirstName);
 		
-		JLabel lblLastName = new JLabel("Last Name");
-		lblLastName.setBounds(197, 235, 96, 28);
+		JLabel lblLastName = new JLabel("Last Name: ");
+		lblLastName.setBounds(170, 325, 96, 28);
 		lblLastName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		add(lblLastName);
 		
-		JLabel lblEmail = new JLabel("eMail");
-		lblEmail.setBounds(197, 235, 96, 28);
+		JLabel lblEmail = new JLabel("eMail: ");
+		lblEmail.setBounds(170, 355, 96, 28);
 		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		add(lblEmail);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(298, 236, 165, 28);
+		txtUsername.setBounds(305, 235, 175, 28);
 		add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		txtUserpassword = new JTextField();
-		txtUserpassword.setBounds(298, 236, 165, 28);
+		txtUserpassword.setBounds(305, 265, 175, 28);
 		add(txtUserpassword);
 		txtUserpassword.setColumns(10);
 		
 		txtFirstname = new JTextField();
-		txtFirstname.setBounds(298, 236, 165, 28);
+		txtFirstname.setBounds(305, 295, 175, 28);
 		add(txtFirstname);
 		txtFirstname.setColumns(10);
 		
 		txtLastname = new JTextField();
-		txtLastname.setBounds(298, 236, 165, 28);
+		txtLastname.setBounds(305, 325, 175, 28);
 		add(txtLastname);
 		txtLastname.setColumns(10);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(298, 236, 165, 28);
+		txtEmail.setBounds(305, 355, 175, 28);
 		add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		JLabel lblAddUserTo = new JLabel("Add User To The system");
 		lblAddUserTo.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblAddUserTo.setBounds(225, 171, 145, 37);
+		lblAddUserTo.setBounds(180, 170, 250, 50);
 		add(lblAddUserTo);
 		
 		
