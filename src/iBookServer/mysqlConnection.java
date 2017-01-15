@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import Entities.BookET;
 import Entities.ReaderET;
 import Entities.ReviewET;
 import Entities.UserET;
-
 import ocsf.server.ConnectionToClient;
 
 public class mysqlConnection {
@@ -114,8 +115,7 @@ public Object login(Object obj) {
 public Object logout(Object obj) {
 	UserET returnObj = (UserET) obj;
 	try {
-		PreparedStatement rStmt = con
-				.prepareStatement("UPDATE user SET status = 0 WHERE userName = ?");
+		PreparedStatement rStmt = con.prepareStatement("UPDATE user SET status = 0 WHERE userName = ?");
 		rStmt.setString(1, returnObj.getUserName());
 		rStmt.executeUpdate();
 		rStmt.close();
@@ -386,7 +386,47 @@ public Object logout(Object obj) {
 			  window.lblSQL.setForeground(Color.GREEN);
 		}
 	}
-	
+	public int AddUser(Object obj) {
+		UserET user = (UserET) obj;
+		try
+		{
+			Statement pStmt = con.createStatement();
+			pStmt.execute("SELECT MAX(id) FROM user");
+			ResultSet rs = pStmt.getResultSet();
+			int id=0;
+			if(rs.next())
+				id=(int) rs.getObject(1);
+			id+=1;
+			PreparedStatement rStmt = con.prepareStatement("SELECT * FROM user WHERE userName = ?");
+			rStmt.setString(1, user.getUserName());
+			rs = rStmt.executeQuery();
+			if (!rs.isBeforeFirst()) 
+			{
+				String SQL = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement pstmt = con.prepareStatement(SQL);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, user.getUserName());
+				pstmt.setString(3, user.getPassWord());
+				pstmt.setInt(4, 1);
+				pstmt.setInt(5, 0);
+				pstmt.setString(6, user.getFirstName());
+				pstmt.setString(7, user.getLastName());
+				pstmt.setString(8, user.getEmail());
+				pstmt.setString(9, user.getFirstName());
+				pstmt.executeUpdate();
+				pstmt.close();
+				return 1;
+			}
+			display("The UserName already in the DB.");
+			return 0;
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 
 	

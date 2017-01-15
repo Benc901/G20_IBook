@@ -118,6 +118,10 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "PublishReview");
 				returnObj.put("obj", sqlCon.PublishReview((ReviewET)map.get("obj")));
 				break;	
+			case "AddUser":
+				display(" : " + op, client);
+				returnObj.put("op", "AddUser");
+				returnObj.put("obj", sqlCon.AddUser(map.get("obj")));	
 		}
 		System.out.println("booklist-Server return");
 		try {
