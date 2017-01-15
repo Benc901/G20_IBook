@@ -128,6 +128,7 @@ CREATE TABLE `reader_book` (
   `id` int(11) NOT NULL,
   `bookId` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
+  `review` int(11) NOT NULL,
   PRIMARY KEY (`id`,`bookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -138,7 +139,7 @@ CREATE TABLE `reader_book` (
 
 LOCK TABLES `reader_book` WRITE;
 /*!40000 ALTER TABLE `reader_book` DISABLE KEYS */;
-INSERT INTO `reader_book` VALUES (2,1,'Robin hobb'),(2,2,'The Hunger Games'),(2,3,'Twilight');
+INSERT INTO `reader_book` VALUES (2,1,'Robin hobb',0),(2,2,'The Hunger Games',0),(2,3,'Twilight',1);
 /*!40000 ALTER TABLE `reader_book` ENABLE KEYS */;
 UNLOCK TABLES;
 

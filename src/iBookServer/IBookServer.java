@@ -123,7 +123,7 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "AddUser");
 				returnObj.put("obj", sqlCon.AddUser(map.get("obj")));	
 		}
-		System.out.println("booklist-Server return");
+		
 		try {
 			client.sendToClient(returnObj);
 		} catch (IOException e) {

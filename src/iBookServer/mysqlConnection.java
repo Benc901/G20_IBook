@@ -273,7 +273,7 @@ public Object logout(Object obj) {
 		Map<String,Object> booklist=new HashMap<String,Object>();
 
 		try {
-			System.out.println("booklist-sqlcon before");
+			
 			PreparedStatement pStmt = con
 					.prepareStatement("SELECT * FROM reader_book WHERE id = ? ");
 			pStmt.setInt(1, id);
@@ -285,13 +285,13 @@ public Object logout(Object obj) {
 				}
 			}
 			
-			System.out.println("booklist-sqlcon after");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
 			
 		}
-		System.out.println("size:"+booklist1.size());
+		
 		booklist.put("int", booklist1);
 		booklist.put("String", booklist2);
 		return booklist;
