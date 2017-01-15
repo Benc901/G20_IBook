@@ -14,6 +14,7 @@ import Mains.IBookClient;
 import Views.AddUserUI;
 import Views.LibririanUI;
 import Views.MainUI;
+import Views.inventoryUpdateUI;
 
 public class LibrarianCT implements Observer, ActionListener{
 	
@@ -21,7 +22,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static IBookClient client;
 	public static LibririanUI libririanFrame;
 	public static AddUserUI adduserFrame;
-	
+	public static inventoryUpdateUI IUpdateFrame;
 	
 	
 	
@@ -33,6 +34,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
+		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	
@@ -47,8 +49,20 @@ public class LibrarianCT implements Observer, ActionListener{
 			adduserFrame.btnAddUser.addActionListener((ActionListener)this);
 			MainUI.MV.setView(adduserFrame);
 		}	
+		if(e.getSource()==libririanFrame.btnIupdate){
+			IUpdateFrame = new inventoryUpdateUI();
+			IUpdateFrame.btnBack.addActionListener((ActionListener)this);
+			//IUpdateFrame.btnAddUser.addActionListener((ActionListener)this);
+			MainUI.MV.setView(IUpdateFrame);
+		}
 		if(adduserFrame!=null){
 		if(e.getSource()==adduserFrame.btnBack){
+			MainUI.MV.setView(libririanFrame);
+		}
+		}
+		if(IUpdateFrame!=null){
+		if(e.getSource()==IUpdateFrame.btnBack)
+		{
 			MainUI.MV.setView(libririanFrame);
 		}
 		}

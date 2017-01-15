@@ -19,7 +19,7 @@ public class AddUserUI extends JPanel{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	public JButton btnBack;
 	public JButton btnAddUser;
 	public TextField UserId;
