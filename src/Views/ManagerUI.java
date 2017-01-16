@@ -23,6 +23,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import com.alee.laf.button.WebButton;
 
+import Controllers.ManagerCT;
 import Entities.UserET;
 
 import java.awt.Font;
@@ -93,6 +94,8 @@ public class ManagerUI extends JPanel {
 		btnAFreezing = new WebButton("Account freezing");
 		btnAFreezing.setBounds(365, 340, 146, 54);
 		add(btnAFreezing);
+		
+		new ManagerCT(this); 
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);

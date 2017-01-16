@@ -128,6 +128,11 @@ public class SearchBookUI extends JPanel {
 		chckbxKeywords.setBounds(254, 240, 104, 18);
 		add(chckbxKeywords);
 		
+		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setBounds(0, 0, 671, 533);
+		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
+		add(lblBackground);
+		
 		Orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
 		    @Override
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -136,11 +141,6 @@ public class SearchBookUI extends JPanel {
 		        
 		    }
 		});
-		
-		JLabel lblBackground = new JLabel("New label");
-		lblBackground.setBounds(0, 0, 671, 533);
-		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
-		add(lblBackground);
 		
 		
 		

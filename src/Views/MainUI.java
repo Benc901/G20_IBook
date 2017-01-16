@@ -126,7 +126,7 @@ public class MainUI {
 		});**/
     
 	}
-	public void setView(JPanel panel) {
+	public void setView(JPanel panel) { //מתודת החלפת פנלים
 		
 		if (MV.loadingPanel.isVisible())
 			MV.loadingPanel.setVisible(false);
