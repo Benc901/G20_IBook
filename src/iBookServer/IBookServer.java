@@ -122,6 +122,22 @@ public class IBookServer extends AbstractServer {
 				display(" : " + op, client);
 				returnObj.put("op", "AddUser");
 				returnObj.put("obj", sqlCon.AddUser(map.get("obj")));	
+				break;
+			case "HideBook":
+				display(" : " + op, client);
+				returnObj.put("op", "HideBook");
+				returnObj.put("obj", sqlCon.HideBook((String)map.get("obj"),(int)map.get("hide")));	
+				break;	
+			case "FreezeUser":
+				display(" : " + op, client);
+				returnObj.put("op", "FreezeUser");
+				returnObj.put("obj", sqlCon.FreezeUser((String)map.get("obj"),(int)map.get("freeze")));	
+				break;	
+			case "ChangePermission":
+				display(" : " + op, client);
+				returnObj.put("op", "ChangePermission");
+				returnObj.put("obj", sqlCon.ChangePermission((String)map.get("obj"),(int)map.get("newPer")));	
+				break;	
 		}
 		
 		try {

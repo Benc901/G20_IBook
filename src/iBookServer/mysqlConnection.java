@@ -362,6 +362,110 @@ public Object logout(Object obj) {
 		
 	}
 	
+	public int HideBook(String bookId, int choice){
+		
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM books WHERE id = ? ");
+			pStmt.setString(1, bookId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { return 0;}
+			else {
+				rs.next();
+				if(choice == 1){
+					if(rs.getInt(13)==1)return 2;
+					else{
+						PreparedStatement qStmt = con
+								.prepareStatement("UPDATE books SET hidden = 1 WHERE id = ?");
+						qStmt.setString(1, bookId);
+						qStmt.executeUpdate();
+						return 1;
+					}
+				}
+				else if(choice==0){
+					if(rs.getInt(13)==0)return 3;
+					else{
+						PreparedStatement qStmt = con
+								.prepareStatement("UPDATE books SET hidden = 0 WHERE id = ?");
+						qStmt.setString(1, bookId);
+						qStmt.executeUpdate();
+						return 4;
+					}
+				}
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;			
+		}
+		return 0;
+	}
+
+	public int FreezeUser(String userId,int choice){
+		
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM user WHERE id = ? ");
+			pStmt.setString(1, userId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { return 0;}
+			else {
+				rs.next();
+				if(choice==1){
+					if(rs.getInt(4)>5)return 2;
+					else{
+				
+						PreparedStatement qStmt = con
+							.prepareStatement("UPDATE user SET permission = permission+5 WHERE id = ?");
+						qStmt.setString(1, userId);
+						qStmt.executeUpdate();
+						return 1;
+					}
+				}else if(choice==0){
+					if(rs.getInt(4)<5)return 3;
+						else{
+							PreparedStatement qStmt = con
+								.prepareStatement("UPDATE user SET permission = permission-5 WHERE id = ?");
+							qStmt.setString(1, userId);
+							qStmt.executeUpdate();
+							return 4;
+						}
+				}
+
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 0;			
+		}
+		return 0;
+	}
+	
+	public int ChangePermission(String userId, int newPer){
+		
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM user WHERE id = ? ");
+			pStmt.setString(1, userId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { return 0;}
+			else{
+				PreparedStatement qStmt = con
+					.prepareStatement("UPDATE user SET permission = ? WHERE id = ?");
+					qStmt.setInt(1, newPer);
+					qStmt.setString(2, userId);
+					qStmt.executeUpdate();
+					return 1;
+			}
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 0;			
+		}
+	}
+	
 	public void closeSqlConnection(){
 
 		
