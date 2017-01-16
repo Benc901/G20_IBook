@@ -122,6 +122,12 @@ public class IBookServer extends AbstractServer {
 				display(" : " + op, client);
 				returnObj.put("op", "AddUser");
 				returnObj.put("obj", sqlCon.AddUser(map.get("obj")));	
+				break;
+			case "SearchAdv":
+				display(" : " + op, client);
+				returnObj.put("op", "SearchAdv");
+				returnObj.put("arr", sqlCon.SearchAdv((ArrayList<String>)map.get("obj")));	
+				break;	
 		}
 		
 		try {

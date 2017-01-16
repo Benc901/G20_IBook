@@ -94,7 +94,8 @@ public class BookUI extends JPanel {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnBack){// if start:
-					MainUI.MV.setView(BookCT.bookCT.searchFrame);
+					if(BookCT.bookCT.flag==1) MainUI.MV.setView(BookCT.bookCT.searchadvFrame);
+					else MainUI.MV.setView(BookCT.bookCT.searchFrame);
 				}
 			}
 		});

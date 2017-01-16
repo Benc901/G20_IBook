@@ -26,23 +26,23 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class SearchBookUI extends JPanel {
+public class SearchAdvUI extends JPanel {
 	 public JButton btnBack;
 	 public JButton btnSearch;
-	 public JButton btnAdvancedSearch;
-	 public JTextField textField;
 	 public JTable Orderstable;
 	 public DefaultTableModel model;
-	 public JCheckBox chckbxTitle;
-	 public JCheckBox chckbxAuthor;
-	 public JCheckBox chckbxSummery;
-	 public JCheckBox chckbxGenre;
-	 public JCheckBox checkBoxLanguage;
-	 public JCheckBox chckbxKeywords;
+	 public JTextField textField_Title;
+	 public JTextField textField_Author;
+	 public JTextField textField_Language;
+	 public JTextField textField_Summery;
+	 public JTextField textField_Genere;
+	 public JTextField textField_Keywords;
 	
 	 
-	public SearchBookUI() {
+	public SearchAdvUI() {
 		setBackground(new Color(153, 204, 204));
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -56,33 +56,18 @@ public class SearchBookUI extends JPanel {
 		lblSearchBook.setBounds(276, 149, 234, 29);
 		add(lblSearchBook);
 		
-		JLabel lblSearchBy = new JLabel("Search By :");
-		lblSearchBy.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSearchBy.setBounds(40, 190, 113, 30);
-		add(lblSearchBy);
-		
-		JLabel lblSearchText = new JLabel("Search text :");
-		lblSearchText.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSearchText.setBounds(378, 190, 113, 30);
-		add(lblSearchText);
-		
-		btnAdvancedSearch = new JButton("Advanced Search");
-		btnAdvancedSearch.setBounds(495, 486, 150, 30);
-		add(btnAdvancedSearch);
-		
 		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainUI.MV.setView(BookCT.searchFrame);
+			}
+		});
 		btnBack.setBounds(40, 486, 89, 30);
 		add(btnBack);
 		
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(556, 228, 89, 30);
+		btnSearch.setBounds(556, 193, 89, 30);
 		add(btnSearch);
-		new BookCT(this);
-		
-		
-		textField = new JTextField();
-		textField.setBounds(473, 190, 172, 30);
-		add(textField);
 		//new String[] {"Language", "Subject", "Genre", "Author", "Name", "Id"}))
 		model = new DefaultTableModel();
 		model.addColumn("Id");
@@ -103,41 +88,77 @@ public class SearchBookUI extends JPanel {
 		Orderstable.setFillsViewportHeight(true);
 		for (int i=0;i<6;i++) Orderstable.getColumnModel().getColumn(i).setPreferredWidth(83);
 		Orderstable.getColumnModel().getColumn(6).setPreferredWidth(112);
+		
+		JLabel lblTitle = new JLabel("Title:");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTitle.setBounds(40, 176, 120, 20);
+		add(lblTitle);
+		
+		textField_Title = new JTextField();
+		textField_Title.setBounds(40, 196, 120, 25);
+		add(textField_Title);
+		textField_Title.setColumns(10);
+		
+		JLabel lblAuthor = new JLabel("Author:");
+		lblAuthor.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblAuthor.setBounds(40, 218, 120, 20);
+		add(lblAuthor);
+		
+		textField_Author = new JTextField();
+		textField_Author.setColumns(10);
+		textField_Author.setBounds(40, 238, 120, 25);
+		add(textField_Author);
+		
+		JLabel lblLanguage = new JLabel("Language:");
+		lblLanguage.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblLanguage.setBounds(220, 176, 120, 20);
+		add(lblLanguage);
+		
+		textField_Language = new JTextField();
+		textField_Language.setColumns(10);
+		textField_Language.setBounds(220, 196, 120, 25);
+		add(textField_Language);
+		
+		JLabel lblSummery = new JLabel("Summery:");
+		lblSummery.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSummery.setBounds(220, 218, 120, 20);
+		add(lblSummery);
+		
+		textField_Summery = new JTextField();
+		textField_Summery.setColumns(10);
+		textField_Summery.setBounds(220, 238, 120, 25);
+		add(textField_Summery);
+		
+		JLabel lblGenere = new JLabel("Genere:");
+		lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblGenere.setBounds(399, 176, 120, 20);
+		add(lblGenere);
+		
+		textField_Genere = new JTextField();
+		textField_Genere.setColumns(10);
+		textField_Genere.setBounds(399, 196, 120, 25);
+		add(textField_Genere);
+		
+		JLabel lblKeywords = new JLabel("Keywords:");
+		lblKeywords.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblKeywords.setBounds(399, 218, 120, 20);
+		add(lblKeywords);
+		
+		textField_Keywords = new JTextField();
+		textField_Keywords.setColumns(10);
+		textField_Keywords.setBounds(399, 238, 120, 25);
+		add(textField_Keywords);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(37, 270, 608, 205);
 		scrollPane.setRowHeaderView(Orderstable);
 		scrollPane.setViewportView(Orderstable);
 		add(scrollPane);
 		
-		chckbxTitle = new JCheckBox("Title");
-		chckbxTitle.setBounds(128, 197, 104, 18);
-		add(chckbxTitle);
-		 
-		chckbxAuthor = new JCheckBox("Author");
-		chckbxAuthor.setBounds(128, 218, 104, 18);
-		add(chckbxAuthor);
-		
-		chckbxSummery = new JCheckBox("Summery");
-		chckbxSummery.setBounds(254, 197, 104, 18);
-		add(chckbxSummery);
-		
-		chckbxGenre = new JCheckBox("Genre");
-		chckbxGenre.setBounds(254, 218, 104, 18);
-		add(chckbxGenre);
-		
-		checkBoxLanguage = new JCheckBox("Language");
-		checkBoxLanguage.setBounds(128, 240, 104, 18);
-		add(checkBoxLanguage);
-		
-		chckbxKeywords = new JCheckBox("Keywords");
-		chckbxKeywords.setBounds(254, 240, 104, 18);
-		add(chckbxKeywords);
-		
 		Orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
 		    @Override
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		        int row = Orderstable.rowAtPoint(evt.getPoint());
-		        if(row!=-1)BookCT.bookCT.viewBook(row,0);
+		        if(row!=-1)BookCT.bookCT.viewBook(row,1);
 		        
 		    }
 		});
@@ -159,6 +180,6 @@ public class SearchBookUI extends JPanel {
 
 	
 	public String GetText(){
-		return textField.getText();
+		return textField_Title.getText();
 	}
 }

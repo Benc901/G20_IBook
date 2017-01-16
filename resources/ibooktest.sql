@@ -176,6 +176,69 @@ INSERT INTO `review` VALUES (1,1,'Robin hobb','Assassins Apprentice',1,'Shany','
 UNLOCK TABLES;
 
 
+DROP TABLE IF EXISTS `genere`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `genere` (
+  `id` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `genere` WRITE;
+/*!40000 ALTER TABLE `genere` DISABLE KEYS */;
+INSERT INTO `genere` VALUES (1,'Teen'),(2,'Culture'),(3,'Guide'),(4,'Science');
+/*!40000 ALTER TABLE `genere` ENABLE KEYS */;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `subject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subject` (
+  `id` int(11) NOT NULL,
+  `genere_id` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `subject` WRITE;
+/*!40000 ALTER TABLE `subject` DISABLE KEYS */;
+INSERT INTO `subject` VALUES (1,1,'Adventure'),(2,1,'Magics'),(3,1,'Scary'),(4,2,'Music'),(5,2,'Art'),(6,2,'Food'),(7,3,'Trips'),(8,3,'Cooking'),(9,3,'Art'),(10,4,'Mathematics'),(11,4,'Geometry'),(12,4,'Physics');
+/*!40000 ALTER TABLE `subject` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `pairing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pairing` (
+  `book_id` int(11) NOT NULL,
+  `genere_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  PRIMARY KEY (`book_id`,`genere_id`,`subject_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `pairing` WRITE;
+/*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
+INSERT INTO `pairing` VALUES (1,2,2),(1,1,1),(2,1,3),(2,1,2),(3,1,2),(4,1,1),(5,3,9),(6,1,1),(7,1,1),(8,1,1),(9,1,1);
+/*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

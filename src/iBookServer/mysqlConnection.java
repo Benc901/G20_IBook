@@ -131,9 +131,10 @@ public Object logout(Object obj) {
 
 	public Object SearchBook(String text,ArrayList<Integer> cb){
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
+		int dup=0;
 		try {
 			PreparedStatement pStmt = con
-					.prepareStatement("SELECT * FROM books");
+					.prepareStatement("SELECT * FROM test.books b INNER JOIN test.pairing p ON p.book_id= b.id INNER JOIN test.genere g ON p.genere_id= g.id");
 			ResultSet rs = pStmt.executeQuery();
 			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
 				// user found).
@@ -142,10 +143,11 @@ public Object logout(Object obj) {
 			}
 			else{
 				while(rs.next())
-					if(rs.getInt(13)==0){
+					if(rs.getInt(13)==0 && dup!=rs.getInt(1)){
 					for(int i=0;i<cb.size();i++){
 						if((rs.getString(cb.get(i)).toLowerCase()).contains(text.toLowerCase())){
 							i=cb.size()-1;
+							dup=rs.getInt(1);
 							returnObj.add(
 								new BookET(rs.getInt(1),
 										rs.getString(2),rs.getString(3),
@@ -360,6 +362,47 @@ public Object logout(Object obj) {
 		}
 		return 1;
 		
+	}
+	
+	public Object SearchAdv(ArrayList<String> tf){
+		ArrayList<BookET> returnObj=new ArrayList<BookET>();
+		int dup=0;
+		try{
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM test.books b INNER JOIN test.pairing p ON p.book_id= b.id INNER JOIN test.genere g ON p.genere_id= g.id");
+			
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) return 1;
+			else{
+				while(rs.next()){
+					if(rs.getInt(13)==0 &&rs.getInt(1)!=dup){
+						if( (rs.getString(2).toLowerCase()).contains(tf.get(0))
+							&&(rs.getString(3).toLowerCase()).contains(tf.get(1))
+							&&(rs.getString(4).toLowerCase()).contains(tf.get(2))
+							&&(rs.getString(5).toLowerCase()).contains(tf.get(3))
+							&&(rs.getString(20).toLowerCase()).contains(tf.get(4))
+							&&(rs.getString(7).toLowerCase()).contains(tf.get(5))){
+							dup=rs.getInt(1);
+							returnObj.add(
+								new BookET(rs.getInt(1),
+										rs.getString(2),rs.getString(3),
+										rs.getString(4),rs.getString(5),
+										rs.getString(6),rs.getString(7),
+										rs.getString(8),rs.getString(9),
+										rs.getString(10),rs.getInt(11),
+										rs.getInt(12),rs.getInt(13),
+										rs.getInt(14),rs.getInt(15)
+								));
+						}
+				}}
+				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+			return 0;
+		}
+				
+		return returnObj;
 	}
 	
 	public void closeSqlConnection(){
