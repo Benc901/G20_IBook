@@ -42,7 +42,7 @@ public class ManagerCT implements Observer, ActionListener {
 			hidebookFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(hidebookFrame);
 		}
-		else if(hidebookFrame!=null){
+		if(hidebookFrame!=null){
 			if(e.getSource()==hidebookFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -53,14 +53,14 @@ public class ManagerCT implements Observer, ActionListener {
 				HideBook(0);
 			}
 		}
-		else if(e.getSource()==managerFrame.btnAFreezing){
+		if(e.getSource()==managerFrame.btnAFreezing){
 			accountfreezFrame = new AccountFreezUI();
 			accountfreezFrame.btnFreeze.addActionListener((ActionListener)this);
 			accountfreezFrame.btnUnFreeze.addActionListener((ActionListener)this);
 			accountfreezFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(accountfreezFrame);
 		}
-		else if(accountfreezFrame!=null){
+		if(accountfreezFrame!=null){
 			if(e.getSource()==accountfreezFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -72,13 +72,13 @@ public class ManagerCT implements Observer, ActionListener {
 
 			}
 		}
-		else if(e.getSource()==managerFrame.btnCpermission){
+		if(e.getSource()==managerFrame.btnCpermission){
 			changingpermissionFrame = new ChangingPermissionUI();
 			changingpermissionFrame.btnChange.addActionListener((ActionListener)this);
 			changingpermissionFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(changingpermissionFrame);
 		}
-		else if(changingpermissionFrame!=null){
+		if(changingpermissionFrame!=null){
 			if(e.getSource()==changingpermissionFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
