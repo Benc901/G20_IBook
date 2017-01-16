@@ -24,6 +24,7 @@ import Views.MainUI;
 import Views.ManagerUI;
 import Views.PublishReviewUI;
 import Views.ReaderUI;
+import Views.SearchAdvUI;
 import Views.SearchBookUI;
 import Views.SearchReviewUI;
 

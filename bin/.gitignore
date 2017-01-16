@@ -1,5 +1,9 @@
 /Views/
 /graphics/
 /iBookServer/
+<<<<<<< HEAD
 /ocsf/
+=======
+/Views/
+>>>>>>> refs/heads/master
 /Controllers/

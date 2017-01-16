@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 //import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFoldsAction;
 
@@ -21,6 +22,7 @@ import Mains.IBookClient;
 import Views.BookUI;
 import Views.GetBookUI;
 import Views.MainUI;
+import Views.SearchAdvUI;
 import Views.SearchBookUI;
 
 public class BookCT implements Observer, ActionListener{
@@ -28,15 +30,18 @@ public class BookCT implements Observer, ActionListener{
 	public static IBookClient client;
 	public static BookCT bookCT;
 	public static SearchBookUI searchFrame;
+	public static SearchAdvUI searchadvFrame;
 	public static BookUI bookUI;
 	public static GetBookUI getbookUI;
 	public ArrayList<BookET> books;
 	public static BookET bookET;
+	public static int flag;
 	
 	public BookCT(SearchBookUI search){
 		this.searchFrame=search;
 		bookCT=this;
 		searchFrame.btnSearch.addActionListener((ActionListener)this);
+		searchFrame.btnAdvancedSearch.addActionListener((ActionListener)this);
 		client = IBookClient.getInstance();
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
@@ -49,6 +54,12 @@ public class BookCT implements Observer, ActionListener{
 			}else SearchBook();
 			
 		}
+		if(e.getSource()==searchFrame.btnAdvancedSearch){
+			searchadvFrame= new SearchAdvUI();
+			searchadvFrame.btnBack.addActionListener((ActionListener)this);
+			searchadvFrame.btnSearch.addActionListener((ActionListener)this);
+			MainUI.MV.setView(searchadvFrame);
+		}	
 		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
 			if(e.getSource()==bookUI.btnGetbook){
 				getbookUI=new GetBookUI();
@@ -64,6 +75,15 @@ public class BookCT implements Observer, ActionListener{
 			if(e.getSource()==getbookUI.btnDownload){
 				download();
 				}
+		}
+		if(searchadvFrame!=null){
+			if(e.getSource()==searchadvFrame.btnBack){
+				MainUI.MV.setView(searchFrame);
+			}
+			if(e.getSource()==searchadvFrame.btnSearch){
+				
+				 SearchAdv();
+			}
 		}
 		
 	}
@@ -81,28 +101,46 @@ public class BookCT implements Observer, ActionListener{
 			
 			// what operation was made in the server and how to respond.
 			switch (op) {
-			case "SearchBook":{
-				if (searchFrame.model.getRowCount() > 0) {
-                    for (int i = searchFrame.model.getRowCount() - 1; i > -1; i--) {
-                    	searchFrame.model.removeRow(i);
-                    }
-                }
-
-				books=(ArrayList<BookET>)map.get("arr");
-				for(int i=0 ; i<books.size(); i++){
-					searchFrame.model.addRow(new Object[] {
-							books.get(i).getBID(),books.get(i).getBTitle(),
-							books.get(i).getBAuthor(),books.get(i).getBGenre(),
-							books.get(i).getBSubject(),books.get(i).getBLanguage(),
-							books.get(i).getBNumOfPurchace()});
-					}
-				}break;
-			case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
-							else JOptionPane.showMessageDialog(null,"Failed");
-							UserCT.userCT.changeObserver(UserCT.userCT,this);
-							MainUI.MV.setView(UserCT.readerFrame);
-							break;}
+				case "SearchBook":{
+					if (searchFrame.model.getRowCount() > 0) {
+	                    for (int i = searchFrame.model.getRowCount() - 1; i > -1; i--) {
+	                    	searchFrame.model.removeRow(i);
+	                    }
+	                }
+	
+					books=(ArrayList<BookET>)map.get("arr");
+					for(int i=0 ; i<books.size(); i++){
+						searchFrame.model.addRow(new Object[] {
+								books.get(i).getBID(),books.get(i).getBTitle(),
+								books.get(i).getBAuthor(),books.get(i).getBGenre(),
+								books.get(i).getBSubject(),books.get(i).getBLanguage(),
+								books.get(i).getBNumOfPurchace()});
+						}
+					}break;
+				case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
+								else JOptionPane.showMessageDialog(null,"Failed");
+								UserCT.userCT.changeObserver(UserCT.userCT,this);
+								MainUI.MV.setView(UserCT.readerFrame);
+								break;}
+				case "SearchAdv":{
+					if (searchadvFrame.model.getRowCount() > 0) {
+	                    for (int i = searchadvFrame.model.getRowCount() - 1; i > -1; i--) {
+	                    	searchadvFrame.model.removeRow(i);
+	                    }
+	                }
+	
+					books=(ArrayList<BookET>)map.get("arr");
+					for(int i=0 ; i<books.size(); i++){
+						searchadvFrame.model.addRow(new Object[] {
+								books.get(i).getBID(),books.get(i).getBTitle(),
+								books.get(i).getBAuthor(),books.get(i).getBGenre(),
+								books.get(i).getBSubject(),books.get(i).getBLanguage(),
+								books.get(i).getBNumOfPurchace()});
+						}
+					}break;
+			
 			}
+			
 		}
 	}
 	
@@ -113,7 +151,7 @@ public class BookCT implements Observer, ActionListener{
 		if(searchFrame.chckbxTitle.isSelected())selected.add(2);
 		if(searchFrame.chckbxAuthor.isSelected())selected.add(3);
 		if(searchFrame.chckbxSummery.isSelected())selected.add(5);
-		if(searchFrame.chckbxGenre.isSelected())selected.add(8);
+		if(searchFrame.chckbxGenre.isSelected())selected.add(20);
 		if(searchFrame.checkBoxLanguage.isSelected())selected.add(4);
 		if(searchFrame.chckbxKeywords.isSelected())selected.add(7);
 		if(selected.size()==0){
@@ -125,9 +163,23 @@ public class BookCT implements Observer, ActionListener{
 			client.handleMessageFromUI(hmap);
 		}
 	}
-	
-	public void viewBook(int row){
+	public void SearchAdv(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		ArrayList<String> tf=new ArrayList<String>();
 		
+		tf.add(searchadvFrame.textField_Title.getText());
+		tf.add(searchadvFrame.textField_Author.getText());
+		tf.add(searchadvFrame.textField_Language.getText());
+		tf.add(searchadvFrame.textField_Summery.getText());
+		tf.add(searchadvFrame.textField_Genere.getText());
+		tf.add(searchadvFrame.textField_Keywords.getText());
+		
+		hmap.put("op","SearchAdv");
+		hmap.put("obj",tf);
+		client.handleMessageFromUI(hmap);
+	}
+	public void viewBook(int row,int flag){
+		this.flag=flag;
 		bookET=books.get(row);
 		bookUI=new BookUI(bookET);
 		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){

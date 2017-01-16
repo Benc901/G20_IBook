@@ -30,6 +30,7 @@ import java.awt.Color;
 public class SearchBookUI extends JPanel {
 	 public JButton btnBack;
 	 public JButton btnSearch;
+	 public JButton btnAdvancedSearch;
 	 public JTextField textField;
 	 public JTable Orderstable;
 	 public DefaultTableModel model;
@@ -64,6 +65,10 @@ public class SearchBookUI extends JPanel {
 		lblSearchText.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSearchText.setBounds(378, 190, 113, 30);
 		add(lblSearchText);
+		
+		btnAdvancedSearch = new JButton("Advanced Search");
+		btnAdvancedSearch.setBounds(495, 486, 150, 30);
+		add(btnAdvancedSearch);
 		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(40, 486, 89, 30);
@@ -137,7 +142,7 @@ public class SearchBookUI extends JPanel {
 		    @Override
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
 		        int row = Orderstable.rowAtPoint(evt.getPoint());
-		        if(row!=-1)BookCT.bookCT.viewBook(row);
+		        if(row!=-1)BookCT.bookCT.viewBook(row,0);
 		        
 		    }
 		});
@@ -156,5 +161,4 @@ public class SearchBookUI extends JPanel {
 	public String GetText(){
 		return textField.getText();
 	}
-
 }
