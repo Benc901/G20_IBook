@@ -435,6 +435,59 @@ private void display(String message) {
 	
 }
 
+public Object BringBook(int Bid) {
+	BookET bookET;
+	try {
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM books WHERE id=?");
+		pStmt.setInt(1, Bid);
+		ResultSet rs = pStmt.executeQuery();
+		//pStmt.close();
+		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No user
+			// found).
+			display("no book in the ResultSet of bring book.");
+			return 0;
+		}
+		else if(rs.next()){
+			bookET= new BookET(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15));
+			
+			return bookET;	
+		}
+		return 0;
+	}
+	catch(SQLException e){
+		e.printStackTrace();
+		return -1;
+	}
+	
+}
+public boolean UpdateBook(BookET bookET)
+{
+	try
+	{
+		PreparedStatement pStmt = con
+				.prepareStatement("UPDATE books "
+								+ "SET title=?,author=?,language=?,summary=?,content=?,keywords=? "
+								+ "WHERE id = ? ");
+		pStmt.setString(1, bookET.getBTitle());
+		pStmt.setString(2, bookET.getBAuthor());
+		pStmt.setString(3, bookET.getBLanguage());
+		pStmt.setString(4, bookET.getBSummary());
+		pStmt.setString(5, bookET.getBContent());
+		pStmt.setString(6, bookET.getbKeywords());
+		pStmt.setInt(7, bookET.getBID());
+		pStmt.executeUpdate();
+		//pStmt.close();
+		return true;
+	
+	}
+	catch(SQLException e){
+		e.printStackTrace();
+		return false;
+	}
+	
+}
+
 }
 
 

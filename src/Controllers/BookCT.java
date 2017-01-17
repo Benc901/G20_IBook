@@ -16,12 +16,13 @@ import javax.swing.JTable;
 
 //import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFoldsAction;
 
+
+
 import Entities.BookET;
 import Mains.IBookClient;
-import Views.BookUI;
-import Views.GetBookUI;
-import Views.MainUI;
-import Views.SearchBookUI;
+import Views.AddBookUI;
+import Views.*;
+
 
 public class BookCT implements Observer, ActionListener{
 	
@@ -33,6 +34,7 @@ public class BookCT implements Observer, ActionListener{
 	public ArrayList<BookET> books;
 	public static BookET bookET;
 	
+	
 	public BookCT(SearchBookUI search){
 		this.searchFrame=search;
 		bookCT=this;
@@ -40,7 +42,7 @@ public class BookCT implements Observer, ActionListener{
 		client = IBookClient.getInstance();
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
-	@Override
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == searchFrame.btnSearch){
