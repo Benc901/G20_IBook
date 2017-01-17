@@ -463,6 +463,7 @@ public Object BringBook(int Bid) {
 }
 public boolean UpdateBook(BookET bookET)
 {
+	//Update book function
 	try
 	{
 		PreparedStatement pStmt = con
