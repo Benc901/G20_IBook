@@ -239,21 +239,31 @@ public Object logout(Object obj) {
 	
 	public int GetBook(UserET user,BookET book){
 		try {
-			Statement  rStmt = con.createStatement();
 			
+			PreparedStatement iStmt = con
+					.prepareStatement("SELECT * FROM reader WHERE id = ?");
+			iStmt.setInt(1, user.getId());
+			ResultSet rs = iStmt.executeQuery();
+			rs.next();
+			if(rs.getInt(2)==1 && rs.getInt(9)==0) return 2;
+			
+			Statement  rStmt = con.createStatement();
 			rStmt.executeUpdate("INSERT INTO reader_book VALUES ("+user.getId()+","
 															 +book.getBID()+","
 															+"\'"+book.getBTitle()+"\',"+0+")");
 			display(" Book added to User");
+			
 			PreparedStatement pStmt = con
+					.prepareStatement("UPDATE books SET numOfPurchace=numOfPurchace+1 WHERE id = ?");
+			pStmt.setInt(1, book.getBID());
+			pStmt.executeUpdate();
+			if(rs.getInt(2)==0 && rs.getInt(9)==0) return 3;
+			pStmt = con
 					.prepareStatement("UPDATE reader SET book_left=book_left-1 WHERE id = ?");
 			pStmt.setInt(1, user.getId());
 			pStmt.executeUpdate();
 			
-			pStmt = con
-					.prepareStatement("UPDATE books SET numOfPurchace=numOfPurchace+1 WHERE id = ?");
-			pStmt.setInt(1, book.getBID());
-			pStmt.executeUpdate();
+			
 			/*
 			PreparedStatement pStmt = con
 					.prepareStatement("UPDATE user SET permission = 2 WHERE userName = ?");

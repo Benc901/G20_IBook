@@ -2,6 +2,8 @@ package Views;
 
 import graphics.GUIimage;
 import javax.swing.UIManager.*;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -19,6 +21,8 @@ import graphics.SlideContainer;
 
 
 import com.alee.laf.progressbar.WebProgressBar;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 public class MainUI {
@@ -59,7 +63,7 @@ public class MainUI {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(10, 100, 677, 562);
-		
+		//frame.setUndecorated(true);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int locationX = dim.width /2-(677/2); 
 		int	locationY = dim.height/2-(562/2);
