@@ -2,6 +2,7 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -10,6 +11,7 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 import Entities.BookET;
+import Entities.GenreET;
 import Entities.UserET;
 import Mains.IBookClient;
 import Views.AddBookUI;
@@ -32,12 +34,14 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static UpdateBookUI UpdateBFrame;
 	public static UserET userET;
 	public static BookET bookET;
+	public static ArrayList<GenreET> genresET;
 	
 	public LibrarianCT(LibririanUI frame) {
 		// TODO Auto-generated constructor stub
 		librarianCT=this;
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
+		BringGandS();
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
@@ -86,9 +90,8 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if(e.getSource()==IUpdateFrame.btnAddBook)
 			{
-				AddBFrame=new AddBookUI();
+				AddBFrame=new AddBookUI(genresET);
 				AddBFrame.btnBack.addActionListener((ActionListener)this);
-				
 				MainUI.MV.setView(AddBFrame);
 			}
 		}
@@ -191,7 +194,18 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.clearFields();	
 			}
 			break;
+		case "BringGandS":
+			if(map.get("obj") instanceof Integer){
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				genresET=(ArrayList<GenreET>)map.get("obj");
+				System.out.println(genresET.size());
+			}
+			break;
 		}
+		
 	}
 	}
 	public void BringBook(int Bid)
@@ -229,6 +243,39 @@ public class LibrarianCT implements Observer, ActionListener{
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "UpdateBook");
 		hmap.put("obj", bookET);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void BringGandS()
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "BringGandS");
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void BringBooks()
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "BringBooks");
+		hmap.put("obj", "");
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void DeleteBook(int Bid)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "DeleteBook");
+		hmap.put("obj", Bid);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void AddBook()
+	{
+		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0);
+		
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "AddBook");
+		hmap.put("obj", NewBookET);
 		
 		client.handleMessageFromUI(hmap);
 	}

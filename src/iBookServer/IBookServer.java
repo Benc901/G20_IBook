@@ -133,6 +133,16 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "UpdateBook");
 				returnObj.put("obj", sqlCon.UpdateBook((BookET)map.get("obj")));
 				break;
+			case "BringGandS":
+				display(" : " + op, client);
+				returnObj.put("op", "BringGandS");
+				returnObj.put("obj", sqlCon.BringGandS());
+				break;
+			case "AddBook":
+				display(" : " + op, client);
+				returnObj.put("op", "AddBook");
+				returnObj.put("obj", sqlCon.AddBook((BookET)map.get("obj")));
+				break;
 		}
 		
 		try {

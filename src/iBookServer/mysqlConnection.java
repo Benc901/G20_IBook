@@ -15,8 +15,10 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import Entities.BookET;
+import Entities.GenreET;
 import Entities.ReaderET;
 import Entities.ReviewET;
+import Entities.SubjectET;
 import Entities.UserET;
 import ocsf.server.ConnectionToClient;
 
@@ -488,7 +490,109 @@ public boolean UpdateBook(BookET bookET)
 	}
 	
 }
-
+public Object BringGandS()
+{
+	ArrayList<GenreET> Genre = new ArrayList<GenreET>();
+	
+	try
+	{
+		PreparedStatement pStmt = con.prepareStatement("SELECT * FROM genere ");
+		
+		PreparedStatement rStmt = con.prepareStatement("SELECT * FROM subject WHERE genere_id = ? ");
+		
+		ResultSet rs = pStmt.executeQuery();
+		
+		while(rs.next())
+		{
+			
+			Genre.add(new GenreET(rs.getInt(1), rs.getString(2)));
+			rStmt.setInt(1, rs.getInt(1));
+			ResultSet rs2 = rStmt.executeQuery();
+			
+			while(rs2.next())
+			{
+				Genre.get(Genre.size()-1).SetSubject(rs2.getInt(1), rs2.getString(3), rs2.getInt(2));
+			}
+		}
+		display(" "+ Genre.size());
+		return Genre;
+	}catch(SQLException e){
+	e.printStackTrace();
+	return 0;
+}
+	
+}
+public int AddBook(BookET newBook)
+{
+	try
+	{
+		Statement rStmt = con.createStatement();
+		rStmt.execute("SELECT MAX(id) FROM books");
+		ResultSet rs = rStmt.getResultSet();
+		int id=0;
+		if(rs.next())
+			id=(int) rs.getObject(1);
+			id+=1;
+			newBook.setBID(id);
+			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement pstmt = con.prepareStatement(SQL);
+			pstmt.setInt(1, id);
+			pstmt.setString(2, newBook.getBTitle());
+			pstmt.setString(3, newBook.getBAuthor());
+			pstmt.setString(4, newBook.getBLanguage());
+			pstmt.setString(5, newBook.getBSummary());
+			pstmt.setString(6, newBook.getBContent());
+			pstmt.setString(7, newBook.getbKeywords());
+			pstmt.setString(8, newBook.getBGenre());
+			pstmt.setString(9, newBook.getBSubject());
+			pstmt.setString(10, newBook.getBPhoto());
+			pstmt.setInt(11, 0);
+			pstmt.setInt(12, 0);
+			pstmt.setInt(13, 0);
+			pstmt.setInt(14, 0);
+			pstmt.setInt(15, 0);
+			pstmt.executeUpdate();
+			pstmt.close();
+			PairingBook(newBook);
+			return 1;
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return -1;
+	}
+	
+}
+public boolean PairingBook(BookET BookToPair)
+{
+	int Gid=0,Sid=0;
+	try
+	{
+		String SQL="SELECT * FROM test.genere g INNER JOIN test.subject s ON g.id=s.genere_id";
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+		ResultSet rs = pstmt.getResultSet();
+		while(rs.next())
+		{
+			if(rs.getString(2).equals(BookToPair.getBGenre()) && rs.getString(5).equals(BookToPair.getBSubject()))
+			{
+				Sid=rs.getInt(3);
+				Gid=rs.getInt(4);
+			}
+		}
+		String str="INSERT INTO pairing VALUES (?, ?, ?)";
+		pstmt.setInt(1, BookToPair.getBID());
+		pstmt.setInt(2, Gid);
+		pstmt.setInt(3, Sid);
+		pstmt.executeUpdate();
+		pstmt.close();
+		return true;
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return false;
+	}
+}
 }
 
 
