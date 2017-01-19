@@ -36,6 +36,7 @@ CREATE TABLE `user` (
   `lastName` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `photo` varchar(45) NOT NULL,
+  `confirm` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,7 +47,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben'),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany'),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori'),(4,'Gidi','1234',4,0,'Gidi','Buks','Gidi@gmail.com','gidi');
+INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben',0),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany',1),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori',0),(4,'Gidi','1234',4,0,'Gidi','Buks','Gidi@gmail.com','gidi',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 

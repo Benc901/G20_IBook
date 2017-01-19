@@ -188,7 +188,7 @@ public class BookCT implements Observer, ActionListener{
 		this.flag=flag;
 		bookET=books.get(row);
 		bookUI=new BookUI(bookET);
-		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
+		if(bookUI!=null && UserCT.userCT.userET.getConfirm()==1 && UserCT.userCT.userET.getPermission()<5){
 			bookUI.btnGetbook.addActionListener((ActionListener)this);}
 		MainUI.MV.setView(bookUI);
 	}

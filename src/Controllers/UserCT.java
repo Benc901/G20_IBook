@@ -161,12 +161,10 @@ public class UserCT implements Observer, ActionListener {
 			// what operation was made in the server and how to respond.
 			switch (op) {
 			case "Login":
-				
 				if (map.get("obj") == null) {
 					JOptionPane.showMessageDialog(null, "User not exist",
 							"User Not Found", JOptionPane.ERROR_MESSAGE);
 					loginFrame.clearFields();
-					
 				}
 
 				else if (map.get("obj").equals("1")) {
@@ -188,19 +186,19 @@ public class UserCT implements Observer, ActionListener {
 					userET = (UserET) map.get("obj");
 					//loginFrame.setVisible(false);
 					// Build the GUI depends on the permission.
-
 							readerFrame=new ReaderUI(userET);
 							readerFrame.btnLogout.addActionListener((ActionListener) this);
 							readerFrame.btnSearchBook.addActionListener((ActionListener) this);
 							readerFrame.btnSearchReview.addActionListener((ActionListener) this);
 							readerFrame.btnEnablePublish.addActionListener((ActionListener) this);
-							if(userET.getPermission()==3|userET.getPermission()==4)
+							if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9)
 								readerFrame.wbtnLibririan.addActionListener((ActionListener) this);
-							if(userET.getPermission()==4)
+							if(userET.getPermission()==4 || userET.getPermission()==9)
 								readerFrame.wbtnManagerMenu.addActionListener((ActionListener) this);
-							
 							MainUI.MV.setView(readerFrame);
-							
+							JOptionPane.showMessageDialog(null,
+									"The manager freeze your account,\n you cant get books,\n please contact with lib stuff",
+									"Freeze", JOptionPane.ERROR_MESSAGE);
 				}
 				break;
 
@@ -219,13 +217,11 @@ public class UserCT implements Observer, ActionListener {
 				
 								//	readerET=(ReaderET)map.get("rdr");
 									break;}
-			case "BookList":{System.out.println("booklist-update");
+			case "BookList":{
 							  if(((ArrayList)((HashMap) map.get("obj")).get("int")).size()==0)
 													JOptionPane.showMessageDialog(null,"The book List is Empty");
 			
 							  else{
-								  System.out.println("booklist-update else");
-								  
 								  	Object[]al=((ArrayList)((HashMap) map.get("obj")).get("String")).toArray();
 								  	String[]booklist=Arrays.copyOf(al,al.length,String[].class);
 								    publishreviewFrame=new PublishReviewUI();

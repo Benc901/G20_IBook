@@ -139,7 +139,7 @@ public class ReaderUI extends JPanel {
 		btnEnablePublish = new WebButton("Publish review");
 		btnEnablePublish.setBounds(58, 343, 146, 54);
 		add(btnEnablePublish);
-		if(userET.getPermission()==1) btnEnablePublish.setText("Enable payment");
+		if(userET.getConfirm()==0) btnEnablePublish.setText("Enable payment");
 		
 		
 		btnLogout = new WebButton("   Logout");
@@ -149,16 +149,16 @@ public class ReaderUI extends JPanel {
 		btnLogout.setIcon(new GUIimage("logout",20,25).image);
 		
 		JLabel lblNewLabel = new JLabel("Welcome "+userET.getFirstName()+" "+userET.getLastName());
-		lblNewLabel.setFont(new Font("Narkisim", Font.BOLD, 26));
+		lblNewLabel.setFont(new Font("OpenSansHebrew-Regular", Font.BOLD, 26));
 		lblNewLabel.setBounds(282, 150, 335, 41);
 		add(lblNewLabel);
 		
-		if(userET.getPermission()==3|| userET.getPermission()==4){
+		if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9){
 		wbtnLibririan = new WebButton("Libririan menu");
 		wbtnLibririan.setBounds(282, 490, 146, 30);
 		add(wbtnLibririan);}
 		
-		if(userET.getPermission()==4){
+		if(userET.getPermission()==4 || userET.getPermission()==9){
 		wbtnManagerMenu = new WebButton("Manager menu");
 		wbtnManagerMenu.setBounds(471, 490, 146, 30);
 		add(wbtnManagerMenu);}

@@ -92,7 +92,7 @@ public Object login(Object obj) {
 				}
 
 				else if (rs.next()) { // Build the entity and return it to the
-							returnObj.SetFromSQL(rs.getInt(1),rs.getInt(4),rs.getString(6), rs.getString(7),rs.getString(8),rs.getString(9));
+							returnObj.SetFromSQL(rs.getInt(1),rs.getInt(4),rs.getString(6), rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10));
 										// server and then to the client.
 					rs.close();
 					
@@ -101,7 +101,6 @@ public Object login(Object obj) {
 					rStmt.setString(1, returnObj.getUserName());
 					rStmt.executeUpdate();
 
-					
 					return returnObj;
 				}
 			}
@@ -110,6 +109,7 @@ public Object login(Object obj) {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		return null;
 		
 	}// End login	
@@ -569,7 +569,7 @@ public Object logout(Object obj) {
 			rs = rStmt.executeQuery();
 			if (!rs.isBeforeFirst()) 
 			{
-				String SQL = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				String SQL = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement pstmt = con.prepareStatement(SQL);
 				pstmt.setInt(1, id);
 				pstmt.setString(2, user.getUserName());
@@ -579,7 +579,8 @@ public Object logout(Object obj) {
 				pstmt.setString(6, user.getFirstName());
 				pstmt.setString(7, user.getLastName());
 				pstmt.setString(8, user.getEmail());
-				pstmt.setString(9, user.getFirstName());
+				pstmt.setString(9, "profile_picture");
+				pstmt.setInt(10, 0);
 				pstmt.executeUpdate();
 				pstmt.close();
 				return 1;

@@ -99,7 +99,7 @@ public class BookUI extends JPanel {
 				}
 			}
 		});
-		if(UserCT.userCT.userET.getPermission()!=1){
+		if(UserCT.userCT.userET.getConfirm()==1 && UserCT.userCT.userET.getPermission()<6){
 		btnGetbook = new JButton("Get this book");
 		btnGetbook.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnGetbook.setBounds(297, 480, 360, 35);
