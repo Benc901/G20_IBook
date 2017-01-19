@@ -76,7 +76,7 @@ public class IBookServer extends AbstractServer {
 			case "RecoverPassword":
 				display(" : " + op, client);
 				returnObj.put("op", "RecoverPassword");
-				//returnObj.put("obj", sqlCon.recoverPassword(map.get("obj")));				
+				returnObj.put("obj", sqlCon.RecoverPassword(map.get("obj")));				
 				break;	
 			case "Logout":
             	display(" : " + op, client);

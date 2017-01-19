@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -24,10 +25,11 @@ import Views.MainUI;
 import Views.ManagerUI;
 import Views.PublishReviewUI;
 import Views.ReaderUI;
+import Views.RecoverPasswordUI;
 import Views.SearchAdvUI;
 import Views.SearchBookUI;
 import Views.SearchReviewUI;
-
+import Controllers.SendEmail;
 
 
 
@@ -46,6 +48,7 @@ public class UserCT implements Observer, ActionListener {
 	private static PublishReviewUI publishreviewFrame;
 	private static EnablePaymentUI enablepaymentFrame;
 	private static LibririanUI libririanFrame;
+	private static RecoverPasswordUI recoverpasswordFrame;
 	private static ManagerUI managerFrame;
 	public static int port;
 	public  static String host;
@@ -56,7 +59,7 @@ public class UserCT implements Observer, ActionListener {
 		this.port = port;
 		loginFrame = frame;
 		loginFrame.btnLogin.addActionListener((ActionListener) this);
-		
+		loginFrame.btnForgot.addActionListener((ActionListener) this);
 		
 	}
 	public void changeObserver(Observer a,Observer b){
@@ -70,6 +73,21 @@ public class UserCT implements Observer, ActionListener {
 			client = IBookClient.getInstance(host, port);
 			client.addObserver(this);
 			login(loginFrame.getUsername(), loginFrame.getPassword());
+		}
+		if (e.getSource() == loginFrame.btnForgot){
+			host=loginFrame.getIP();
+			client = IBookClient.getInstance(host, port);
+			client.addObserver(this);
+			recoverpasswordFrame=new RecoverPasswordUI();
+			recoverpasswordFrame.btnSend.addActionListener((ActionListener)this);
+			recoverpasswordFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(recoverpasswordFrame);
+		}
+		if (recoverpasswordFrame!=null){
+			if(e.getSource()==recoverpasswordFrame.btnBack)
+				MainUI.MV.setView(loginFrame);
+			if(e.getSource()==recoverpasswordFrame.btnSend)
+				recover();
 		}
 		if(readerFrame!=null){
 			if(e.getSource()==readerFrame.btnLogout){
@@ -203,6 +221,17 @@ public class UserCT implements Observer, ActionListener {
 							
 				}
 				break;
+				
+			case "RecoverPassword":{
+				if(map.get("obj") instanceof Integer)JOptionPane.showMessageDialog(null,"UserName is not exist");
+				else{
+					SendEmail.sendFromGMail("ibookserverg20@gmail.com","g20ibookserver",((UserET)map.get("obj")).getEmail(),"RecoverPassword",((UserET)map.get("obj")).getPassWord());
+					JOptionPane.showMessageDialog(null,"Your password sent to : "+((UserET)map.get("obj")).getEmail());
+					MainUI.MV.setView(loginFrame);
+				}
+				
+				break;
+			}
 
 			case "Logout":
 				if (map.get("obj").equals("User logged out of the system"))
@@ -268,8 +297,20 @@ public class UserCT implements Observer, ActionListener {
 		} else {
 			loginFrame.clearFields();
 		}
-	
 
+	}
+	
+	public void recover(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+			if(recoverpasswordFrame.textField.getText()==""||recoverpasswordFrame.textField.getText()==null)
+			JOptionPane.showMessageDialog(null,"Please fill the field");
+			else{
+				hmap.put("op", "RecoverPassword");
+				hmap.put("obj", new UserET(recoverpasswordFrame.textField.getText(),""));
+				
+				client.handleMessageFromUI(hmap);
+			}
+		
 	}
 	
 	public static void logout()
@@ -315,4 +356,5 @@ public class UserCT implements Observer, ActionListener {
 		hmap.put("us", userET.getId());
 		client.handleMessageFromUI(hmap);
 	}
+
 	}

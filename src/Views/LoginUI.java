@@ -46,6 +46,7 @@ public class LoginUI extends JPanel {
 	public InfiniteProgressPanel smallLoadingAnimation;
 	public WebPopOver popover;
 	private JTextField textFieldPort;
+	public JButton btnForgot;
 
 	
 	public LoginUI(String host,int port) {
@@ -196,13 +197,13 @@ public class LoginUI extends JPanel {
 			}
 		});
 		
-		new UserCT(this,port);
 		
-		JButton btnForgot = new JButton("Forget password");
+		
+		btnForgot = new JButton("Forget password");
 		btnForgot.setEnabled(true);
 		btnForgot.setBounds(346, 424, 163, 53);
 		add(btnForgot);
-		
+		new UserCT(this,port);
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
