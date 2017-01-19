@@ -24,8 +24,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
-import com.alee.laf.button.WebButton;
-
 import Controllers.LibrarianCT;
 import Entities.UserET;
 
@@ -36,12 +34,12 @@ import javax.swing.JProgressBar;
 public class LibririanUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebButton btnCpayment;
+	private JButton btnCpayment;
 	public JButton btnBack;
-	public WebButton btnCstructure;
-	public WebButton btnIupdate;
-	public WebButton btnCreview;
-	public WebButton btnAdduser;
+	public JButton btnCstructure;
+	public JButton btnIupdate;
+	public JButton btnCreview;
+	public JButton btnAdduser;
 	/*
 	 * Create the application.
 	 * @throws URISyntaxException 
@@ -61,16 +59,16 @@ public class LibririanUI extends JPanel {
 		
 		//*** DO NOT DELETE! - END ***//
 		
-		btnAdduser = new WebButton("Add user");
+		btnAdduser = new JButton("Add user");
 		btnAdduser.setBounds(196, 200, 146, 54);
 		add(btnAdduser);
 		
 		
-		btnCpayment = new WebButton("Payment confirmation");
+		btnCpayment = new JButton("Payment confirmation");
 		btnCpayment.setBounds(196, 270, 146, 54);
 		add(btnCpayment);
 		
-		btnCreview = new WebButton("Review confirmation");
+		btnCreview = new JButton("Review confirmation");
 		btnCreview.setBounds(196, 340, 146, 54);
 		add(btnCreview);
 
@@ -80,12 +78,12 @@ public class LibririanUI extends JPanel {
 		lblNewLabel.setBounds(273, 149, 335, 41);
 		add(lblNewLabel);
 		
-		btnIupdate = new WebButton("Inventory update");
+		btnIupdate = new JButton("Inventory update");
 
 		btnIupdate.setBounds(365, 200, 146, 54);
 		add(btnIupdate);
 		
-		btnCstructure = new WebButton("Control structure");
+		btnCstructure = new JButton("Control structure");
 		btnCstructure.setBounds(365, 270, 146, 54);
 		add(btnCstructure);
 		

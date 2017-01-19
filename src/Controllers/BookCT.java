@@ -24,6 +24,8 @@ import Views.GetBookUI;
 import Views.MainUI;
 import Views.SearchAdvUI;
 import Views.SearchBookUI;
+import Views.AddBookUI;
+import Views.*;
 
 public class BookCT implements Observer, ActionListener{
 	
@@ -36,6 +38,7 @@ public class BookCT implements Observer, ActionListener{
 	public ArrayList<BookET> books;
 	public static BookET bookET;
 	public static int flag;
+	
 	
 	public BookCT(SearchBookUI search){
 		this.searchFrame=search;

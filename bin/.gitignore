@@ -3,6 +3,7 @@
 /Entities/
 /Mains/
 /Views/
+<<<<<<< HEAD
 /ben.jpg
 /blurBG.png
 /blurFuelingView.png
@@ -17,7 +18,11 @@
 /graphics/
 /heating_fuel.png
 /heating_fuel2.png
+=======
+/graphics/
+>>>>>>> refs/heads/ori2
 /iBookServer/
+<<<<<<< HEAD
 /ibooktest.sql
 /inventory.png
 /leftarrow.png
@@ -30,6 +35,9 @@
 /order.png
 /ori.jpg
 /profile_picture.png
+=======
+/ocsf/
+>>>>>>> refs/heads/ori2
 /receipt.png
 /receipt2.png
 /refresh.png
