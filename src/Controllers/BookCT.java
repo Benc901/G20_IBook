@@ -121,8 +121,9 @@ public class BookCT implements Observer, ActionListener{
 						}
 					}break;
 				case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
-								else if((int)map.get("obj")==2)JOptionPane.showMessageDialog(null,"Faild,Please renew your subscription");
+								else if((int)map.get("obj")==2)JOptionPane.showMessageDialog(null,"Failed,Please renew your subscription");
 								else if((int)map.get("obj")==3)JOptionPane.showMessageDialog(null,"successful,Your invoice in your box");
+								else if((int)map.get("obj")==4)JOptionPane.showMessageDialog(null,"Failed,You got this book before");
 								else JOptionPane.showMessageDialog(null,"Failed");
 								UserCT.userCT.changeObserver(UserCT.userCT,this);
 								MainUI.MV.setView(UserCT.readerFrame);

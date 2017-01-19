@@ -241,11 +241,19 @@ public Object logout(Object obj) {
 	
 	public int GetBook(UserET user,BookET book){
 		try {
-			
 			PreparedStatement iStmt = con
+					.prepareStatement("SELECT * FROM reader_book WHERE id = ? AND bookId=?");
+			iStmt.setInt(1, user.getId());
+			iStmt.setInt(2, book.getBID());
+			ResultSet rs = iStmt.executeQuery();
+			if (rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+				return 4;
+			}
+			
+			iStmt = con
 					.prepareStatement("SELECT * FROM reader WHERE id = ?");
 			iStmt.setInt(1, user.getId());
-			ResultSet rs = iStmt.executeQuery();
+			rs = iStmt.executeQuery();
 			rs.next();
 			if(rs.getInt(2)==1 && rs.getInt(9)==0) return 2;
 			
