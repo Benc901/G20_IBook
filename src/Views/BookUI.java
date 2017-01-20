@@ -52,28 +52,28 @@ public class BookUI extends JPanel {
 		lblGenere.setBounds(297, 245, 250, 20);
 		add(lblGenere);
 		
-		JLabel lblSubject = new JLabel("Subject: "+book.getBSubject());
-		lblSubject.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSubject.setBounds(297, 276, 250, 20);
-		add(lblSubject);
-		
 		JLabel lblLanguage = new JLabel("Language: "+book.getBLanguage());
 		lblLanguage.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLanguage.setBounds(297, 307, 250, 20);
+		lblLanguage.setBounds(297, 276, 250, 20);
 		add(lblLanguage);
 		
 		JLabel lblSummery = new JLabel("Summery: ");
 		lblSummery.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSummery.setBounds(297, 338, 250, 20);
+		lblSummery.setBounds(297, 307, 127, 20);
 		add(lblSummery);
 		
+		JLabel lblPrice = new JLabel("Price: $"+book.getPrice());
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPrice.setBounds(530, 312, 127, 20);
+		add(lblPrice);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(297, 369, 360, 100);
+		panel.setBounds(297, 338, 360, 131);
 		add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 360, 100);
+		scrollPane.setBounds(0, 0, 360, 131);
 		panel.add(scrollPane);
 		
 		JTextArea textArea = new JTextArea(book.getBSummary());

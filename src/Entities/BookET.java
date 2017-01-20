@@ -18,13 +18,15 @@ public class BookET implements Serializable {
 		private int bHidden;
 		private int bTotalRank;
 		private int bGenreRank;
+		private int price;
 
+		
 		public BookET(){
 			
 		}
 		public BookET(int bID, String bTitle, String bAuthor, String bLanguage, String bSummary, String bContent,
 				String bKeywords,String bGenre, String bSubject, String bPhoto, int bNumOfSearch, int bNumOfPurchace,
-				int bHidden, int bTotalRank, int bGenreRank) {
+				int bHidden, int bTotalRank, int bGenreRank,int price) {
 			super();
 			this.bID = bID;
 			this.bTitle = bTitle;
@@ -41,6 +43,13 @@ public class BookET implements Serializable {
 			this.bHidden = bHidden;
 			this.bTotalRank = bTotalRank;
 			this.bGenreRank = bGenreRank;
+			this.price=price;
+		}
+		public int getPrice() {
+			return price;
+		}
+		public void setPrice(int price) {
+			this.price = price;
 		}
 		public int getBID() {
 			return this.bID;

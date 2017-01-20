@@ -12,12 +12,14 @@ import javax.swing.JOptionPane;
 
 import Entities.BookET;
 import Entities.GenreET;
+import Entities.ReaderET;
 import Entities.UserET;
 import Mains.IBookClient;
 import Views.AddBookUI;
 import Views.AddUserUI;
 import Views.LibririanUI;
 import Views.MainUI;
+import Views.PaymentConfirmationUI;
 import Views.RemoveBookUI;
 import Views.UpdateBookUI;
 import Views.inventoryUpdateUI;
@@ -32,9 +34,11 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static AddBookUI AddBFrame;
 	public static RemoveBookUI RemoveBFrame;
 	public static UpdateBookUI UpdateBFrame;
+	public static PaymentConfirmationUI paymentFrame;
 	public static UserET userET;
 	public static BookET bookET;
 	public static ArrayList<GenreET> genresET;
+	public ArrayList<ReaderET> readers;
 	
 	public LibrarianCT(LibririanUI frame) {
 		// TODO Auto-generated constructor stub
@@ -44,6 +48,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		BringGandS();
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
+		libririanFrame.btnCpayment.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	
@@ -65,6 +70,9 @@ public class LibrarianCT implements Observer, ActionListener{
 			IUpdateFrame.btnRBook.addActionListener((ActionListener)this);
 			IUpdateFrame.btnUBook.addActionListener((ActionListener)this);
 			MainUI.MV.setView(IUpdateFrame);
+		}
+		if(e.getSource()==libririanFrame.btnCpayment){
+			GetPaymentList();
 		}
 		if(IUpdateFrame!=null)
 		{
@@ -125,6 +133,17 @@ public class LibrarianCT implements Observer, ActionListener{
 			if(e.getSource()==adduserFrame.btnAddUser)
 			{
 				AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
+			}
+		}
+		if(paymentFrame!=null){
+			if(e.getSource()==paymentFrame.btnBack){
+				MainUI.MV.setView(libririanFrame);
+			}
+			if(e.getSource()==paymentFrame.btnConfirm){
+				pConfirm(1);
+			}
+			if(e.getSource()==paymentFrame.btnReject){
+				pConfirm(2);
 			}
 		}
 	}
@@ -204,6 +223,29 @@ public class LibrarianCT implements Observer, ActionListener{
 				System.out.println(genresET.size());
 			}
 			break;
+		case "GetPaymentList":
+			readers=(ArrayList<ReaderET>)map.get("obj");
+			String sub=new String();
+			paymentFrame=new PaymentConfirmationUI();
+			paymentFrame.btnBack.addActionListener((ActionListener)this);
+			paymentFrame.btnConfirm.addActionListener((ActionListener)this);
+			paymentFrame.btnReject.addActionListener((ActionListener)this);
+			for(int i=0 ; i<readers.size(); i++){
+				if(readers.get(i).getSubscription()==0) sub="Pay per book";
+				if(readers.get(i).getSubscription()==1) sub="Monthly Subscription";
+				if(readers.get(i).getSubscription()==2) sub="Yearly Subscription";
+				paymentFrame.model.addRow(new Object[] {
+						readers.get(i).getId(),sub,
+						readers.get(i).getCard_num(),readers.get(i).getrId()});
+				}
+			MainUI.MV.setView(paymentFrame);
+			break;
+		case "pConfirm":
+			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.ERROR_MESSAGE);
+			MainUI.MV.setView(libririanFrame);
+			break;
+				
+
 		}
 		
 	}
@@ -271,13 +313,29 @@ public class LibrarianCT implements Observer, ActionListener{
 	}
 	public void AddBook()
 	{
-		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0);
+		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0,Integer.parseInt(AddBFrame.getTxtPrice().getText()));
 		
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "AddBook");
 		hmap.put("obj", NewBookET);
 		
 		client.handleMessageFromUI(hmap);
+	}
+	public void GetPaymentList()
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "GetPaymentList");
+		client.handleMessageFromUI(hmap);
+	}
+	public void pConfirm(int confirm)
+	{
+		int id=(readers.get(paymentFrame.row)).getId();
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "pConfirm");
+		hmap.put("confirm", confirm);
+		hmap.put("id", id);
+		client.handleMessageFromUI(hmap);
+
 	}
 
 }

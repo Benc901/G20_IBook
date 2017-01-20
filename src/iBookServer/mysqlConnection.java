@@ -8,7 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,8 +162,9 @@ public Object logout(Object obj) {
 										rs.getString(8),rs.getString(9),
 										rs.getString(10),rs.getInt(11),
 										rs.getInt(12),rs.getInt(13),
-										rs.getInt(14),rs.getInt(15)
+										rs.getInt(14),rs.getInt(15),rs.getInt(16)
 								));
+							returnObj.get(returnObj.size()-1).setBGenre(BuildStructure(rs.getInt(1)));
 						}
 				}}
 				rs.close();
@@ -257,10 +262,14 @@ public Object logout(Object obj) {
 			rs.next();
 			if(rs.getInt(2)==1 && rs.getInt(9)==0) return 2;
 			
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date date = new Date();
+			String dates=new String(dateFormat.format(date));
 			Statement  rStmt = con.createStatement();
 			rStmt.executeUpdate("INSERT INTO reader_book VALUES ("+user.getId()+","
 															 +book.getBID()+","
-															+"\'"+book.getBTitle()+"\',"+0+")");
+															+"\'"+book.getBTitle()+"\',"+0
+															+",\'"+dates+"\')");
 			display(" Book added to User");
 			
 			PreparedStatement pStmt = con
@@ -515,8 +524,9 @@ public Object logout(Object obj) {
 										rs.getString(8),rs.getString(9),
 										rs.getString(10),rs.getInt(11),
 										rs.getInt(12),rs.getInt(13),
-										rs.getInt(14),rs.getInt(15)
+										rs.getInt(14),rs.getInt(15),rs.getInt(16)
 								));
+							returnObj.get(returnObj.size()-1).setBGenre(BuildStructure(rs.getInt(1)));
 						}
 				}}
 				rs.close();
@@ -527,6 +537,26 @@ public Object logout(Object obj) {
 		}
 				
 		return returnObj;
+	}
+	
+	public String BuildStructure(int bookId){
+		
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT g.title FROM test.pairing p INNER JOIN test.genere g ON p.genere_id=g.id Where p.book_id=?");
+			pStmt.setInt(1, bookId);
+			ResultSet rs = pStmt.executeQuery();
+			rs.next();
+			String genere=new String(rs.getString(1));
+			while(rs.next()){
+				if(!genere.contains(rs.getString(1)))
+						genere=(genere+", "+rs.getString(1));
+			}
+			return genere;
+			} catch (SQLException e) {
+				e.printStackTrace();	
+				return null;
+			}
 	}
 	
 	public void closeSqlConnection(){
@@ -596,7 +626,57 @@ public Object logout(Object obj) {
 		}
 	}
 
-
+	public int ViewBook(int bookId){
+		try{
+			PreparedStatement qStmt = con
+					.prepareStatement("UPDATE books SET numOfSearch = numOfSearch+1 WHERE id = ?");
+				qStmt.setInt(1, bookId);
+				qStmt.executeUpdate();
+				
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	public Object GetPaymentList(){
+		ArrayList<ReaderET> reader=new ArrayList<ReaderET>();
+		try{
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM reader Where confirm=0");
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()){
+				reader.add(new ReaderET(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4), rs.getString(5),
+						rs.getString(6),rs.getString(7),rs.getInt(8), rs.getInt(9)));
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+		return reader;
+	}
+	public int pConfirm(int id,int confirm){
+		try{
+			PreparedStatement qStmt = con
+					.prepareStatement("UPDATE reader SET confirm = ? WHERE id = ?");
+				qStmt.setInt(1, confirm);
+				qStmt.setInt(2, id);
+				qStmt.executeUpdate();
+				if(confirm==1){
+				qStmt = con
+						.prepareStatement("UPDATE user SET confirm = 1 WHERE id = ?");
+					qStmt.setInt(1, id);
+					qStmt.executeUpdate();
+				}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 	
 private void display(String message) {
 	window.display(message);
@@ -617,7 +697,7 @@ public Object BringBook(int Bid) {
 			return 0;
 		}
 		else if(rs.next()){
-			bookET= new BookET(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15));
+			bookET= new BookET(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15),rs.getInt(16));
 			
 			return bookET;	
 		}
@@ -700,7 +780,7 @@ public int AddBook(BookET newBook)
 			id=(int) rs.getObject(1);
 			id+=1;
 			newBook.setBID(id);
-			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, newBook.getBTitle());
@@ -717,6 +797,7 @@ public int AddBook(BookET newBook)
 			pstmt.setInt(13, 0);
 			pstmt.setInt(14, 0);
 			pstmt.setInt(15, 0);
+			pstmt.setInt(16,newBook.getPrice());
 			pstmt.executeUpdate();
 			pstmt.close();
 			PairingBook(newBook);

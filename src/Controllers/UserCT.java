@@ -196,6 +196,7 @@ public class UserCT implements Observer, ActionListener {
 							if(userET.getPermission()==4 || userET.getPermission()==9)
 								readerFrame.wbtnManagerMenu.addActionListener((ActionListener) this);
 							MainUI.MV.setView(readerFrame);
+							if(userET.getPermission()>5)
 							JOptionPane.showMessageDialog(null,
 									"The manager freeze your account,\n you cant get books,\n please contact with lib stuff",
 									"Freeze", JOptionPane.ERROR_MESSAGE);

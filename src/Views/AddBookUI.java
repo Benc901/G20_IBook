@@ -36,7 +36,14 @@ public class AddBookUI extends JPanel {
 	private JComboBox comboBoxGenres;
 	private JComboBox comboBoxSubject;
 	private ArrayList<GenreET> GenresET;
+	private JTextField txtPrice;
 	
+	public JTextField getTxtPrice() {
+		return txtPrice;
+	}
+	public void setTxtPrice(JTextField txtPrice) {
+		this.txtPrice = txtPrice;
+	}
 	public JTextField getTxtTitle() {
 		return txtTitle;
 	}
@@ -115,7 +122,7 @@ public class AddBookUI extends JPanel {
 		add(separator);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(40, 458, 89, 30);
+		btnBack.setBounds(40, 466, 89, 30);
 		add(btnBack);
 		
 		txtTitle = new JTextField();
@@ -230,6 +237,16 @@ public class AddBookUI extends JPanel {
 		lblAddUserTo.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		lblAddUserTo.setBounds(248, 150, 250, 50);
 		add(lblAddUserTo);
+		
+		txtPrice = new JTextField();
+		txtPrice.setColumns(10);
+		txtPrice.setBounds(114, 430, 155, 25);
+		add(txtPrice);
+		
+		JLabel lblPrice = new JLabel("Price:");
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPrice.setBounds(40, 434, 70, 14);
+		add(lblPrice);
 		
 		
 		

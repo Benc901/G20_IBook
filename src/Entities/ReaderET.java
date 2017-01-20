@@ -23,6 +23,18 @@ public class ReaderET extends UserET {
 		this.confirm = confirm;
 		this.book_left = book_left;
 	}
+	public ReaderET(int id, int subscription, String card_num, String valid_m, String valid_y,
+			String cvv, String rId, int confirm, int book_left) {
+		super(id);
+		this.subscription = subscription;
+		this.card_num = card_num;
+		this.valid_m = valid_m;
+		this.valid_y = valid_y;
+		this.cvv = cvv;
+		this.rId = rId;
+		this.confirm = confirm;
+		this.book_left = book_left;
+	}
 
 	public int getSubscription() {
 		return subscription;
