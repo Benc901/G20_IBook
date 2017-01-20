@@ -117,6 +117,31 @@ public Object login(Object obj) {
 		return null;
 		
 	}// End login	
+
+public Object RecoverPassword(Object obj) {
+
+	UserET returnObj=(UserET)obj;
+	try {
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM user WHERE userName=?");
+		pStmt.setString(1, returnObj.getUserName());
+		ResultSet rs = pStmt.executeQuery();
+		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+			// user found).
+			display("Failed recover");
+			return 0;
+		}
+		else{
+			rs.next();
+			returnObj.setEmail(rs.getString(8));
+			returnObj.setPassWord(rs.getString(3));
+		}
+		rs.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return returnObj;
+}
 	
 public Object logout(Object obj) {
 	UserET returnObj = (UserET) obj;
