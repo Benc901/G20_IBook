@@ -29,7 +29,6 @@ public class AddBookUI extends JPanel {
 	private JTextField txtAuthor;
 	private JTextField txtLan;
 	private JTextField txtContent;
-	private JTextField txtBid;
 	private JTextArea txtASummary;
 	private JTextField txtKwords;
 	private JTextField txtPhoto;
@@ -48,9 +47,6 @@ public class AddBookUI extends JPanel {
 	}
 	public JTextField getTxtContent() {
 		return txtContent;
-	}
-	public JTextField getTxtBid() {
-		return txtBid;
 	}
 	public JTextArea getTxtASummary() {
 		return txtASummary;
@@ -81,9 +77,6 @@ public class AddBookUI extends JPanel {
 	}
 	public void setTxtContent(JTextField txtContent) {
 		this.txtContent = txtContent;
-	}
-	public void setTxtBid(JTextField txtBid) {
-		this.txtBid = txtBid;
 	}
 	public void setTxtASummary(JTextArea txtASummary) {
 		this.txtASummary = txtASummary;
@@ -259,5 +252,14 @@ public class AddBookUI extends JPanel {
 		{
 			comboBoxSubject.addItem(g.getSubjectList().get(i).getSubjectTitle());
 		}
+	}
+	public void clearFields()
+	{
+		txtTitle.setText("");
+		txtAuthor.setText("");
+		txtContent.setText("");
+		txtLan.setText("");
+		txtASummary.setText("");
+		txtKwords.setText("");
 	}
 }

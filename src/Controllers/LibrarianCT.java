@@ -92,6 +92,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				AddBFrame=new AddBookUI(genresET);
 				AddBFrame.btnBack.addActionListener((ActionListener)this);
+				AddBFrame.btnAddBook.addActionListener((ActionListener) this);
 				MainUI.MV.setView(AddBFrame);
 			}
 		}
@@ -108,11 +109,14 @@ public class LibrarianCT implements Observer, ActionListener{
 		{
 			if(e.getSource()==RemoveBFrame.btnBack)
 				MainUI.MV.setView(IUpdateFrame);
+			
 		}
 		if(AddBFrame!=null)
 		{
 			if(e.getSource()==AddBFrame.btnBack)
 				MainUI.MV.setView(IUpdateFrame);
+			if(e.getSource()==AddBFrame.btnAddBook)
+				AddBook();
 		}
 		if(adduserFrame!=null){
 		if(e.getSource()==adduserFrame.btnBack){
@@ -201,9 +205,19 @@ public class LibrarianCT implements Observer, ActionListener{
 			else
 			{
 				genresET=(ArrayList<GenreET>)map.get("obj");
-				System.out.println(genresET.size());
 			}
 			break;
+		case "AddBook":
+			if((int)map.get("obj")==1)
+			{
+				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
+				AddBFrame.clearFields();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				AddBFrame.clearFields();
+			}
 		}
 		
 	}
@@ -257,7 +271,6 @@ public class LibrarianCT implements Observer, ActionListener{
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "BringBooks");
-		hmap.put("obj", "");
 		
 		client.handleMessageFromUI(hmap);
 	}

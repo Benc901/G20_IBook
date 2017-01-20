@@ -690,6 +690,7 @@ public int AddBook(BookET newBook)
 		if(rs.next())
 			id=(int) rs.getObject(1);
 			id+=1;
+			System.out.println(id);
 			newBook.setBID(id);
 			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
@@ -710,8 +711,11 @@ public int AddBook(BookET newBook)
 			pstmt.setInt(15, 0);
 			pstmt.executeUpdate();
 			pstmt.close();
-			PairingBook(newBook);
-			return 1;
+			if(PairingBook(newBook))
+			{
+				return 1;
+			}
+			else return -1;
 	}
 	catch(SQLException e)
 	{
@@ -725,18 +729,19 @@ public boolean PairingBook(BookET BookToPair)
 	int Gid=0,Sid=0;
 	try
 	{
-		String SQL="SELECT * FROM test.genere g INNER JOIN test.subject s ON g.id=s.genere_id";
-		PreparedStatement pstmt = con.prepareStatement(SQL);
-		ResultSet rs = pstmt.getResultSet();
+		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM genere g INNER JOIN subject s ON g.id=s.genere_id");
+		ResultSet rs = pstmt.executeQuery();
 		while(rs.next())
 		{
 			if(rs.getString(2).equals(BookToPair.getBGenre()) && rs.getString(5).equals(BookToPair.getBSubject()))
 			{
+				System.out.println("Pairing 2");
 				Sid=rs.getInt(3);
 				Gid=rs.getInt(4);
 			}
 		}
 		String str="INSERT INTO pairing VALUES (?, ?, ?)";
+		pstmt=con.prepareStatement(str);
 		pstmt.setInt(1, BookToPair.getBID());
 		pstmt.setInt(2, Gid);
 		pstmt.setInt(3, Sid);
