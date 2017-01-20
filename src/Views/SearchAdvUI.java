@@ -74,7 +74,6 @@ public class SearchAdvUI extends JPanel {
 		model.addColumn("Name");
 		model.addColumn("Author");
 		model.addColumn("Genre");
-		model.addColumn("Subject");
 		model.addColumn("Language");
 		model.addColumn("Num of");
 		Orderstable = new JTable(model){
@@ -86,8 +85,8 @@ public class SearchAdvUI extends JPanel {
 		Orderstable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		Orderstable.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		Orderstable.setFillsViewportHeight(true);
-		for (int i=0;i<6;i++) Orderstable.getColumnModel().getColumn(i).setPreferredWidth(83);
-		Orderstable.getColumnModel().getColumn(6).setPreferredWidth(112);
+		for (int i=0;i<5;i++) Orderstable.getColumnModel().getColumn(i).setPreferredWidth(83);
+		Orderstable.getColumnModel().getColumn(5).setPreferredWidth(112);
 		
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 12));

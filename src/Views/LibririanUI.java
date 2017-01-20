@@ -34,7 +34,7 @@ import javax.swing.JProgressBar;
 public class LibririanUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton btnCpayment;
+	public JButton btnCpayment;
 	public JButton btnBack;
 	public JButton btnCstructure;
 	public JButton btnIupdate;

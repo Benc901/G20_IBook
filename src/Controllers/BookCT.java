@@ -63,7 +63,7 @@ public class BookCT implements Observer, ActionListener{
 			searchadvFrame.btnSearch.addActionListener((ActionListener)this);
 			MainUI.MV.setView(searchadvFrame);
 		}	
-		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
+		if(bookUI!=null && UserCT.userCT.userET.getConfirm()==1){
 			if(e.getSource()==bookUI.btnGetbook){
 				getbookUI=new GetBookUI();
 				getbookUI.btnBack.addActionListener((ActionListener)this);
@@ -116,13 +116,13 @@ public class BookCT implements Observer, ActionListener{
 						searchFrame.model.addRow(new Object[] {
 								books.get(i).getBID(),books.get(i).getBTitle(),
 								books.get(i).getBAuthor(),books.get(i).getBGenre(),
-								books.get(i).getBSubject(),books.get(i).getBLanguage(),
-								books.get(i).getBNumOfPurchace()});
+								books.get(i).getBLanguage(),books.get(i).getBNumOfPurchace()});
 						}
 					}break;
 				case "GetBook":{if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successful");
-								else if((int)map.get("obj")==2)JOptionPane.showMessageDialog(null,"Faild,Please renew your subscription");
+								else if((int)map.get("obj")==2)JOptionPane.showMessageDialog(null,"Failed,Please renew your subscription");
 								else if((int)map.get("obj")==3)JOptionPane.showMessageDialog(null,"successful,Your invoice in your box");
+								else if((int)map.get("obj")==4)JOptionPane.showMessageDialog(null,"Failed,You got this book before");
 								else JOptionPane.showMessageDialog(null,"Failed");
 								UserCT.userCT.changeObserver(UserCT.userCT,this);
 								MainUI.MV.setView(UserCT.readerFrame);
@@ -139,10 +139,12 @@ public class BookCT implements Observer, ActionListener{
 						searchadvFrame.model.addRow(new Object[] {
 								books.get(i).getBID(),books.get(i).getBTitle(),
 								books.get(i).getBAuthor(),books.get(i).getBGenre(),
-								books.get(i).getBSubject(),books.get(i).getBLanguage(),
-								books.get(i).getBNumOfPurchace()});
+								books.get(i).getBLanguage(),books.get(i).getBNumOfPurchace()});
 						}
 					}break;
+				case "ViewBook":break;
+					
+				
 			
 			}
 			
@@ -187,9 +189,14 @@ public class BookCT implements Observer, ActionListener{
 		this.flag=flag;
 		bookET=books.get(row);
 		bookUI=new BookUI(bookET);
-		if(bookUI!=null && UserCT.userCT.userET.getPermission()!=1){
+		if(bookUI!=null && UserCT.userCT.userET.getConfirm()==1 && UserCT.userCT.userET.getPermission()<5){
 			bookUI.btnGetbook.addActionListener((ActionListener)this);}
 		MainUI.MV.setView(bookUI);
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op","ViewBook");
+		hmap.put("obj",bookET.getBID());
+		client.handleMessageFromUI(hmap);
+		
 	}
 	
 	public void download(){
