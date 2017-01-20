@@ -329,12 +329,15 @@ public class LibrarianCT implements Observer, ActionListener{
 	}
 	public void pConfirm(int confirm)
 	{
+		if(paymentFrame.row<0) JOptionPane.showMessageDialog(null, "please select application", "please select application", JOptionPane.ERROR_MESSAGE);
+		else{
 		int id=(readers.get(paymentFrame.row)).getId();
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "pConfirm");
 		hmap.put("confirm", confirm);
 		hmap.put("id", id);
 		client.handleMessageFromUI(hmap);
+		}
 
 	}
 

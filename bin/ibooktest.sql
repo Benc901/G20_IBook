@@ -47,7 +47,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben',0),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany',1),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori',0),(4,'Gidi','1234',4,0,'Gidi','Buks','Gidi@gmail.com','gidi',0);
+INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben',0),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany',1),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori',1),(4,'Gidi','1234',4,0,'Gidi','Buks','Gidi@gmail.com','gidi',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +74,7 @@ CREATE TABLE `reader` (
 
 LOCK TABLES `reader` WRITE;
 /*!40000 ALTER TABLE `reader` DISABLE KEYS */;
-INSERT INTO `reader` VALUES (3,1,'1234123412341234','02','2018','365','305061632',1,10),(2,1,'5678567856785678','08','2021','899','203484571',1,0),(4,0,'1234123412341234','01','2019','112','253786483',1,0);
+INSERT INTO `reader` VALUES (3,1,'1234123412341234','02','2018','365','305061632',1,10),(2,1,'5678567856785678','08','2021','899','203484571',1,0);
 /*!40000 ALTER TABLE `reader` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +98,7 @@ CREATE TABLE `books` (
   `hidden` int(11) NOT NULL,
   `totalRank` int(11) NOT NULL,
   `genreRank` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -109,15 +110,15 @@ CREATE TABLE `books` (
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
 INSERT INTO `books` VALUES (1,'Robin hobb','Assassins Apprentice','English','Young Fitz is the bastard son of the noble Prince Chivalry, raised in the shadow of the royal court by his father’s gruff stableman. He is treated as an outcast by all the royalty except the devious King Shrewd, who has him secretly tutored in the arts of the assassin. For in Fitz’s blood runs the magic Skill—and the darker knowledge of a child raised with the stable hounds and rejected by his family.
- As barbarous raiders ravage the coasts, Fitz is growing to manhood. Soon he will face his first dangerous, soul-shattering mission. And though some regard him as a threat to the throne, he may just be the key to the survival of the kingdom.','s','keyword','Teen Books','adventure','RobinHobb',1,1,1,1,1),
-(2,'The Hunger Games','Suzanne Collins','English','In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. Long ago the districts waged war on the Capitol and were defeated. As part of the surrender terms, each district agreed to send one boy and one girl to appear in an annual televised event called, "The Hunger Games," a fight to the death on live TV. Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she is forced to represent her district in the Games. The terrain, rules, and level of audience participation may change but one thing is constant: kill or be killed.','s','keyword','Teen Books','adventure','Thehungergames',1,1,0,1,1),
-(3,'Twilight',' Stephenie Meyer','English','Isabella Swans move to Forks, a small, perpetually rainy town in Washington, could have been the most boring move she ever made. But once she meets the mysterious and alluring Edward Cullen, Isabellas life takes a thrilling and terrifying turn. Up until now, Edward has managed to keep his vampire identity a secret in the small community he lives in, but now nobody is safe, especially Isabella, the person Edward holds most dear. The lovers find themselves balanced precariously on the point of a knife-between desire and danger.Deeply romantic and extraordinarily suspenseful, Twilight captures the struggle between defying our instincts and satisfying our desires. This is a love story with bite.','s','keyword','Teen Books','adventure','twilight',1,1,0,1,1),
-(4,'Harry Potter And The Chamber Of Secrets',' J. K. Rowling','English','The Dursleys were so mean that hideous that summer that all Harry Potter wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as hes packing his bags, Harry receives a warning from a strange, impish creature named Dobby who says that if Harry Potter returns to Hogwarts, disaster will strike.And strike it does. For in Harrys second year at Hogwarts, fresh torments and horrors arise, including an outrageously stuck-up new professor, Gilderoy Lockheart, a spirit named Moaning Myrtle who haunts the girls bathroom, and the unwanted attentions of Ron Weasleys younger sister, Ginny.','s','keyword','Teen Books','adventure','Harry',1,1,0,1,1),
-(5,'The Hidden Tools of Comedy',' Steve Kaplan','English','While other books give you tips on how to “write funny,” this book offers a paradigm shift in understanding the mechanics and art of comedy, and the proven, practical tools that help writers translate that understanding into successful, commercial scripts. The Hidden Tools of Comedy unlocks the unique secrets and techniques of writing comedy. Kaplan deconstructs sequences in popular films and TV that work and don’t work, and explains what tools were used (or should have been used).','s','keyword','three','four','Comedy',1,1,0,1,1),
-(6,'My Favorite Husband',' Pam McCutcheon','English','After five years of being lost in the Amazon, archaeologist Chaz Vincent has finally come home to his wife, Kelly, only to learn that she has had him declared dead. When he attends his own funeral, Chaz finds out that Kelly married another man just that morning. Now she has to choose between them. Who will be her favorite husband? ','s','keyword','three','four','Romance',1,1,0,1,1),
-(7,'The unsolved mysteries',' Muhammad Asim ','English','It’s the human nature to look always through the close doors, to unveil the golden secret and to uncover the hidden truth. That’s what our ancestors did and that’s what we are doing. The human race has faced hundreds of unknown phenomena in their entire history, some of which were solved by the great and intelligent minds of mankind while other are still unsolved to date.','s','keyword','three','four','history',1,1,0,1,1),
-(8,'The Secret Price of History',' Gayle Ridinger','English','1850s Rome. Goffredo, Sandor, and Eleonora, selfless idealists fighting for Italian unification, find a medallion after a violent face-off with French soldiers during the battle that temporarily dashes all hopes for the fledging Italian Republic. ','s','keyword','three','four','history2',1,1,1,1,1),
-(9,'A Brief History of Time',' Stephen Hawking','English','A landmark volume in science writing by one of the great minds of our time, Stephen Hawking’s book explores such profound questions as: How did the universe begin—and what made its start possible? Does time always flow forward? Is the universe unending—or are there boundaries? Are there other dimensions in space? What will happen when it all ends?','s','keyword','Science','Math','Math',1,1,0,1,1);
+ As barbarous raiders ravage the coasts, Fitz is growing to manhood. Soon he will face his first dangerous, soul-shattering mission. And though some regard him as a threat to the throne, he may just be the key to the survival of the kingdom.','s','keyword','Teen Books','adventure','RobinHobb',1,1,1,1,1,10),
+(2,'The Hunger Games','Suzanne Collins','English','In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. Long ago the districts waged war on the Capitol and were defeated. As part of the surrender terms, each district agreed to send one boy and one girl to appear in an annual televised event called, "The Hunger Games," a fight to the death on live TV. Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she is forced to represent her district in the Games. The terrain, rules, and level of audience participation may change but one thing is constant: kill or be killed.','s','keyword','Teen Books','adventure','Thehungergames',1,1,0,1,1,10),
+(3,'Twilight',' Stephenie Meyer','English','Isabella Swans move to Forks, a small, perpetually rainy town in Washington, could have been the most boring move she ever made. But once she meets the mysterious and alluring Edward Cullen, Isabellas life takes a thrilling and terrifying turn. Up until now, Edward has managed to keep his vampire identity a secret in the small community he lives in, but now nobody is safe, especially Isabella, the person Edward holds most dear. The lovers find themselves balanced precariously on the point of a knife-between desire and danger.Deeply romantic and extraordinarily suspenseful, Twilight captures the struggle between defying our instincts and satisfying our desires. This is a love story with bite.','s','keyword','Teen Books','adventure','twilight',1,1,0,1,1,10),
+(4,'Harry Potter And The Chamber Of Secrets',' J. K. Rowling','English','The Dursleys were so mean that hideous that summer that all Harry Potter wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as hes packing his bags, Harry receives a warning from a strange, impish creature named Dobby who says that if Harry Potter returns to Hogwarts, disaster will strike.And strike it does. For in Harrys second year at Hogwarts, fresh torments and horrors arise, including an outrageously stuck-up new professor, Gilderoy Lockheart, a spirit named Moaning Myrtle who haunts the girls bathroom, and the unwanted attentions of Ron Weasleys younger sister, Ginny.','s','keyword','Teen Books','adventure','Harry',1,1,0,1,1,10),
+(5,'The Hidden Tools of Comedy',' Steve Kaplan','English','While other books give you tips on how to “write funny,” this book offers a paradigm shift in understanding the mechanics and art of comedy, and the proven, practical tools that help writers translate that understanding into successful, commercial scripts. The Hidden Tools of Comedy unlocks the unique secrets and techniques of writing comedy. Kaplan deconstructs sequences in popular films and TV that work and don’t work, and explains what tools were used (or should have been used).','s','keyword','three','four','Comedy',1,1,0,1,1,10),
+(6,'My Favorite Husband',' Pam McCutcheon','English','After five years of being lost in the Amazon, archaeologist Chaz Vincent has finally come home to his wife, Kelly, only to learn that she has had him declared dead. When he attends his own funeral, Chaz finds out that Kelly married another man just that morning. Now she has to choose between them. Who will be her favorite husband? ','s','keyword','three','four','Romance',1,1,0,1,1,10),
+(7,'The unsolved mysteries',' Muhammad Asim ','English','It’s the human nature to look always through the close doors, to unveil the golden secret and to uncover the hidden truth. That’s what our ancestors did and that’s what we are doing. The human race has faced hundreds of unknown phenomena in their entire history, some of which were solved by the great and intelligent minds of mankind while other are still unsolved to date.','s','keyword','three','four','history',1,1,0,1,1,10),
+(8,'The Secret Price of History',' Gayle Ridinger','English','1850s Rome. Goffredo, Sandor, and Eleonora, selfless idealists fighting for Italian unification, find a medallion after a violent face-off with French soldiers during the battle that temporarily dashes all hopes for the fledging Italian Republic. ','s','keyword','three','four','history2',1,1,1,1,1,10),
+(9,'A Brief History of Time',' Stephen Hawking','English','A landmark volume in science writing by one of the great minds of our time, Stephen Hawking’s book explores such profound questions as: How did the universe begin—and what made its start possible? Does time always flow forward? Is the universe unending—or are there boundaries? Are there other dimensions in space? What will happen when it all ends?','s','keyword','Science','Math','Math',1,1,0,1,1,10);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,6 +131,7 @@ CREATE TABLE `reader_book` (
   `bookId` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
   `review` int(11) NOT NULL,
+  `date` varchar(45) NOT NULL,
   PRIMARY KEY (`id`,`bookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -140,7 +142,7 @@ CREATE TABLE `reader_book` (
 
 LOCK TABLES `reader_book` WRITE;
 /*!40000 ALTER TABLE `reader_book` DISABLE KEYS */;
-INSERT INTO `reader_book` VALUES (2,1,'Robin hobb',0),(2,2,'The Hunger Games',0),(2,3,'Twilight',1);
+INSERT INTO `reader_book` VALUES (2,1,'Robin hobb',0,'02/01/2017'),(2,2,'The Hunger Games',0,'02/01/2017'),(2,3,'Twilight',1,'02/01/2017');
 /*!40000 ALTER TABLE `reader_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
