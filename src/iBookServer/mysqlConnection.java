@@ -804,7 +804,6 @@ public int AddBook(BookET newBook)
 		if(rs.next())
 			id=(int) rs.getObject(1);
 			id+=1;
-			System.out.println(id);
 			newBook.setBID(id);
 			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
@@ -850,7 +849,6 @@ public boolean PairingBook(BookET BookToPair)
 		{
 			if(rs.getString(2).equals(BookToPair.getBGenre()) && rs.getString(5).equals(BookToPair.getBSubject()))
 			{
-				System.out.println("Pairing 2");
 				Sid=rs.getInt(3);
 				Gid=rs.getInt(4);
 			}
@@ -926,4 +924,52 @@ public int EditReview(int id,String review){
 	}
 	return 1;
 }
+public Object BringArrayBooks()
+{
+	ArrayList<BookET> booksET = new ArrayList<BookET>();
+	try
+	{
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM books");
+		ResultSet rs = pStmt.executeQuery();
+		//pStmt.close();
+		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No user
+			// found).
+			display("no books in DB.");
+			return 0;
+		}
+		else {
+			while(rs.next())
+			{
+				booksET.add(new BookET(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15),rs.getInt(16)));	
+		    }
+			return booksET;
+		}
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+}
+public int DeleteBook(int Bid)
+{
+	System.out.println(Bid);
+	try
+	{
+			PreparedStatement qStmt = con.prepareStatement("DELETE FROM books WHERE id = ?");
+			qStmt.setInt(1, Bid);
+			qStmt.executeUpdate();
+			qStmt = con.prepareStatement("DELETE FROM pairing WHERE book_id = ?");
+			qStmt.setInt(1, Bid);
+			qStmt.executeUpdate();
+			return 1;
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+}
+
 }

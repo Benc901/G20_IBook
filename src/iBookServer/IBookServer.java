@@ -192,6 +192,21 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "EditReview");
 				returnObj.put("obj", sqlCon.EditReview((int)map.get("id"),(String)map.get("review")));
 				break;
+			case "BringBooks":
+				display(" : " + op, client);
+				returnObj.put("op", "BringBooks");
+				returnObj.put("obj", sqlCon.BringArrayBooks());
+				break;
+			case "DeleteBook":
+				display(" : " + op, client);
+				returnObj.put("op", "DeleteBook");
+				returnObj.put("obj", sqlCon.DeleteBook((int)map.get("obj")));
+				break;
+			case "PairBook":
+				display(" : " + op, client);
+				returnObj.put("op", "PairBook");
+				returnObj.put("obj", sqlCon.PairingBook((BookET)map.get("obj")));
+				break;
 		}
 		
 		try {
