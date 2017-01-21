@@ -13,11 +13,13 @@ public class BookET implements Serializable {
 		private String bGenre;
 		private String bSubject;
 		private String bPhoto;
+		private String bPurchaseDate;
 		private int bNumOfSearch;
 		private int bNumOfPurchace;
 		private int bHidden;
 		private int bTotalRank;
 		private int bGenreRank;
+
 
 		public BookET(){
 			
@@ -41,6 +43,11 @@ public class BookET implements Serializable {
 			this.bHidden = bHidden;
 			this.bTotalRank = bTotalRank;
 			this.bGenreRank = bGenreRank;
+		}
+		public BookET(int bID, String bTitle, String purchaseDate) {
+			this.bID = bID;
+			this.bTitle = bTitle;
+			this.bPurchaseDate = purchaseDate;
 		}
 		public int getBID() {
 			return this.bID;
@@ -160,6 +167,12 @@ public class BookET implements Serializable {
 
 		public void setBGenreRank(int bGenreRank) {
 			this.bGenreRank = bGenreRank;
+		}
+		public String getbPurchaseDate() {
+			return bPurchaseDate;
+		}
+		public void setbPurchaseDate(String bPurchaseDate) {
+			this.bPurchaseDate = bPurchaseDate;
 		}
 
 }

@@ -466,6 +466,33 @@ public Object logout(Object obj) {
 		}
 	}
 	
+	public ArrayList<BookET> UserReport(String userId){
+		ArrayList<BookET> returnObj = new ArrayList<BookET>();
+		try {
+			PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM test.reader_book WHERE id = ? ");
+			pStmt.setString(1, userId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+			// user found).
+				display("The user does not purchased books yet");
+				return null;
+			}
+			else{
+				while(rs.next())
+						returnObj.add(new BookET(rs.getInt(1),
+									/*rs.getString(2)*/"Change Here",rs.getString(3)));
+			}
+			
+			rs.close();
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnObj;
+	}
+	
 	public void closeSqlConnection(){
 
 		

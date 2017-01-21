@@ -38,7 +38,7 @@ public class ManagerUI extends JPanel {
 	public WebButton btnCpermission;
 	public WebButton btnThidebook;
 	public WebButton btnPbook;
-	public WebButton btnPreport;
+	public WebButton btnUreport;
 	public WebButton btnAFreezing;
 	/*
 	 * Create the application.
@@ -59,9 +59,10 @@ public class ManagerUI extends JPanel {
 		
 		//*** DO NOT DELETE! - END ***//
 		
-		btnPreport = new WebButton("Periodic report");
-		btnPreport.setBounds(196, 200, 146, 54);
-		add(btnPreport);
+		btnUreport = new WebButton("User report");
+		btnUreport.setText("User report");
+		btnUreport.setBounds(196, 200, 146, 54);
+		add(btnUreport);
 		
 		
 		btnBreport = new WebButton("Book report");

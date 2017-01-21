@@ -2,6 +2,7 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -9,12 +10,15 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
+import Entities.BookET;
+import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.AccountFreezUI;
 import Views.ChangingPermissionUI;
 import Views.HideBookUI;
 import Views.MainUI;
 import Views.ManagerUI;
+import Views.UserReportUI;
 
 public class ManagerCT implements Observer, ActionListener {
 	public static ManagerUI managerFrame;
@@ -23,6 +27,7 @@ public class ManagerCT implements Observer, ActionListener {
 	public static HideBookUI hidebookFrame;
 	public static AccountFreezUI accountfreezFrame;
 	public static ChangingPermissionUI changingpermissionFrame;
+	public static UserReportUI userreportFrame;
 	
 	public ManagerCT(ManagerUI manager){
 		this.managerFrame = manager;
@@ -32,9 +37,12 @@ public class ManagerCT implements Observer, ActionListener {
 		managerFrame.btnThidebook.addActionListener((ActionListener)this);
 		managerFrame.btnAFreezing.addActionListener((ActionListener)this);
 		managerFrame.btnCpermission.addActionListener((ActionListener)this);
+		managerFrame.btnUreport.addActionListener((ActionListener)this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		/*********************************************************************/
 		if(e.getSource()==managerFrame.btnThidebook){
 			hidebookFrame = new HideBookUI();
 			hidebookFrame.btnHide.addActionListener((ActionListener)this);
@@ -53,6 +61,9 @@ public class ManagerCT implements Observer, ActionListener {
 				HideBook(0);
 			}
 		}
+		
+		/*********************************************************************/
+		
 		else if(e.getSource()==managerFrame.btnAFreezing){
 			accountfreezFrame = new AccountFreezUI();
 			accountfreezFrame.btnFreeze.addActionListener((ActionListener)this);
@@ -72,6 +83,9 @@ public class ManagerCT implements Observer, ActionListener {
 
 			}
 		}
+		
+		/*********************************************************************/
+		
 		else if(e.getSource()==managerFrame.btnCpermission){
 			changingpermissionFrame = new ChangingPermissionUI();
 			changingpermissionFrame.btnChange.addActionListener((ActionListener)this);
@@ -87,6 +101,22 @@ public class ManagerCT implements Observer, ActionListener {
 			}
 		}
 		
+		/*********************************************************************/
+		
+		else if(e.getSource()==managerFrame.btnUreport){
+			userreportFrame = new UserReportUI();
+			userreportFrame.btnShowReport.addActionListener((ActionListener)this);
+			userreportFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(userreportFrame);
+		}
+		else if(userreportFrame!=null){
+			if(e.getSource()==userreportFrame.btnBack){
+				MainUI.MV.setView(managerFrame);
+			}
+			else if(e.getSource()==userreportFrame.btnShowReport){
+				showUserReport();
+			}
+		}
 	}
 
 	@Override
@@ -144,9 +174,33 @@ public class ManagerCT implements Observer, ActionListener {
 					MainUI.MV.setView(managerFrame);
 				}
 				break;
+			case "UserReport":
+				
+					if(map.get("obj") == null){
+						if (userreportFrame.model.getRowCount() > 0) {
+		                    for (int i = userreportFrame.model.getRowCount() - 1; i > -1; i--)
+		                    	userreportFrame.model.removeRow(i);
+		                }
+						JOptionPane.showMessageDialog(null,"The user does not purchased books yet");	
+					}
+				
+				if (userreportFrame.model.getRowCount() > 0) {
+                    for (int i = userreportFrame.model.getRowCount() - 1; i > -1; i--) {
+                    	userreportFrame.model.removeRow(i);
+                    }
+                }
+				if((ArrayList<BookET>)map.get("obj") instanceof ArrayList<?>){
+					ArrayList<BookET> books = (ArrayList<BookET>)map.get("obj");
+					for(int i=0 ; i<books.size(); i++){
+						userreportFrame.model.addRow(new Object[] {
+							books.get(i).getBID(),books.get(i).getBTitle(),
+							books.get(i).getbPurchaseDate()});
+					}
+				}
+				break;
 			}
-		}
 		
+		}
 	}
 	
 	public void HideBook(int choice){
@@ -175,6 +229,14 @@ public class ManagerCT implements Observer, ActionListener {
 
 		client.handleMessageFromUI(hmap);
 		
+	}
+	
+	public void showUserReport(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "UserReport");
+		hmap.put("obj", userreportFrame.textField.getText());
+
+		client.handleMessageFromUI(hmap);
 	}
 
 }

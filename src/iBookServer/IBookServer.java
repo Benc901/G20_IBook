@@ -138,6 +138,11 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "ChangePermission");
 				returnObj.put("obj", sqlCon.ChangePermission((String)map.get("obj"),(int)map.get("newPer")));	
 				break;	
+			case "UserReport":
+				display(" : " + op, client);
+				returnObj.put("op", "UserReport");
+				returnObj.put("obj", sqlCon.UserReport((String)map.get("obj")));	
+				break;	
 		}
 		
 		try {

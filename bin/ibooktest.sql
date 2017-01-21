@@ -235,7 +235,7 @@ CREATE TABLE `pairing` (
 
 LOCK TABLES `pairing` WRITE;
 /*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
-INSERT INTO `pairing` VALUES (1,1,1),(2,1,3),(3,1,2),(4,1,1),(5,3,9),(6,1,1),(7,1,1),(8,1,1),(9,1,1);
+INSERT INTO `pairing` VALUES (1,2,2),(1,1,1),(2,1,3),(2,1,2),(3,1,2),(4,1,1),(5,3,9),(6,1,1),(7,1,1),(8,1,1),(9,1,1);
 /*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
 UNLOCK TABLES;
 
