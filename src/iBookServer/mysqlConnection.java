@@ -387,8 +387,8 @@ public Object logout(Object obj) {
 			pStmt.setInt(1, review.getBookId());
 			rs = pStmt.executeQuery();
 			if(rs.next()){
-				reviewET.setAuthor(rs.getString(4));
-				reviewET.setBookphoto(rs.getString(8));
+				reviewET.setAuthor(rs.getString(3));
+				reviewET.setBookphoto(rs.getString(10));
 			}
 			Statement  rStmt = con.createStatement();
 			rStmt.executeUpdate("INSERT INTO review VALUES ("+(id+1)+","
@@ -870,6 +870,60 @@ public boolean PairingBook(BookET BookToPair)
 		return false;
 	}
 }
+public Object GetReviewList(){
+	ArrayList<ReviewET> review=new ArrayList<ReviewET>();
+	try{
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM review Where confirm=0");
+		ResultSet rs = pStmt.executeQuery();
+		while(rs.next()){
+			review.add(
+					new ReviewET(rs.getInt(1),
+							rs.getInt(2),rs.getString(3),
+							rs.getString(4),rs.getInt(5),
+							rs.getString(6),rs.getString(7),
+							rs.getString(8),rs.getString(9),rs.getInt(10),
+							rs.getInt(11)	,rs.getInt(12)
+					));
+		}
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+	return review;
 }
-
-
+public int rConfirm(int id,int confirm){
+	try{
+		PreparedStatement qStmt = con
+				.prepareStatement("UPDATE review SET confirm = ? WHERE id = ?");
+			qStmt.setInt(1, confirm);
+			qStmt.setInt(2, id);
+			qStmt.executeUpdate();
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+	return 1;
+}
+public int EditReview(int id,String review){
+	try{
+		PreparedStatement qStmt = con
+				.prepareStatement("UPDATE review SET review = ? WHERE id = ?");
+			qStmt.setString(1, review);
+			qStmt.setInt(2, id);
+			qStmt.executeUpdate();
+			
+			qStmt = con
+					.prepareStatement("UPDATE review SET confirm = 1 WHERE id = ?");
+				qStmt.setInt(1, id);
+				qStmt.executeUpdate();
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+	return 1;
+}
+}

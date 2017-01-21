@@ -13,14 +13,17 @@ import javax.swing.JOptionPane;
 import Entities.BookET;
 import Entities.GenreET;
 import Entities.ReaderET;
+import Entities.ReviewET;
 import Entities.UserET;
 import Mains.IBookClient;
 import Views.AddBookUI;
 import Views.AddUserUI;
+import Views.EditReviewUI;
 import Views.LibririanUI;
 import Views.MainUI;
 import Views.PaymentConfirmationUI;
 import Views.RemoveBookUI;
+import Views.ReviewConfirmationUI;
 import Views.UpdateBookUI;
 import Views.inventoryUpdateUI;
 
@@ -35,10 +38,13 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static RemoveBookUI RemoveBFrame;
 	public static UpdateBookUI UpdateBFrame;
 	public static PaymentConfirmationUI paymentFrame;
+	public static ReviewConfirmationUI reviewFrame;
+	public static EditReviewUI editFrame;
 	public static UserET userET;
 	public static BookET bookET;
 	public static ArrayList<GenreET> genresET;
 	public ArrayList<ReaderET> readers;
+	public ArrayList<ReviewET> reviews;
 	
 	public LibrarianCT(LibririanUI frame) {
 		// TODO Auto-generated constructor stub
@@ -49,6 +55,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
 		libririanFrame.btnCpayment.addActionListener((ActionListener)this);
+		libririanFrame.btnCreview.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	
@@ -73,6 +80,9 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(e.getSource()==libririanFrame.btnCpayment){
 			GetPaymentList();
+		}
+		if(e.getSource()==libririanFrame.btnCreview){
+			GetReviewList();
 		}
 		if(IUpdateFrame!=null)
 		{
@@ -148,6 +158,24 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			if(e.getSource()==paymentFrame.btnReject){
 				pConfirm(2);
+			}
+		}
+		if(reviewFrame!=null){
+			if(e.getSource()==reviewFrame.btnBack){
+				MainUI.MV.setView(libririanFrame);
+			}
+			if(e.getSource()==reviewFrame.btnConfirm){
+				rConfirm(1);
+			}
+			if(e.getSource()==reviewFrame.btnEdit){
+				if(reviewFrame.row<0) JOptionPane.showMessageDialog(null, "please select application", "please select application", JOptionPane.ERROR_MESSAGE);
+				else{
+				editFrame=new EditReviewUI(reviews.get(reviewFrame.row));
+				MainUI.MV.setView(editFrame);
+				}
+			}
+			if(e.getSource()==reviewFrame.btnReject){
+				rConfirm(2);
 			}
 		}
 	}
@@ -256,13 +284,35 @@ public class LibrarianCT implements Observer, ActionListener{
 			MainUI.MV.setView(paymentFrame);
 			break;
 		case "pConfirm":
-			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.ERROR_MESSAGE);
 			MainUI.MV.setView(libririanFrame);
+			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		case "GetReviewList":
+			reviews=(ArrayList<ReviewET>)map.get("obj");
+			reviewFrame=new ReviewConfirmationUI();
+			reviewFrame.btnBack.addActionListener((ActionListener)this);
+			reviewFrame.btnConfirm.addActionListener((ActionListener)this);
+			reviewFrame.btnReject.addActionListener((ActionListener)this);
+			reviewFrame.btnEdit.addActionListener((ActionListener)this);
+			for(int i=0 ; i<reviews.size(); i++){
+				reviewFrame.model.addRow(new Object[] {
+						reviews.get(i).getBookName(),reviews.get(i).getUserName(),
+						reviews.get(i).getRate(),reviews.get(i).getReview()});
+				}
+			MainUI.MV.setView(reviewFrame);
+			break;
+		case "rConfirm":
+			MainUI.MV.setView(libririanFrame);
+			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		case "EditReview":
+			MainUI.MV.setView(libririanFrame);
+			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		}
-		
+		}
 	}
-	}
+	
 	public void BringBook(int Bid)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -351,6 +401,33 @@ public class LibrarianCT implements Observer, ActionListener{
 		client.handleMessageFromUI(hmap);
 		}
 
+	}
+	public void GetReviewList()
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "GetReviewList");
+		client.handleMessageFromUI(hmap);
+	}
+	public void rConfirm(int confirm)
+	{
+		if(reviewFrame.row<0) JOptionPane.showMessageDialog(null, "please select application", "please select application", JOptionPane.ERROR_MESSAGE);
+		else{
+		int id=(reviews.get(reviewFrame.row)).getId();
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "rConfirm");
+		hmap.put("confirm", confirm);
+		hmap.put("id", id);
+		client.handleMessageFromUI(hmap);
+		}
+
+	}
+	public void	EditReview(ReviewET review)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "EditReview");
+		hmap.put("review", review.getReview());
+		hmap.put("id", review.getId());
+		client.handleMessageFromUI(hmap);
 	}
 
 }
