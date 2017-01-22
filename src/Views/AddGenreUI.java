@@ -17,7 +17,10 @@ public class AddGenreUI extends JPanel{
 	private JTextField txtGenreName;
 	public JButton btnAdd;
 	
-	
+	public String getGenreTitle()
+	{
+		return this.txtGenreName.getText();
+	}
 	public AddGenreUI() {
 		// TODO Auto-generated constructor stub
 		//*** DO NOT DELETE! ***//
@@ -56,5 +59,8 @@ public class AddGenreUI extends JPanel{
 				lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 				add(lblBackground);
 	}
-	
+	public void clearFields()
+	{
+		this.txtGenreName.setText("");
+	}
 }

@@ -84,7 +84,6 @@ public class PairingBookUI extends JPanel{
 	{
 		GenresET=genresET;
 		books=booksET;
-		System.out.println(books.size()+"=");
 		//*** DO NOT DELETE! ***//
 	
 		setBackground(new Color(153, 204, 204));

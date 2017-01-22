@@ -14,9 +14,7 @@ import java.util.Map;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import Entities.BookET;
-import Entities.ReviewET;
-import Entities.UserET;
+import Entities.*;
 import iBookServer.serverUI;
 import ocsf.server.*;
 
@@ -206,6 +204,26 @@ public class IBookServer extends AbstractServer {
 				display(" : " + op, client);
 				returnObj.put("op", "PairBook");
 				returnObj.put("obj", sqlCon.PairingBook((BookET)map.get("obj")));
+				break;
+			case "AddGenre": 
+				display(" : " + op, client);
+				returnObj.put("op", "AddGenre");
+				returnObj.put("obj", sqlCon.AddGenre((GenreET)map.get("obj")));
+				break;
+			case "AddSubject":
+				display(" : " + op, client);
+				returnObj.put("op", "AddSubject");
+				returnObj.put("obj", sqlCon.AddSubject((SubjectET)map.get("obj")));
+				break;
+			case "RemoveGenre":
+				display(" : " + op, client);
+				returnObj.put("op", "RemoveGenre");
+				returnObj.put("obj", sqlCon.RemoveGenre((int)map.get("obj")));
+				break;
+			case "RemoveSubject":
+				display(" : " + op, client);
+				returnObj.put("op", "RemoveSubject");
+				returnObj.put("obj", sqlCon.RemoveSubject((HashMap<String, Object>) map.get("obj")));
 				break;
 		}
 		

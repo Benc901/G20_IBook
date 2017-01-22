@@ -32,6 +32,10 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static PairingBookUI PairingFrame;
 	public static SettingDivisionUI SDivisionFrame;
 	public static AddGenreUI AddGenreFrame;
+	public static AddSubjectUI AddSubjectFrame;
+	public static RemoveGenreUI RemoveGenreFrame;
+	public static RemoveSubjectUI RemoveSubjectFrame;
+	
 	public static UserET userET;
 	public static BookET bookET;
 	public static ArrayList<GenreET> genresET;
@@ -116,15 +120,59 @@ public class LibrarianCT implements Observer, ActionListener{
 				AddGenreFrame.btnBack.addActionListener((ActionListener)this);
 				MainUI.MV.setView(AddGenreFrame);
 			}
+			if(e.getSource()==SDivisionFrame.btnAddSubject)
+			{
+				AddSubjectFrame = new AddSubjectUI(genresET);
+				AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
+				AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
+				MainUI.MV.setView(AddSubjectFrame);
+			}
+			if(e.getSource()==SDivisionFrame.btnRGenre)
+			{
+				RemoveGenreFrame = new RemoveGenreUI(genresET);
+				RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
+				RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
+				MainUI.MV.setView(RemoveGenreFrame);
+			}
+			if(e.getSource()==SDivisionFrame.btnRSubject)
+			{
+				RemoveSubjectFrame = new RemoveSubjectUI(genresET);
+				RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
+				RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
+				MainUI.MV.setView(RemoveSubjectFrame);
+			}
+		}
+		if(RemoveSubjectFrame!=null)
+		{
+			if(e.getSource()==RemoveSubjectFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==RemoveSubjectFrame.btnRemove)
+				RemoveSubject(RemoveSubjectFrame.getComboBoxGenres().getSelectedIndex()+1,(String) RemoveSubjectFrame.getComboBoxSubject().getSelectedItem());
+		}
+		if(RemoveGenreFrame!=null)
+		{
+			if(e.getSource()==RemoveGenreFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==RemoveGenreFrame.btnRemove)
+				RemoveGenre(RemoveGenreFrame.getComboBoxGenres().getSelectedIndex()+1);
+		}
+		if(AddSubjectFrame!=null)
+		{
+			if(e.getSource()==AddSubjectFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==AddSubjectFrame.btnAdd)
+			{
+				AddSubject(new SubjectET(0, AddSubjectFrame.getSubjectTitle(), (AddSubjectFrame.getComboBoxGenres().getSelectedIndex())+1));
+			}
 		}
 		if(AddGenreFrame!=null)
 		{
 			if(e.getSource()==AddGenreFrame.btnBack)
 				MainUI.MV.setView(SDivisionFrame);
-			/*if(e.getSource()==AddGenreFrame.btnAdd)
+			if(e.getSource()==AddGenreFrame.btnAdd)
 			{
-				
-			}*/
+				AddGenre(new GenreET(0,AddGenreFrame.getGenreTitle()));
+			}
 		}
 		if(PairingFrame!=null)
 		{
@@ -395,6 +443,69 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.clearFields();	
 			}
 			break;
+		case "AddGenre":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				AddGenreFrame.clearFields();	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "The Genre already in DB", "The Genre already in DB", JOptionPane.INFORMATION_MESSAGE);
+				AddGenreFrame.clearFields();	
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "Insert Genre to DB", "Insert Genre to DB", JOptionPane.INFORMATION_MESSAGE);
+				AddGenreFrame.clearFields();
+			}
+			break;
+		case "AddSubject":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				AddSubjectFrame.clearFields();	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "The Subject already in DB", "The Subject already in DB", JOptionPane.INFORMATION_MESSAGE);
+				AddSubjectFrame.clearFields();	
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "Insert Subject to DB", "Insert Subject to DB", JOptionPane.INFORMATION_MESSAGE);
+				AddSubjectFrame.clearFields();
+				
+			}
+			break;
+		case "RemoveGenre":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "This Genre has subject/s attached in DB! ", "This Genre has subject/s attached in DB! ", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "The genre delete from DB", "The genre delete from DB", JOptionPane.INFORMATION_MESSAGE);
+			}
+			break;
+		case "RemoveSubject":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "There is a book attached only to this subject! ", "There is a book attached only to this subject! ", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
+			}
+			break;
 		}
 		}
 	}
@@ -526,6 +637,42 @@ public class LibrarianCT implements Observer, ActionListener{
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "PairBook");
 		hmap.put("obj", NewBookET);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void AddGenre(GenreET Newgenre)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "AddGenre");
+		hmap.put("obj", Newgenre);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void AddSubject(SubjectET Newsubject)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "AddSubject");
+		hmap.put("obj", Newsubject);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void RemoveGenre(int Gid)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "RemoveGenre");
+		hmap.put("obj", Gid);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void RemoveSubject(int GTitle,String STitle)
+	{
+		Map<Integer,Object> Titles = new HashMap<Integer,Object>();
+		Titles.put(1,GTitle);
+		Titles.put(2,STitle);
+		
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "RemoveSubject");
+		hmap.put("obj", Titles);
 		
 		client.handleMessageFromUI(hmap);
 	}
