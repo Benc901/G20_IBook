@@ -154,11 +154,11 @@ public class ManagerCT implements Observer, ActionListener {
 		/*********************************************************************/
 		
 		else if(e.getSource()==managerFrame.btnPbook){
-			bookreportFrame = new BookReportUI();
-			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
-			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);
-			bookreportFrame.btnBack.addActionListener((ActionListener)this);
-			MainUI.MV.setView(bookreportFrame);
+			bookpopularityFrame = new BookPopularityUI();
+			bookpopularityFrame.btnByPurchases.addActionListener((ActionListener)this);
+			bookpopularityFrame.btnBySearches.addActionListener((ActionListener)this);
+			bookpopularityFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(bookpopularityFrame);
 		}
 		else if(bookreportFrame!=null){
 			if(e.getSource()==bookreportFrame.btnBack){
