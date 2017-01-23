@@ -42,6 +42,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	public ArrayList<ReaderET> readers;
 	public ArrayList<ReviewET> reviews;
 	public static ArrayList<BookET> BooksET;
+	int check=0;
 	
 	/**
 	 * @param frame
@@ -51,7 +52,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		librarianCT=this;
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
-		BringGandS();
+		
 		BringBooks();
 		libririanFrame.btnCstructure.addActionListener((ActionListener)this);
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
@@ -73,12 +74,9 @@ public class LibrarianCT implements Observer, ActionListener{
 			MainUI.MV.setView(adduserFrame);
 		}
 		if(e.getSource()==libririanFrame.btnIupdate){
-			IUpdateFrame= new inventoryUpdateUI();
-			IUpdateFrame.btnBack.addActionListener((ActionListener)this);
-			IUpdateFrame.btnAddBook.addActionListener((ActionListener)this);
-			IUpdateFrame.btnRBook.addActionListener((ActionListener)this);
-			IUpdateFrame.btnUBook.addActionListener((ActionListener)this);
-			MainUI.MV.setView(IUpdateFrame);
+			check=6;
+			BringGandS();
+			
 		}
 		if(e.getSource()==libririanFrame.btnCstructure){
 			CStructFrame = new ControlstructureUI();
@@ -91,10 +89,9 @@ public class LibrarianCT implements Observer, ActionListener{
 		{
 			if(e.getSource()==CStructFrame.btnPBook)
 			{
-				PairingFrame = new PairingBookUI(BooksET, genresET);
-				PairingFrame.btnBack.addActionListener((ActionListener)this);
-				PairingFrame.btnPairBook.addActionListener((ActionListener)this);
-				MainUI.MV.setView(PairingFrame);
+				check=5;
+				BringGandS();
+				
 			}
 			if(e.getSource()==CStructFrame.btnBack)
 				MainUI.MV.setView(libririanFrame);
@@ -115,31 +112,27 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(CStructFrame);
 			if(e.getSource()==SDivisionFrame.btnAddGenre)
 			{
-				AddGenreFrame = new AddGenreUI();
-				AddGenreFrame.btnAdd.addActionListener((ActionListener)this);
-				AddGenreFrame.btnBack.addActionListener((ActionListener)this);
-				MainUI.MV.setView(AddGenreFrame);
+				check=1;
+				BringGandS();
+				
 			}
 			if(e.getSource()==SDivisionFrame.btnAddSubject)
 			{
-				AddSubjectFrame = new AddSubjectUI(genresET);
-				AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
-				AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
-				MainUI.MV.setView(AddSubjectFrame);
+				check=2;
+				BringGandS();
+
 			}
 			if(e.getSource()==SDivisionFrame.btnRGenre)
 			{
-				RemoveGenreFrame = new RemoveGenreUI(genresET);
-				RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
-				RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
-				MainUI.MV.setView(RemoveGenreFrame);
+				check=3;
+				BringGandS();
+				
 			}
 			if(e.getSource()==SDivisionFrame.btnRSubject)
 			{
-				RemoveSubjectFrame = new RemoveSubjectUI(genresET);
-				RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
-				RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
-				MainUI.MV.setView(RemoveSubjectFrame);
+				check=4;
+				BringGandS();
+				
 			}
 		}
 		if(RemoveSubjectFrame!=null)
@@ -354,9 +347,58 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else
 			{
+
 				genresET=(ArrayList<GenreET>)map.get("obj");
+				switch(check){
+				case 1:{
+					AddGenreFrame = new AddGenreUI();
+					AddGenreFrame.btnAdd.addActionListener((ActionListener)this);
+					AddGenreFrame.btnBack.addActionListener((ActionListener)this);
+					MainUI.MV.setView(AddGenreFrame);
+					break;
+				}
+				
+				case 2:{
+					AddSubjectFrame = new AddSubjectUI(genresET);
+					AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
+					AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
+					MainUI.MV.setView(AddSubjectFrame);
+					break;
+				}
+				case 3:{
+					RemoveGenreFrame = new RemoveGenreUI(genresET);
+					RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
+					RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
+					MainUI.MV.setView(RemoveGenreFrame);
+					break;
+				}
+				case 4:{
+					RemoveSubjectFrame = new RemoveSubjectUI(genresET);
+					RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
+					RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
+					MainUI.MV.setView(RemoveSubjectFrame);
+					break;
+				}
+				case 5:{
+					PairingFrame = new PairingBookUI(BooksET, genresET);
+					PairingFrame.btnBack.addActionListener((ActionListener)this);
+					PairingFrame.btnPairBook.addActionListener((ActionListener)this);
+					MainUI.MV.setView(PairingFrame);
+					break;
+				}
+				case 6:{
+					IUpdateFrame= new inventoryUpdateUI();
+					IUpdateFrame.btnBack.addActionListener((ActionListener)this);
+					IUpdateFrame.btnAddBook.addActionListener((ActionListener)this);
+					IUpdateFrame.btnRBook.addActionListener((ActionListener)this);
+					IUpdateFrame.btnUBook.addActionListener((ActionListener)this);
+					MainUI.MV.setView(IUpdateFrame);
+					break;
+				}
+				
 			}
-			break;
+				}break;
+
 		case "AddBook":
 			if((int)map.get("obj")==1)
 			{
@@ -479,6 +521,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			break;
 		case "RemoveGenre":
+			System.out.println((int)map.get("obj"));
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
