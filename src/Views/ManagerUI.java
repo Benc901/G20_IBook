@@ -33,7 +33,7 @@ import javax.swing.JProgressBar;
 public class ManagerUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebButton btnBreport;
+	public WebButton btnBreport;
 	public JButton btnBack;
 	public WebButton btnCpermission;
 	public WebButton btnThidebook;

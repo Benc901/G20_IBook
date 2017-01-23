@@ -14,6 +14,9 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.omg.PortableServer.ServantRetentionPolicyValue;
+
 import Entities.BookET;
 import Entities.ReaderET;
 import Entities.ReviewET;
@@ -481,7 +484,7 @@ public Object logout(Object obj) {
 			else{
 				while(rs.next())
 						returnObj.add(new BookET(rs.getInt(1),
-									/*rs.getString(2)*/"Change Here",rs.getString(3)));
+									rs.getString(3),rs.getString(5)));
 			}
 			
 			rs.close();
@@ -490,6 +493,61 @@ public Object logout(Object obj) {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return returnObj;
+	}
+	
+	public Object BookReport(String bId, int choice){
+		
+		Map<String,Object> returnObj = new HashMap<String,Object>();
+		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		int count = 0;
+		String tempDate;
+		
+		try {
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM test.reader_book WHERE bookId = ? order by date ");
+			pStmt.setString(1, bId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				if(choice == 0) return 0; // The book has not yet been purchased
+				else if(choice == 1) return 1; // The book has not yet been searched
+			}
+			else{
+				if(choice == 0){ // By purchased
+					rs.next();
+					tempDate = rs.getString(5);
+					count++;
+					while(rs.next()){
+						if((rs.getString(5)).equals(tempDate))
+							count++;
+						else{
+							dataSet.setValue(count, "Amount of purchases", tempDate);
+							count = 0; 
+						}
+					}
+				}
+				else if(choice == 1){ // By searched
+					rs.next();
+					tempDate = rs.getString(5);
+					count++;
+					while(rs.next()){
+						if((rs.getString(5)).equals(tempDate))
+							count++;
+						else{
+							dataSet.setValue(count, "Amount of searches", tempDate);
+							count = 0; 
+						}
+					}
+				}
+			}
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 2; // book isn't exists	
+		}
+		returnObj.put("int", choice);
+		returnObj.put("data", dataSet);
 		return returnObj;
 	}
 	

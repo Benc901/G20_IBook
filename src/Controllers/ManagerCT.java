@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,10 +12,16 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import Entities.BookET;
 import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.AccountFreezUI;
+import Views.BookReportUI;
 import Views.ChangingPermissionUI;
 import Views.HideBookUI;
 import Views.MainUI;
@@ -28,6 +36,7 @@ public class ManagerCT implements Observer, ActionListener {
 	public static AccountFreezUI accountfreezFrame;
 	public static ChangingPermissionUI changingpermissionFrame;
 	public static UserReportUI userreportFrame;
+	public static BookReportUI bookreportFrame;
 	
 	public ManagerCT(ManagerUI manager){
 		this.managerFrame = manager;
@@ -38,6 +47,8 @@ public class ManagerCT implements Observer, ActionListener {
 		managerFrame.btnAFreezing.addActionListener((ActionListener)this);
 		managerFrame.btnCpermission.addActionListener((ActionListener)this);
 		managerFrame.btnUreport.addActionListener((ActionListener)this);
+		managerFrame.btnUreport.addActionListener((ActionListener)this);
+		managerFrame.btnBreport.addActionListener((ActionListener)this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -117,6 +128,26 @@ public class ManagerCT implements Observer, ActionListener {
 				showUserReport();
 			}
 		}
+		
+		/*********************************************************************/
+		
+		else if(e.getSource()==managerFrame.btnBreport){
+			bookreportFrame = new BookReportUI();
+			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
+			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);
+			bookreportFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(bookreportFrame);
+		}
+		else if(bookreportFrame!=null){
+			if(e.getSource()==bookreportFrame.btnBack){
+				MainUI.MV.setView(managerFrame);
+			}
+			else if(e.getSource()==bookreportFrame.btnByPurchases)
+				showBookReport(0);
+			else if(e.getSource()==bookreportFrame.btnBySearches)
+				showBookReport(1);
+		}
+		
 	}
 
 	@Override
@@ -127,7 +158,7 @@ public class ManagerCT implements Observer, ActionListener {
 
 		else {
 			Map<String, Object> map = (HashMap<String, Object>) obj;
-
+			Map<String, Object> returnedHash;
 			String op = (String) map.get("op");
 			
 			// what operation was made in the server and how to respond.
@@ -149,6 +180,7 @@ public class ManagerCT implements Observer, ActionListener {
 					MainUI.MV.setView(managerFrame);
 				}
 				break;
+				
 			case "FreezeUser":
 				if((int)map.get("obj")==0){
 					JOptionPane.showMessageDialog(null,"ID is inncorrect,\n Please inser valid user id");	
@@ -166,6 +198,7 @@ public class ManagerCT implements Observer, ActionListener {
 					MainUI.MV.setView(managerFrame);
 				}
 				break;
+				
 			case "ChangePermission":
 				if((int)map.get("obj")==0){
 					JOptionPane.showMessageDialog(null,"ID is inncorrect,\n Please inser valid user id");	
@@ -174,6 +207,7 @@ public class ManagerCT implements Observer, ActionListener {
 					MainUI.MV.setView(managerFrame);
 				}
 				break;
+				
 			case "UserReport":
 				
 					if(map.get("obj") == null){
@@ -198,8 +232,37 @@ public class ManagerCT implements Observer, ActionListener {
 					}
 				}
 				break;
-			}
+				
+			case "BookReport":
+				if(map.get("obj") instanceof Integer){
+					if((int)map.get("obj") == 0)
+						JOptionPane.showMessageDialog(null,"The book has not purchased yet ! ");
+					else if((int)map.get("obj") == 1)
+						JOptionPane.showMessageDialog(null,"The book has not searched yet ! ");
+					else if((int)map.get("obj") == 2)
+						JOptionPane.showMessageDialog(null,"Insert valid book ID please.");	
+				}
+				else if(map.get("obj") instanceof HashMap){
+					returnedHash = (HashMap<String, Object>) map.get("obj");
+					if((int)returnedHash.get("int") == 0){
+						bookreportFrame.chart = ChartFactory.createBarChart("Books histogram by Purchases","Date","Amount of purchases",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
+						bookreportFrame.p.setRangeGridlinePaint(Color.black);
+						bookreportFrame.bar = new ChartPanel(bookreportFrame.chart);
+						bookreportFrame.setExtraPanel();
+					}
+					else if((int)returnedHash.get("int") == 1){
+						bookreportFrame.chart = ChartFactory.createBarChart("Books histogram by Searches","Date","Amount of searches",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
+						bookreportFrame.p.setRangeGridlinePaint(Color.black);
+						bookreportFrame.bar = new ChartPanel(bookreportFrame.chart);
+						bookreportFrame.setExtraPanel();
+					}
+					
+				}
+				break;
 		
+			}	
 		}
 	}
 	
@@ -238,5 +301,16 @@ public class ManagerCT implements Observer, ActionListener {
 
 		client.handleMessageFromUI(hmap);
 	}
+	
+	public void showBookReport(int choice){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "BookReport");
+		hmap.put("choice", choice); /* 0 - By Purchases, 1 - By Searches */
+		hmap.put("obj", (String) bookreportFrame.textField.getText());
+
+		client.handleMessageFromUI(hmap);
+	}
+	
+
 
 }

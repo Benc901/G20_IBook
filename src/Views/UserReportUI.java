@@ -52,6 +52,7 @@ public class UserReportUI extends JPanel {
 		add(lblUserID);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(117, 220, 89, 30);
 		add(textField);
 		
