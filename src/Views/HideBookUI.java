@@ -1,16 +1,14 @@
 package Views;
 
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
 
 import graphics.GUIimage;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class HideBookUI extends JPanel {
 	public JTextField textField;

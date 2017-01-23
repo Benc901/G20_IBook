@@ -1,29 +1,23 @@
 package Views;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-
-import Entities.BookET;
-import Entities.ReviewET;
-import graphics.GUIimage;
-import graphics.GUIimagejpg;
-
-import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import Controllers.BookCT;
 import Controllers.ReviewCT;
-
-import javax.swing.JButton;
+import Entities.ReviewET;
+import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 public class ReviewUI extends JPanel {
 	private JTextField textField;

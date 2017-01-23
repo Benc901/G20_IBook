@@ -1,11 +1,7 @@
 package Views;
 
-import graphics.GUIimage;
-import javax.swing.UIManager.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
@@ -15,11 +11,10 @@ import javax.swing.JSeparator;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import graphics.SlideContainer;
-
-
 import com.alee.laf.progressbar.WebProgressBar;
-import javax.swing.ImageIcon;
+
+import graphics.GUIimage;
+import graphics.SlideContainer;
 
 public class MainUI {
 

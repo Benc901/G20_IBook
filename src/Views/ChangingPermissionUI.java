@@ -1,16 +1,16 @@
 package Views;
 
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
 
 import graphics.GUIimage;
-
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.DefaultComboBoxModel;
 
 public class ChangingPermissionUI extends JPanel {
 	public JLabel lblChangingPermission;

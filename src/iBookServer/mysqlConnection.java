@@ -1,7 +1,6 @@
 package iBookServer;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,20 +9,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.omg.PortableServer.ServantRetentionPolicyValue;
 
 import Entities.BookET;
-import Entities.ReaderET;
 import Entities.ReviewET;
 import Entities.UserET;
-import ocsf.server.ConnectionToClient;
 
 public class mysqlConnection {
 	Connection con;

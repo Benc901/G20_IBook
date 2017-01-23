@@ -1,6 +1,5 @@
 package Controllers;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import Entities.BookET;
-import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.AccountFreezUI;
 import Views.BookPopularityUI;

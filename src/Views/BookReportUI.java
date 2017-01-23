@@ -1,30 +1,21 @@
 package Views;
 
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.RootPaneContainer;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import graphics.GUIimage;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.Locale.Category;
-import java.awt.event.ActionEvent;
-import javax.swing.border.LineBorder;
 
 public class BookReportUI extends JPanel {
 	public JLabel lblBookReport;

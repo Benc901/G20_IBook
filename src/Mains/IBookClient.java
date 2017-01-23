@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import Entities.UserET;
 import ocsf.client.ObservableClient;
 
 

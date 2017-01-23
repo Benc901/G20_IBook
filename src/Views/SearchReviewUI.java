@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Controllers.BookCT;
 import Controllers.ReviewCT;
 import graphics.GUIimage;
 

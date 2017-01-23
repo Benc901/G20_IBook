@@ -10,7 +10,6 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
-import Entities.BookET;
 import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.MainUI;
