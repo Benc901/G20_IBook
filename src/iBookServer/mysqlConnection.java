@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -496,18 +498,20 @@ public Object logout(Object obj) {
 		return returnObj;
 	}
 	
-	public Object BookReport(String bId, int choice){
+	public Object BookReport(int bId, int choice){
 		
 		Map<String,Object> returnObj = new HashMap<String,Object>();
 		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 		int count = 0;
-		String tempDate;
+		SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd");
+		String myTemp;
 		
 		try {
 			PreparedStatement pStmt = con
 					.prepareStatement("SELECT * FROM test.reader_book WHERE bookId = ? order by date ");
-			pStmt.setString(1, bId);
+			pStmt.setInt(1, bId);
 			ResultSet rs = pStmt.executeQuery();
+			
 			if (!rs.isBeforeFirst()) {
 				if(choice == 0) return 0; // The book has not yet been purchased
 				else if(choice == 1) return 1; // The book has not yet been searched
@@ -515,27 +519,29 @@ public Object logout(Object obj) {
 			else{
 				if(choice == 0){ // By purchased
 					rs.next();
-					tempDate = rs.getString(5);
+					myTemp = tempDate.format(rs.getDate(5));
 					count++;
 					while(rs.next()){
-						if((rs.getString(5)).equals(tempDate))
+						if(tempDate.format(rs.getDate(5)).equals(myTemp))
 							count++;
 						else{
-							dataSet.setValue(count, "Amount of purchases", tempDate);
-							count = 0; 
+							dataSet.setValue(count, "Amount of purchases", myTemp);
+							count = 1; 
+							myTemp = tempDate.format(rs.getDate(5));
 						}
 					}
 				}
 				else if(choice == 1){ // By searched
 					rs.next();
-					tempDate = rs.getString(5);
+					myTemp = tempDate.format(rs.getDate(5));
 					count++;
 					while(rs.next()){
-						if((rs.getString(5)).equals(tempDate))
+						if(tempDate.format(rs.getDate(5)).equals(myTemp))
 							count++;
 						else{
-							dataSet.setValue(count, "Amount of searches", tempDate);
-							count = 0; 
+							dataSet.setValue(count, "Amount of searches", myTemp);
+							count = 1; 
+							myTemp = tempDate.format(rs.getDate(5));
 						}
 					}
 				}
