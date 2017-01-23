@@ -21,6 +21,7 @@ import Entities.BookET;
 import Entities.ReviewET;
 import Mains.IBookClient;
 import Views.AccountFreezUI;
+import Views.BookPopularityUI;
 import Views.BookReportUI;
 import Views.ChangingPermissionUI;
 import Views.HideBookUI;
@@ -37,6 +38,7 @@ public class ManagerCT implements Observer, ActionListener {
 	public static ChangingPermissionUI changingpermissionFrame;
 	public static UserReportUI userreportFrame;
 	public static BookReportUI bookreportFrame;
+	public static BookPopularityUI bookpopularityFrame;
 	
 	public ManagerCT(ManagerUI manager){
 		this.managerFrame = manager;
@@ -49,6 +51,7 @@ public class ManagerCT implements Observer, ActionListener {
 		managerFrame.btnUreport.addActionListener((ActionListener)this);
 		managerFrame.btnUreport.addActionListener((ActionListener)this);
 		managerFrame.btnBreport.addActionListener((ActionListener)this);
+		managerFrame.btnPbook.addActionListener((ActionListener)this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -132,6 +135,25 @@ public class ManagerCT implements Observer, ActionListener {
 		/*********************************************************************/
 		
 		else if(e.getSource()==managerFrame.btnBreport){
+			bookreportFrame = new BookReportUI();
+			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
+			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);
+			bookreportFrame.btnBack.addActionListener((ActionListener)this);
+			MainUI.MV.setView(bookreportFrame);
+		}
+		else if(bookreportFrame!=null){
+			if(e.getSource()==bookreportFrame.btnBack){
+				MainUI.MV.setView(managerFrame);
+			}
+			else if(e.getSource()==bookreportFrame.btnByPurchases)
+				showBookReport(0);
+			else if(e.getSource()==bookreportFrame.btnBySearches)
+				showBookReport(1);
+		}
+		
+		/*********************************************************************/
+		
+		else if(e.getSource()==managerFrame.btnPbook){
 			bookreportFrame = new BookReportUI();
 			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
 			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);

@@ -69,7 +69,7 @@ public class ManagerUI extends JPanel {
 		btnBreport.setBounds(196, 270, 146, 54);
 		add(btnBreport);
 		
-		btnPbook = new WebButton("Popular book");
+		btnPbook = new WebButton("Book Popularity");
 		btnPbook.setBounds(196, 340, 146, 54);
 		add(btnPbook);
 
