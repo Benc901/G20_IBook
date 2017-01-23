@@ -5,8 +5,8 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="D:/Users/Gidi/git/G20_IBook/mysql-connector-java-5.1.37-bin.jar"/>
 	<classpathentry kind="lib" path="D:/Users/Gidi/git/G20_IBook/weblaf-demo-1.29.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Gidi/git/Lab-proj/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Gidi/git/Lab-proj/jfreechart-1.0.19.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Gidi/git/Lab-proj/jfreechart-1.0.19-swt.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Users/Gidi/git/Lab-proj/jcommon-1.0.23.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Users/Gidi/git/Lab-proj/jfreechart-1.0.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Users/Gidi/git/Lab-proj/jfreechart-1.0.19-swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
