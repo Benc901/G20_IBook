@@ -131,7 +131,7 @@ CREATE TABLE `reader_book` (
   `bookId` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
   `review` int(11) NOT NULL,
-  `date` varchar(45) NOT NULL,
+  `date` DATE NOT NULL,
   PRIMARY KEY (`id`,`bookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -240,6 +240,25 @@ LOCK TABLES `pairing` WRITE;
 /*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
 INSERT INTO `pairing` VALUES (1,2,2),(1,1,1),(2,1,3),(2,1,2),(3,1,2),(4,1,1),(5,3,9),(6,1,1),(7,1,1),(8,1,1),(9,1,1);
 /*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `search_book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `search_book` (
+  `book_id` int(11) NOT NULL,
+  `date` DATE NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fuel`
+--
+
+LOCK TABLES `search_book` WRITE;
+/*!40000 ALTER TABLE `search_book` DISABLE KEYS */;
+INSERT INTO `search_book` VALUES (1,'2017-01-20'),(2,'2017-01-20'),(2,'2017-01-20');
+/*!40000 ALTER TABLE `search_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

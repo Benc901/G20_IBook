@@ -287,7 +287,7 @@ public Object logout(Object obj) {
 			rs.next();
 			if(rs.getInt(2)==1 && rs.getInt(9)==0) return 2;
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			String dates=new String(dateFormat.format(date));
 			Statement  rStmt = con.createStatement();
@@ -657,6 +657,18 @@ public Object logout(Object obj) {
 					.prepareStatement("UPDATE books SET numOfSearch = numOfSearch+1 WHERE id = ?");
 				qStmt.setInt(1, bookId);
 				qStmt.executeUpdate();
+				
+				qStmt = con
+						.prepareStatement("UPDATE books SET numOfSearch = numOfSearch+1 WHERE id = ?");
+					qStmt.setInt(1, bookId);
+					qStmt.executeUpdate();	
+					
+					DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = new Date();
+					String dates=new String(dateFormat.format(date));
+					Statement  rStmt = con.createStatement();
+					rStmt.executeUpdate("INSERT INTO search_book VALUES ("+bookId+","
+																	+"\'"+dates+"\')");	
 				
 		}catch(SQLException e)
 		{
