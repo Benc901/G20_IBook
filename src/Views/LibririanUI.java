@@ -47,7 +47,7 @@ public class LibririanUI extends JPanel {
 	public LibririanUI() {
 		
 		//*** DO NOT DELETE! ***//
-		
+		setBackground(new Color(153, 204, 204));
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
 		
@@ -79,7 +79,6 @@ public class LibririanUI extends JPanel {
 		add(lblNewLabel);
 		
 		btnIupdate = new JButton("Inventory update");
-
 		btnIupdate.setBounds(365, 200, 146, 54);
 		add(btnIupdate);
 		

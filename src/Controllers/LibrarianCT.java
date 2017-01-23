@@ -10,22 +10,10 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
-import Entities.BookET;
-import Entities.GenreET;
-import Entities.ReaderET;
-import Entities.ReviewET;
-import Entities.UserET;
+import Entities.*;
 import Mains.IBookClient;
-import Views.AddBookUI;
-import Views.AddUserUI;
-import Views.EditReviewUI;
-import Views.LibririanUI;
-import Views.MainUI;
-import Views.PaymentConfirmationUI;
-import Views.RemoveBookUI;
-import Views.ReviewConfirmationUI;
-import Views.UpdateBookUI;
-import Views.inventoryUpdateUI;
+import Views.*;
+
 
 public class LibrarianCT implements Observer, ActionListener{
 	
@@ -40,18 +28,32 @@ public class LibrarianCT implements Observer, ActionListener{
 	public static PaymentConfirmationUI paymentFrame;
 	public static ReviewConfirmationUI reviewFrame;
 	public static EditReviewUI editFrame;
+	public static ControlstructureUI CStructFrame;
+	public static PairingBookUI PairingFrame;
+	public static SettingDivisionUI SDivisionFrame;
+	public static AddGenreUI AddGenreFrame;
+	public static AddSubjectUI AddSubjectFrame;
+	public static RemoveGenreUI RemoveGenreFrame;
+	public static RemoveSubjectUI RemoveSubjectFrame;
+	
 	public static UserET userET;
 	public static BookET bookET;
 	public static ArrayList<GenreET> genresET;
 	public ArrayList<ReaderET> readers;
 	public ArrayList<ReviewET> reviews;
+	public static ArrayList<BookET> BooksET;
 	
+	/**
+	 * @param frame
+	 */
 	public LibrarianCT(LibririanUI frame) {
 		// TODO Auto-generated constructor stub
 		librarianCT=this;
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
 		BringGandS();
+		BringBooks();
+		libririanFrame.btnCstructure.addActionListener((ActionListener)this);
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
 		libririanFrame.btnCpayment.addActionListener((ActionListener)this);
@@ -78,6 +80,107 @@ public class LibrarianCT implements Observer, ActionListener{
 			IUpdateFrame.btnUBook.addActionListener((ActionListener)this);
 			MainUI.MV.setView(IUpdateFrame);
 		}
+		if(e.getSource()==libririanFrame.btnCstructure){
+			CStructFrame = new ControlstructureUI();
+			CStructFrame.btnBack.addActionListener((ActionListener)this);
+			CStructFrame.btnPBook.addActionListener((ActionListener)this);
+			CStructFrame.btnSdivision.addActionListener((ActionListener)this);
+			MainUI.MV.setView(CStructFrame);
+		}
+		if(CStructFrame!=null)
+		{
+			if(e.getSource()==CStructFrame.btnPBook)
+			{
+				PairingFrame = new PairingBookUI(BooksET, genresET);
+				PairingFrame.btnBack.addActionListener((ActionListener)this);
+				PairingFrame.btnPairBook.addActionListener((ActionListener)this);
+				MainUI.MV.setView(PairingFrame);
+			}
+			if(e.getSource()==CStructFrame.btnBack)
+				MainUI.MV.setView(libririanFrame);
+			if(e.getSource()==CStructFrame.btnSdivision)
+			{
+				SDivisionFrame = new SettingDivisionUI();
+				SDivisionFrame.btnBack.addActionListener((ActionListener)this);
+				SDivisionFrame.btnAddGenre.addActionListener((ActionListener)this);
+				SDivisionFrame.btnAddSubject.addActionListener((ActionListener)this);
+				SDivisionFrame.btnRGenre.addActionListener((ActionListener)this);
+				SDivisionFrame.btnRSubject.addActionListener((ActionListener)this);
+				MainUI.MV.setView(SDivisionFrame);
+			}
+		}
+		if(SDivisionFrame!=null)
+		{
+			if(e.getSource()==SDivisionFrame.btnBack)
+				MainUI.MV.setView(CStructFrame);
+			if(e.getSource()==SDivisionFrame.btnAddGenre)
+			{
+				AddGenreFrame = new AddGenreUI();
+				AddGenreFrame.btnAdd.addActionListener((ActionListener)this);
+				AddGenreFrame.btnBack.addActionListener((ActionListener)this);
+				MainUI.MV.setView(AddGenreFrame);
+			}
+			if(e.getSource()==SDivisionFrame.btnAddSubject)
+			{
+				AddSubjectFrame = new AddSubjectUI(genresET);
+				AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
+				AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
+				MainUI.MV.setView(AddSubjectFrame);
+			}
+			if(e.getSource()==SDivisionFrame.btnRGenre)
+			{
+				RemoveGenreFrame = new RemoveGenreUI(genresET);
+				RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
+				RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
+				MainUI.MV.setView(RemoveGenreFrame);
+			}
+			if(e.getSource()==SDivisionFrame.btnRSubject)
+			{
+				RemoveSubjectFrame = new RemoveSubjectUI(genresET);
+				RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
+				RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
+				MainUI.MV.setView(RemoveSubjectFrame);
+			}
+		}
+		if(RemoveSubjectFrame!=null)
+		{
+			if(e.getSource()==RemoveSubjectFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==RemoveSubjectFrame.btnRemove)
+				RemoveSubject(RemoveSubjectFrame.getComboBoxGenres().getSelectedIndex()+1,(String) RemoveSubjectFrame.getComboBoxSubject().getSelectedItem());
+		}
+		if(RemoveGenreFrame!=null)
+		{
+			if(e.getSource()==RemoveGenreFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==RemoveGenreFrame.btnRemove)
+				RemoveGenre(RemoveGenreFrame.getComboBoxGenres().getSelectedIndex()+1);
+		}
+		if(AddSubjectFrame!=null)
+		{
+			if(e.getSource()==AddSubjectFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==AddSubjectFrame.btnAdd)
+			{
+				AddSubject(new SubjectET(0, AddSubjectFrame.getSubjectTitle(), (AddSubjectFrame.getComboBoxGenres().getSelectedIndex())+1));
+			}
+		}
+		if(AddGenreFrame!=null)
+		{
+			if(e.getSource()==AddGenreFrame.btnBack)
+				MainUI.MV.setView(SDivisionFrame);
+			if(e.getSource()==AddGenreFrame.btnAdd)
+			{
+				AddGenre(new GenreET(0,AddGenreFrame.getGenreTitle()));
+			}
+		}
+		if(PairingFrame!=null)
+		{
+			if(e.getSource()==PairingFrame.btnBack)
+				MainUI.MV.setView(CStructFrame);
+			if(e.getSource()==PairingFrame.btnPairBook)
+				PairBook();
+		}
 		if(e.getSource()==libririanFrame.btnCpayment){
 			GetPaymentList();
 		}
@@ -101,9 +204,10 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if(e.getSource()==IUpdateFrame.btnRBook)
 			{
-				RemoveBFrame=new RemoveBookUI();
-				RemoveBFrame.btnBack.addActionListener((ActionListener)this);
 				
+				RemoveBFrame=new RemoveBookUI(BooksET);
+				RemoveBFrame.btnBack.addActionListener((ActionListener)this);
+				RemoveBFrame.btnRBook.addActionListener((ActionListener)this);
 				MainUI.MV.setView(RemoveBFrame);
 			}
 			else if(e.getSource()==IUpdateFrame.btnAddBook)
@@ -127,7 +231,10 @@ public class LibrarianCT implements Observer, ActionListener{
 		{
 			if(e.getSource()==RemoveBFrame.btnBack)
 				MainUI.MV.setView(IUpdateFrame);
-			
+			if(e.getSource()==RemoveBFrame.btnRBook)
+			{
+				DeleteBook((int)RemoveBFrame.comboBoxBooks.getSelectedIndex()+1);
+			}
 		}
 		if(AddBFrame!=null)
 		{
@@ -140,14 +247,10 @@ public class LibrarianCT implements Observer, ActionListener{
 		if(e.getSource()==adduserFrame.btnBack){
 			MainUI.MV.setView(libririanFrame);
 		}
-		}
-		
-		if(adduserFrame!=null)
+		if(e.getSource()==adduserFrame.btnAddUser)
 		{
-			if(e.getSource()==adduserFrame.btnAddUser)
-			{
-				AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
-			}
+			AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
+		}
 		}
 		if(paymentFrame!=null){
 			if(e.getSource()==paymentFrame.btnBack){
@@ -309,6 +412,100 @@ public class LibrarianCT implements Observer, ActionListener{
 			MainUI.MV.setView(libririanFrame);
 			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			break;
+		case "BringBooks":
+			if(map.get("obj") instanceof Integer){
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				BooksET=(ArrayList<BookET>)map.get("obj");
+			}
+			break;
+		case "DeleteBook":
+			if((int)map.get("obj")==1)
+			{
+				JOptionPane.showMessageDialog(null, "The Book Remove From DB", "The Book Remove From DB", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+			}
+			break;
+		case "PairBook":
+			if ((boolean)map.get("obj") == false) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				UpdateBFrame.clearFields();	
+			}
+			else if((boolean)map.get("obj") == true)
+			{
+				JOptionPane.showMessageDialog(null, "Success Pairing the book in DB", "Success Pairing the book in DB", JOptionPane.INFORMATION_MESSAGE);
+				UpdateBFrame.clearFields();	
+			}
+			break;
+		case "AddGenre":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				AddGenreFrame.clearFields();	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "The Genre already in DB", "The Genre already in DB", JOptionPane.INFORMATION_MESSAGE);
+				AddGenreFrame.clearFields();	
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "Insert Genre to DB", "Insert Genre to DB", JOptionPane.INFORMATION_MESSAGE);
+				AddGenreFrame.clearFields();
+			}
+			break;
+		case "AddSubject":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
+				AddSubjectFrame.clearFields();	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "The Subject already in DB", "The Subject already in DB", JOptionPane.INFORMATION_MESSAGE);
+				AddSubjectFrame.clearFields();	
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "Insert Subject to DB", "Insert Subject to DB", JOptionPane.INFORMATION_MESSAGE);
+				AddSubjectFrame.clearFields();
+				
+			}
+			break;
+		case "RemoveGenre":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "This Genre has subject/s attached in DB! ", "This Genre has subject/s attached in DB! ", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "The genre delete from DB", "The genre delete from DB", JOptionPane.INFORMATION_MESSAGE);
+			}
+			break;
+		case "RemoveSubject":
+			if ((int)map.get("obj") == -1) 
+			{
+				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
+			}
+			else if((int)map.get("obj") == 0)
+			{
+				JOptionPane.showMessageDialog(null, "There is a book attached only to this subject! ", "There is a book attached only to this subject! ", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else if ((int)map.get("obj")==1) 
+			{
+				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
+			}
+			break;
 		}
 		}
 	}
@@ -430,4 +627,53 @@ public class LibrarianCT implements Observer, ActionListener{
 		client.handleMessageFromUI(hmap);
 	}
 
+	public void PairBook()
+	{
+		BookET NewBookET = new BookET();
+		NewBookET.setBID(Integer.parseInt(PairingFrame.txtIdBooks.getText()));
+		NewBookET.setBGenre((String)PairingFrame.getComboGenre().getSelectedItem());
+		NewBookET.setBSubject((String)PairingFrame.getComboSubject().getSelectedItem());
+		
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "PairBook");
+		hmap.put("obj", NewBookET);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void AddGenre(GenreET Newgenre)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "AddGenre");
+		hmap.put("obj", Newgenre);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void AddSubject(SubjectET Newsubject)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "AddSubject");
+		hmap.put("obj", Newsubject);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void RemoveGenre(int Gid)
+	{
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "RemoveGenre");
+		hmap.put("obj", Gid);
+		
+		client.handleMessageFromUI(hmap);
+	}
+	public void RemoveSubject(int GTitle,String STitle)
+	{
+		Map<Integer,Object> Titles = new HashMap<Integer,Object>();
+		Titles.put(1,GTitle);
+		Titles.put(2,STitle);
+		
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "RemoveSubject");
+		hmap.put("obj", Titles);
+		
+		client.handleMessageFromUI(hmap);
+	}
 }

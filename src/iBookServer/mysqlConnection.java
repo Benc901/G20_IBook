@@ -816,7 +816,6 @@ public int AddBook(BookET newBook)
 		if(rs.next())
 			id=(int) rs.getObject(1);
 			id+=1;
-			System.out.println(id);
 			newBook.setBID(id);
 			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
@@ -862,7 +861,6 @@ public boolean PairingBook(BookET BookToPair)
 		{
 			if(rs.getString(2).equals(BookToPair.getBGenre()) && rs.getString(5).equals(BookToPair.getBSubject()))
 			{
-				System.out.println("Pairing 2");
 				Sid=rs.getInt(3);
 				Gid=rs.getInt(4);
 			}
@@ -938,4 +936,206 @@ public int EditReview(int id,String review){
 	}
 	return 1;
 }
+public Object BringArrayBooks()
+{
+	ArrayList<BookET> booksET = new ArrayList<BookET>();
+	try
+	{
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM books");
+		ResultSet rs = pStmt.executeQuery();
+		//pStmt.close();
+		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No user
+			// found).
+			display("no books in DB.");
+			return 0;
+		}
+		else {
+			while(rs.next())
+			{
+				booksET.add(new BookET(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15),rs.getInt(16)));	
+		    }
+			return booksET;
+		}
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+}
+public int DeleteBook(int Bid)
+{
+	System.out.println(Bid);
+	try
+	{
+			PreparedStatement qStmt = con.prepareStatement("DELETE FROM books WHERE id = ?");
+			qStmt.setInt(1, Bid);
+			qStmt.executeUpdate();
+			qStmt = con.prepareStatement("DELETE FROM pairing WHERE book_id = ?");
+			qStmt.setInt(1, Bid);
+			qStmt.executeUpdate();
+			return 1;
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+}
+public int AddGenre(GenreET genre)
+{
+	try
+	{
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM genere WHERE title=?");
+		pStmt.setString(1, genre.getGenreTitle());
+		ResultSet rs = pStmt.executeQuery();
+
+		if (rs.isBeforeFirst()) { // Checks if ResultSet is empty 
+			
+			display("Genre is exist in DB! ");
+			return 0;
+
+		}
+		else {
+		pStmt = con.prepareStatement("SELECT MAX(id) FROM genere");
+		rs = pStmt.executeQuery();
+		int id=0;
+		if(rs.next())
+			id=(int) rs.getObject(1);
+		id+=1;
+		pStmt = con.prepareStatement("INSERT INTO genere VALUES (?, ?)");
+		pStmt.setInt(1, id);
+		pStmt.setString(2, genre.getGenreTitle());
+		pStmt.executeUpdate();
+		pStmt.close();
+		return 1;
+		}
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return -1;
+	}
+}
+/**
+ * @param subject
+ * @return
+ */
+public int AddSubject(SubjectET subject)
+{
+	//System.out.println(subject.getGenreId() + "   " + subject.getSubjectTitle());
+	try
+	{
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM subject WHERE genere_id=? AND title=?");
+		pStmt.setInt(1, subject.getGenreId());
+		pStmt.setString(2, subject.getSubjectTitle());
+		ResultSet rs = pStmt.executeQuery();
+
+		if (rs.isBeforeFirst()) { // Checks if ResultSet is empty 
+									// if there is this subject in DB
+			display("Subject is exist in DB! ");
+			return 0;
+		}
+		else {
+		pStmt = con.prepareStatement("SELECT MAX(id) FROM subject");
+		rs = pStmt.executeQuery();
+		int id=0;
+		if(rs.next())
+			id=(int) rs.getObject(1);
+		id+=1;
+		pStmt = con.prepareStatement("INSERT INTO subject VALUES (?, ?, ?)");
+		pStmt.setInt(1, id);
+		pStmt.setInt(2, subject.getGenreId());
+		pStmt.setString(3, subject.getSubjectTitle());
+		pStmt.executeUpdate();
+		pStmt.close();
+		return 1;
+		}
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return -1;
+	}
+}
+public int RemoveGenre(int Gid)
+{
+	try
+	{
+			PreparedStatement pStmt = con.prepareStatement("SELECT * FROM subject WHERE genere_id=?");
+			pStmt.setInt(1, Gid);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.isBeforeFirst()) { // Checks if ResultSet is empty 
+										// if there is this subject in DB
+					display("This Genre has subject/s attached in DB! ");
+					return 0;
+			}
+			else
+			{
+				pStmt = con.prepareStatement("DELETE FROM genere WHERE id = ?");
+				pStmt.setInt(1, Gid);
+				pStmt.executeUpdate();
+				return 1;
+			}
+		
+		
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return -1;
+	}
+}
+public int RemoveSubject(HashMap<String,Object> Titles)
+{
+	int GTitle=(int) Titles.get(1),Sid=0;
+	ArrayList<Integer> book_id= new ArrayList<Integer>();
+	String STitle=(String) Titles.get(2);
+	try
+	{
+		
+		PreparedStatement pStmt = con
+				.prepareStatement("SELECT id FROM subject WHERE genere_id=? AND title=?");
+		pStmt.setInt(1, GTitle);
+		pStmt.setString(2, STitle);
+		ResultSet rs = pStmt.executeQuery();
+		if (rs.next()) { 
+			Sid = rs.getInt(1);
+		}
+		pStmt=con.prepareStatement("SELECT * FROM pairing WHERE subject_id=?");
+		pStmt.setInt(1, Sid);
+		rs = pStmt.executeQuery();
+		while(rs.next()){
+			book_id.add(rs.getInt(1));
+		}
+		pStmt=con.prepareStatement("SELECT * FROM pairing WHERE book_id=?");
+		for(Integer Bid: book_id) {
+			pStmt.setInt(1, Bid);
+			rs = pStmt.executeQuery();
+			rs.last();
+			if(rs.getRow()<2)
+			{
+				display("There is a book attached only to this subject! ");
+				return 0;
+			}
+				
+		}
+		pStmt=con.prepareStatement("DELETE FROM subject WHERE id = ?");
+		pStmt.setInt(1, Sid);
+		pStmt.executeUpdate();
+		pStmt=con.prepareStatement("DELETE FROM pairing WHERE subject_id=?");
+		pStmt.setInt(1, Sid);
+		pStmt.executeUpdate();
+		return 1;
+	}
+	catch(SQLException e)
+	{
+		e.printStackTrace();
+		return -1;
+	}
+}
+
 }
