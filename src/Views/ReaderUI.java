@@ -148,7 +148,7 @@ public class ReaderUI extends JPanel {
 		
 		btnLogout.setIcon(new GUIimage("logout",20,25).image);
 		
-		JLabel lblNewLabel = new JLabel("Welcome "+userET.getFirstName()+" "+userET.getLastName());
+		JLabel lblNewLabel = new JLabel("Welcome o "+userET.getFirstName()+" "+userET.getLastName());
 		lblNewLabel.setFont(new Font("OpenSansHebrew-Regular", Font.BOLD, 26));
 		lblNewLabel.setBounds(282, 150, 335, 41);
 		add(lblNewLabel);

@@ -2,6 +2,9 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +21,7 @@ import javax.swing.JTextField;
 //import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit.CollapseAllCommentFoldsAction;
 
 import Entities.BookET;
+import Entities.FileEvent;
 import Mains.IBookClient;
 import Views.BookUI;
 import Views.GetBookUI;
@@ -38,6 +42,7 @@ public class BookCT implements Observer, ActionListener{
 	public ArrayList<BookET> books;
 	public static BookET bookET;
 	public static int flag;
+	public ArrayList<String> download;
 	
 	
 	public BookCT(SearchBookUI search){
@@ -76,7 +81,7 @@ public class BookCT implements Observer, ActionListener{
 				MainUI.MV.setView(bookUI);
 				}
 			if(e.getSource()==getbookUI.btnDownload){
-				download();
+				GetBook();
 				}
 		}
 		if(searchadvFrame!=null){
@@ -124,8 +129,8 @@ public class BookCT implements Observer, ActionListener{
 								else if((int)map.get("obj")==3)JOptionPane.showMessageDialog(null,"successful,Your invoice in your box");
 								else if((int)map.get("obj")==4)JOptionPane.showMessageDialog(null,"Failed,You got this book before");
 								else JOptionPane.showMessageDialog(null,"Failed");
-								UserCT.userCT.changeObserver(UserCT.userCT,this);
-								MainUI.MV.setView(UserCT.readerFrame);
+								//Download();
+								
 								break;}
 				case "SearchAdv":{
 					if (searchadvFrame.model.getRowCount() > 0) {
@@ -143,7 +148,30 @@ public class BookCT implements Observer, ActionListener{
 						}
 					}break;
 				case "ViewBook":break;
-					
+				case "Download":{
+					try{
+							FileEvent fileEvent=(FileEvent)map.get("obj");
+							if (fileEvent.getStatus().equalsIgnoreCase("Error")) {
+								System.out.println("Error occurred ..So exiting");
+								break;
+								}
+							String outputFile = fileEvent.getDestinationDirectory() + fileEvent.getFilename();
+							if (!new File(fileEvent.getDestinationDirectory()).exists()) {
+							new File(fileEvent.getDestinationDirectory()).mkdirs();
+							}
+							File dstFile=new File(outputFile);
+							FileOutputStream fileOutputStream= new FileOutputStream(dstFile);
+							fileOutputStream.write(fileEvent.getFileData());
+							fileOutputStream.flush();
+							fileOutputStream.close();
+							System.out.println("Output file : " + outputFile + " is successfully saved ");
+					}catch (IOException e) {
+						e.printStackTrace();
+					} 
+					UserCT.userCT.changeObserver(UserCT.userCT,this);
+					MainUI.MV.setView(UserCT.readerFrame);
+					break;
+				}	
 				
 			
 			}
@@ -199,12 +227,24 @@ public class BookCT implements Observer, ActionListener{
 		
 	}
 	
-	public void download(){
+	public void GetBook(){
+		/*
+		download=new ArrayList<String>();
+		download.add(""+bookET.getBID());
+		download.add(bookET.getBTitle());
+		download.add((String)(getbookUI.cbFormat.getSelectedItem()));
+		download.add(getbookUI.path.getText()+"\\");
+		for(int i=0;i<download.size();i++){
+			System.out.println(download.get(i));
+			
+		}
+		*/
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "GetBook");
 		hmap.put("user", UserCT.userCT.userET);
 		hmap.put("book", bookET);
 		client.handleMessageFromUI(hmap);
 	}
+	
 
 }
