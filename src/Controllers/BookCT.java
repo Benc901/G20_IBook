@@ -228,7 +228,7 @@ public class BookCT implements Observer, ActionListener{
 	}
 	
 	public void GetBook(){
-		/*
+		
 		download=new ArrayList<String>();
 		download.add(""+bookET.getBID());
 		download.add(bookET.getBTitle());
@@ -238,13 +238,25 @@ public class BookCT implements Observer, ActionListener{
 			System.out.println(download.get(i));
 			
 		}
-		*/
+		
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "GetBook");
 		hmap.put("user", UserCT.userCT.userET);
 		hmap.put("book", bookET);
 		client.handleMessageFromUI(hmap);
 	}
-	
+	public void Download(){
+		System.out.println("download-bookct");
+		FileEvent fileEvent=new FileEvent(); 
+		fileEvent.setFilename(download.get(0)+"."+download.get(2));
+		System.out.println(fileEvent.getFilename());
+
+		fileEvent.setDestinationDirectory(""+download.get(3));
+
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "Download");
+		hmap.put("obj", fileEvent);
+		client.handleMessageFromUI(hmap);
+	}
 
 }
