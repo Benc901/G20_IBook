@@ -1,14 +1,16 @@
 package iBookServer;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+<<<<<<< HEAD
 import java.text.DateFormat;
+=======
+>>>>>>> refs/heads/Gidi_Final
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,15 +18,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import Entities.BookET;
+<<<<<<< HEAD
 import Entities.GenreET;
 import Entities.ReaderET;
+=======
+>>>>>>> refs/heads/Gidi_Final
 import Entities.ReviewET;
 import Entities.SubjectET;
 import Entities.UserET;
-import ocsf.server.ConnectionToClient;
 
 public class mysqlConnection {
 	Connection con;
@@ -522,6 +526,7 @@ public Object logout(Object obj) {
 		}
 	}
 	
+<<<<<<< HEAD
 	public Object SearchAdv(ArrayList<String> tf){
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
 		int dup=0;
@@ -582,6 +587,168 @@ public Object logout(Object obj) {
 				e.printStackTrace();	
 				return null;
 			}
+=======
+	public ArrayList<BookET> UserReport(String userId, String fromDate, String toDate){
+		ArrayList<BookET> returnObj = new ArrayList<BookET>();
+		try {
+			PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND  id = ? order by date");
+			pStmt.setString(1, fromDate);
+			pStmt.setString(2, toDate);
+			pStmt.setString(3, userId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
+			// user found).
+				display("The user does not purchased books yet");
+				return null;
+			}
+			else{
+				while(rs.next())
+						returnObj.add(new BookET(rs.getInt(1),
+									rs.getString(3),rs.getDate(5)));
+			}
+			
+			rs.close();
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return returnObj;
+	}
+	
+	public Object BookReport(int bId, int choice, String fromDate, String toDate){
+		
+		Map<String,Object> returnObj = new HashMap<String,Object>();
+		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+		int count = 0;
+		SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd");
+		String myTemp;
+		
+		try {
+			if(choice == 0){ 		//By purchased
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND bookId = ? order by date ");
+				pStmt.setString(1, fromDate);
+				pStmt.setString(2, toDate);
+				pStmt.setInt(3, bId);
+				ResultSet rs = pStmt.executeQuery();
+			
+				if (!rs.isBeforeFirst())
+					return 0;    	// The book has not yet been purchased
+				else{
+					rs.next();
+					myTemp = tempDate.format(rs.getDate(5));
+					count++;
+					while(rs.next()){
+						if(tempDate.format(rs.getDate(5)).equals(myTemp))
+							count++;
+						else{
+							dataSet.setValue(count, "Amount of purchases", myTemp);
+							count = 1; 
+							myTemp = tempDate.format(rs.getDate(5));
+						}
+					}
+					dataSet.setValue(count, "Amount of purchases", myTemp);
+				}
+			}
+			else if(choice == 1){ // By searched		
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.search_book WHERE date BETWEEN ? AND ? AND book_id = ? order by date ");
+				pStmt.setString(1, fromDate);
+				pStmt.setString(2, toDate);
+				pStmt.setInt(3, bId);
+				ResultSet rs = pStmt.executeQuery();
+				if (!rs.isBeforeFirst())
+					return 1;    	 // The book has not yet been searched
+				else{
+					rs.next();
+					myTemp = tempDate.format(rs.getDate(2));
+					count++;
+					while(rs.next()){
+						if(tempDate.format(rs.getDate(2)).equals(myTemp))
+							count++;
+						else{
+							dataSet.setValue(count, "Amount of searches", myTemp);
+							count = 1; 
+							myTemp = tempDate.format(rs.getDate(2));
+						}
+					}
+					dataSet.setValue(count, "Amount of searches", myTemp);
+				}
+			}
+		}
+		
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 2; // book isn't exists	
+		}
+		
+		returnObj.put("int", choice);
+		returnObj.put("data", dataSet);
+		return returnObj;
+	}
+	
+	
+	public BookET BookRank(int bId, int choice){
+		
+		BookET returnObj = null;
+		int count = 1;
+		String myTemp;
+		
+		try {/*choice = 0 - Total Rank, 1 - Genre Rank */
+			if(choice == 0){
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.books order by numOfPurchace DESC ");
+				ResultSet rs = pStmt.executeQuery();
+				while(rs.next()){
+					if(rs.getInt(1) == bId){
+						returnObj = new BookET(rs.getInt(1),
+								rs.getString(2),rs.getString(3),
+								rs.getString(4),rs.getString(5),
+								rs.getString(6),rs.getString(7),
+								rs.getString(8),rs.getString(9),
+								rs.getString(10),rs.getInt(11),
+								rs.getInt(12),rs.getInt(13),
+								count,0);
+						return returnObj;
+					}
+					else
+						count++;
+				}
+			}else if(choice == 1){
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT books.genre FROM test.books WHERE id = ?;");
+				pStmt.setInt(1, bId);
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+				myTemp = rs.getString(1);
+				pStmt = con.prepareStatement("SELECT * FROM test.books WHERE genre = ? order by numOfPurchace DESC;");
+				pStmt.setString(1, myTemp);
+				rs = pStmt.executeQuery();
+				while(rs.next()){
+					if(rs.getInt(1) == bId){
+						returnObj = new BookET(rs.getInt(1),
+								rs.getString(2),rs.getString(3),
+								rs.getString(4),rs.getString(5),
+								rs.getString(6),rs.getString(7),
+								rs.getString(8),rs.getString(9),
+								rs.getString(10),rs.getInt(11),
+								rs.getInt(12),rs.getInt(13),
+								0,count);
+						return returnObj;
+					}
+					else
+						count++;
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return returnObj; // book isn't exists	
+		}
+		return returnObj;
+>>>>>>> refs/heads/Gidi_Final
 	}
 	
 	public void closeSqlConnection(){

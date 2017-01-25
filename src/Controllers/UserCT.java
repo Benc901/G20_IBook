@@ -12,12 +12,10 @@ import java.util.Observer;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager.LookAndFeelInfo;
 
 import Entities.ReaderET;
 import Entities.UserET;
 import Mains.IBookClient;
-import Mains.Main;
 import Views.EnablePaymentUI;
 import Views.LibririanUI;
 import Views.LoginUI;

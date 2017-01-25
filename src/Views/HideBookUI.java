@@ -1,16 +1,14 @@
 package Views;
 
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
 
 import graphics.GUIimage;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class HideBookUI extends JPanel {
 	public JTextField textField;
@@ -38,23 +36,27 @@ public class HideBookUI extends JPanel {
 		
 		lblBookId = new JLabel("Book ID :");
 		lblBookId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBookId.setBounds(82, 258, 107, 30);
+		lblBookId.setBounds(70, 260, 107, 30);
 		add(lblBookId);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(155, 260, 112, 30);
 		add(textField);
 		textField.setColumns(10);
 		
 		btnHide = new JButton("Hide");
+		btnHide.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnHide.setBounds(288, 260, 100, 30);
 		add(btnHide);
 		
 		btnUnhide = new JButton("UnHide");
+		btnUnhide.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnUnhide.setBounds(413, 260, 100, 30);
 		add(btnUnhide);
 		
 		btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		

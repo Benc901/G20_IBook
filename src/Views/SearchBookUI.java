@@ -1,31 +1,21 @@
 package Views;
 
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
 
-import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Controllers.BookCT;
-import Controllers.UserCT;
 import graphics.GUIimage;
-
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import java.awt.Color;
 
 public class SearchBookUI extends JPanel {
 	 public JButton btnBack;

@@ -1,9 +1,6 @@
 package iBookServer;
 
-import javax.swing.UIManager.*;
-
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,8 +14,13 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import Entities.BookET;
 import Entities.ReviewET;
 import Entities.UserET;
+<<<<<<< HEAD
 import iBookServer.serverUI;
 import ocsf.server.*;
+=======
+import ocsf.server.AbstractServer;
+import ocsf.server.ConnectionToClient;
+>>>>>>> refs/heads/Gidi_Final
 
 
 
@@ -137,6 +139,7 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "ChangePermission");
 				returnObj.put("obj", sqlCon.ChangePermission((String)map.get("obj"),(int)map.get("newPer")));	
 				break;	
+<<<<<<< HEAD
 			case "SearchAdv":
 				display(" : " + op, client);
 				returnObj.put("op", "SearchAdv");
@@ -192,6 +195,23 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "EditReview");
 				returnObj.put("obj", sqlCon.EditReview((int)map.get("id"),(String)map.get("review")));
 				break;
+=======
+			case "UserReport":
+				display(" : " + op, client);
+				returnObj.put("op", "UserReport");
+				returnObj.put("obj", sqlCon.UserReport((String)map.get("obj"),(String) map.get("from"),(String) map.get("to")));	
+				break;	
+			case "BookReport":
+				display(" : " + op, client);
+				returnObj.put("op", "BookReport");
+				returnObj.put("obj", sqlCon.BookReport(Integer.parseInt((String) map.get("obj")),(int)map.get("choice"),(String) map.get("from"),(String) map.get("to")));	
+				break; // in obj we have the hashmap returned from BookReport in mysqlConnection
+			case "BookRank":
+				display(" : " + op, client);
+				returnObj.put("op", "BookRank");
+				returnObj.put("obj", sqlCon.BookRank(Integer.parseInt((String) map.get("obj")),(int)map.get("choice")));	
+				break;	
+>>>>>>> refs/heads/Gidi_Final
 		}
 		
 		try {

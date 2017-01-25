@@ -1,13 +1,14 @@
 package Views;
 
+<<<<<<< HEAD
 import graphics.GUIimage;
 import javax.swing.UIManager.*;
 
 import java.awt.Color;
+=======
+>>>>>>> refs/heads/Gidi_Final
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
@@ -17,13 +18,15 @@ import javax.swing.JSeparator;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import graphics.SlideContainer;
-
-
 import com.alee.laf.progressbar.WebProgressBar;
 
+<<<<<<< HEAD
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+=======
+import graphics.GUIimage;
+import graphics.SlideContainer;
+>>>>>>> refs/heads/Gidi_Final
 
 public class MainUI {
 

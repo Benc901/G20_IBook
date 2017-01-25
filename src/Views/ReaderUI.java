@@ -1,21 +1,14 @@
 package Views;
 
-import graphics.GUIimage;
-import graphics.GUIimagejpg;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.net.URISyntaxException;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.net.URISyntaxException;
+import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
-
-
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.SystemColor;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
@@ -25,10 +18,8 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import com.alee.laf.button.WebButton;
 
 import Entities.UserET;
-
-import java.awt.Font;
-
-import javax.swing.JProgressBar;
+import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 public class ReaderUI extends JPanel {
 
