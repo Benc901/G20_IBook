@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -47,14 +49,13 @@ public class ManagerCT implements Observer, ActionListener {
 		managerFrame.btnAFreezing.addActionListener((ActionListener)this);
 		managerFrame.btnCpermission.addActionListener((ActionListener)this);
 		managerFrame.btnUreport.addActionListener((ActionListener)this);
-		managerFrame.btnUreport.addActionListener((ActionListener)this);
 		managerFrame.btnBreport.addActionListener((ActionListener)this);
 		managerFrame.btnPbook.addActionListener((ActionListener)this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		/*********************************************************************/
+		/*******************************Hide Book**************************************/
 		if(e.getSource()==managerFrame.btnThidebook){
 			hidebookFrame = new HideBookUI();
 			hidebookFrame.btnHide.addActionListener((ActionListener)this);
@@ -67,14 +68,20 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==hidebookFrame.btnHide){
-				HideBook(1);
+				if(!ifContainOnlyNum(hidebookFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					HideBook(1);
 			}
 			else if(e.getSource()==hidebookFrame.btnUnhide){
-				HideBook(0);
+				if(!ifContainOnlyNum(hidebookFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					HideBook(0);
 			}
 		}
 		
-		/*********************************************************************/
+		/*******************************Account Freeze**************************************/
 		
 		else if(e.getSource()==managerFrame.btnAFreezing){
 			accountfreezFrame = new AccountFreezUI();
@@ -88,15 +95,20 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==accountfreezFrame.btnFreeze){
-				FreezeUser(1);
+				if(!ifContainOnlyNum(accountfreezFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					FreezeUser(1);
 			}
 			else if(e.getSource()==accountfreezFrame.btnUnFreeze){
-				FreezeUser(0);
-
+				if(!ifContainOnlyNum(accountfreezFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					FreezeUser(0);
 			}
 		}
 		
-		/*********************************************************************/
+		/********************************Changing Permission*************************************/
 		
 		else if(e.getSource()==managerFrame.btnCpermission){
 			changingpermissionFrame = new ChangingPermissionUI();
@@ -113,7 +125,7 @@ public class ManagerCT implements Observer, ActionListener {
 			}
 		}
 		
-		/*********************************************************************/
+		/********************************User Report*************************************/
 		
 		else if(e.getSource()==managerFrame.btnUreport){
 			userreportFrame = new UserReportUI();
@@ -126,13 +138,16 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==userreportFrame.btnShowReport){
-				showUserReport();
+				if(!ifContainOnlyNum(userreportFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					showUserReport();
 			}
 		}
 		
-		/*********************************************************************/
-		
-		else if(e.getSource()==managerFrame.btnBreport){
+		/********************************Book Report*************************************/
+							/* 0 - By Purchases, 1 - By Searches */
+		else if(e.getSource()==managerFrame.btnBreport){ 
 			bookreportFrame = new BookReportUI();
 			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
 			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);
@@ -143,29 +158,55 @@ public class ManagerCT implements Observer, ActionListener {
 			if(e.getSource()==bookreportFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
-			else if(e.getSource()==bookreportFrame.btnByPurchases)
-				showBookReport(0);
-			else if(e.getSource()==bookreportFrame.btnBySearches)
-				showBookReport(1);
+			else if(e.getSource()==bookreportFrame.btnByPurchases){
+				if(!ifContainOnlyNum(bookreportFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid ID");
+				else if(!validDate(bookreportFrame.ddFrom.getText(),bookreportFrame.MMFrom.getText(),bookreportFrame.yyFrom.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid start date (dd/mm/yyyy) !");
+				else if(!validDate(bookreportFrame.ddTo.getText(),bookreportFrame.MMTo.getText(),bookreportFrame.yyTo.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid end date (dd/mm/yyyy) !");
+				else
+					showBookReport(0,makeString(bookreportFrame.ddFrom.getText(),bookreportFrame.MMFrom.getText(),bookreportFrame.yyFrom.getText()),
+							makeString(bookreportFrame.ddTo.getText(),bookreportFrame.MMTo.getText(),bookreportFrame.yyTo.getText()));
+			}
+			else if(e.getSource()==bookreportFrame.btnBySearches){
+				if(!ifContainOnlyNum(bookreportFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid ID");
+				else if(!validDate(bookreportFrame.ddFrom.getText(),bookreportFrame.MMFrom.getText(),bookreportFrame.yyFrom.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid start date (dd/mm/yyyy) !");
+				else if(!validDate(bookreportFrame.ddTo.getText(),bookreportFrame.MMTo.getText(),bookreportFrame.yyTo.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid end date (dd/mm/yyyy) !");
+				else
+					showBookReport(1,makeString(bookreportFrame.ddFrom.getText(),bookreportFrame.MMFrom.getText(),bookreportFrame.yyFrom.getText()),
+							makeString(bookreportFrame.ddTo.getText(),bookreportFrame.MMTo.getText(),bookreportFrame.yyTo.getText()));
+			}
 		}
 		
-		/*********************************************************************/
+		/******************************Book Rank***************************************/
 		
 		else if(e.getSource()==managerFrame.btnPbook){
 			bookpopularityFrame = new BookPopularityUI();
-			bookpopularityFrame.btnByPurchases.addActionListener((ActionListener)this);
-			bookpopularityFrame.btnBySearches.addActionListener((ActionListener)this);
+			bookpopularityFrame.btnTotalRank.addActionListener((ActionListener)this);
+			bookpopularityFrame.btnGenreRank.addActionListener((ActionListener)this);
 			bookpopularityFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(bookpopularityFrame);
 		}
-		else if(bookreportFrame!=null){
-			if(e.getSource()==bookreportFrame.btnBack){
+		else if(bookpopularityFrame!=null){
+			if(e.getSource()==bookpopularityFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
-			else if(e.getSource()==bookreportFrame.btnByPurchases)
-				showBookReport(0);
-			else if(e.getSource()==bookreportFrame.btnBySearches)
-				showBookReport(1);
+			else if(e.getSource()==bookpopularityFrame.btnTotalRank){
+				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					showBookRank(0);// Total rank	
+			}
+			else if(e.getSource()==bookpopularityFrame.btnGenreRank){
+				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					showBookRank(1); // genre rank
+			}
 		}
 		
 	}
@@ -265,22 +306,38 @@ public class ManagerCT implements Observer, ActionListener {
 				else if(map.get("obj") instanceof HashMap){
 					returnedHash = (HashMap<String, Object>) map.get("obj");
 					if((int)returnedHash.get("int") == 0){
-						bookreportFrame.chart = ChartFactory.createBarChart("Books histogram by Purchases","Date","Amount of purchases",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart = ChartFactory.createBarChart3D("Books histogram, by Purchases","Date","Amount of purchases",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart.setBackgroundPaint(new Color(230, 230, 250));
+						bookreportFrame.chart.getTitle().setPaint(Color.red);
 						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
 						bookreportFrame.p.setRangeGridlinePaint(Color.black);
+						bookreportFrame.domainAxis = bookreportFrame.p.getDomainAxis();
+						bookreportFrame.domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
 						bookreportFrame.bar = new ChartPanel(bookreportFrame.chart);
 						bookreportFrame.setExtraPanel();
 					}
 					else if((int)returnedHash.get("int") == 1){
-						bookreportFrame.chart = ChartFactory.createBarChart("Books histogram by Searches","Date","Amount of searches",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart = ChartFactory.createBarChart3D("Books histogram, by Searches","Date","Amount of searches",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart.setBackgroundPaint(new Color(230, 230, 250));
+						bookreportFrame.chart.getTitle().setPaint(Color.red);
 						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
 						bookreportFrame.p.setRangeGridlinePaint(Color.black);
+						bookreportFrame.domainAxis = bookreportFrame.p.getDomainAxis();
+						bookreportFrame.domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
 						bookreportFrame.bar = new ChartPanel(bookreportFrame.chart);
 						bookreportFrame.setExtraPanel();
 					}
 					
 				}
 				break;
+				
+			case "BookRank":
+				
+				if((int)map.get("obj") == 0)
+					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+				else
+					JOptionPane.showMessageDialog(null,"The book rank is : " + (int)map.get("obj"));	
+			break;
 		
 			}	
 		}
@@ -322,15 +379,40 @@ public class ManagerCT implements Observer, ActionListener {
 		client.handleMessageFromUI(hmap);
 	}
 	
-	public void showBookReport(int choice){
+	public void showBookReport(int choice, String fromDate, String toDate){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "BookReport");
 		hmap.put("choice", choice); /* 0 - By Purchases, 1 - By Searches */
 		hmap.put("obj", (String) bookreportFrame.textField.getText());
+		hmap.put("from", fromDate);
+		hmap.put("to", toDate);
 
 		client.handleMessageFromUI(hmap);
 	}
 	
+	public void showBookRank(int choice){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "BookRank");
+		hmap.put("choice", choice); /* 0 - Total Rank, 1 - Genre Rank */
+		hmap.put("obj", (String) bookpopularityFrame.textField.getText());
 
+		client.handleMessageFromUI(hmap);
+	}
+
+	public boolean ifContainOnlyNum(String str){
+		return (str.matches("[0-9]+"));
+	}
+	
+	public boolean ifContainOnlyNum(String dd, String MM, String yyyy){
+		return (dd.matches("[0-9]+") && MM.matches("[0-9]+") && yyyy.matches("[0-9]+"));
+	}
+	
+	public boolean validDate(String dd, String MM, String yyyy){
+		return (dd.matches("[0-9]+") && dd.length()==2 && MM.matches("[0-9]+") && MM.length()==2 && yyyy.matches("[0-9]+") && yyyy.length()==4);
+	}
+	
+	public String makeString(String dd, String MM, String yyyy){
+		return yyyy + "-" + MM + "-" + dd;
+	}
 
 }

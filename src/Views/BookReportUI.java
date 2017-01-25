@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.CategoryPlot;
 
 import graphics.GUIimage;
@@ -24,10 +25,25 @@ public class BookReportUI extends JPanel {
 	public JButton btnBySearches;
 	public JButton btnBack;
 	public JTextField textField;
+	public JLabel lblFrom;
+	public JTextField ddFrom;
+	public JTextField MMFrom;
+	public JTextField yyFrom;
+	public JTextField ddTo;
+	public JTextField MMTo;
+	public JTextField yyTo;
+	public JLabel labelSleh;
+	public JLabel labelSleh1;
+	public JLabel labelSleh2;
+	public JLabel labelSleh3;
+	public JLabel lblTo;
+	public JPanel panel;
 	public JFreeChart chart;
 	public CategoryPlot p;
 	public ChartPanel bar;
-	public JPanel panel;
+	public CategoryAxis domainAxis;
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -42,28 +58,28 @@ public class BookReportUI extends JPanel {
 		
 		lblBookReport = new JLabel("Book Report");
 		lblBookReport.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblBookReport.setBounds(270, 159, 154, 30);
+		lblBookReport.setBounds(270, 140, 154, 30);
 		add(lblBookReport);
 		
 		lblBookId = new JLabel("Book ID :");
 		lblBookId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBookId.setBounds(45, 209, 70, 30);
+		lblBookId.setBounds(45, 185, 70, 30);
 		add(lblBookId);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(125, 211, 86, 30);
+		textField.setBounds(125, 187, 86, 30);
 		add(textField);
 		textField.setColumns(10);
 		
 		btnByPurchases = new JButton("By purchases");
 		btnByPurchases.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnByPurchases.setBounds(240, 211, 120, 30);
+		btnByPurchases.setBounds(240, 187, 120, 30);
 		add(btnByPurchases);
 		
 		btnBySearches = new JButton("By searches");
 		btnBySearches.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBySearches.setBounds(380, 211, 105, 30);
+		btnBySearches.setBounds(380, 187, 105, 30);
 		add(btnBySearches);
 		
 		btnBack = new JButton("Back");
@@ -71,45 +87,91 @@ public class BookReportUI extends JPanel {
 		btnBack.setBounds(505, 211, 89, 30);
 		add(btnBack);
 		
-		/*panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(new Color(204, 255, 204));
-		panel.setBounds(12, 254, 646, 265);
-		add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-		panel.removeAll();*/
+		lblFrom = new JLabel("From :");
+		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFrom.setBounds(45, 215, 46, 30);
+		add(lblFrom);
 		
-		/*
-		DefaultCategoryDataset san = new DefaultCategoryDataset();
-		san.setValue(8000, "ABC", "DEF");
-		san.setValue(5400, "GHI", "JKL");
-		san.setValue(2150, "MNO", "PQR");
-		san.setValue(6700, "STU", "VWX");
-		san.setValue(4200, "YZA", "BCD");
-		san.setValue(8300, "EFG", "HIJ");
-		*/
+		ddFrom = new JTextField();
+		ddFrom.setToolTipText("dd");
+		ddFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		ddFrom.setBounds(89, 221, 30, 23);
+		add(ddFrom);
+		ddFrom.setColumns(2);
 		
-		/*JFreeChart chart = ChartFactory.createBarChart("Gidi The King","1","2",san,PlotOrientation.VERTICAL, false,true,false);
-		CategoryPlot p = chart.getCategoryPlot();
-		p.setRangeGridlinePaint(Color.black);*/
+		labelSleh = new JLabel("/");
+		labelSleh.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelSleh.setBounds(122, 215, 11, 30);
+		add(labelSleh);
 		
-		/*ChartPanel bar = new ChartPanel(chart);
-		panel.removeAll();
-		panel.add(bar,BorderLayout.CENTER);
-		panel.validate();*/
+		MMFrom = new JTextField();
+		MMFrom.setToolTipText("mm");
+		MMFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		MMFrom.setBounds(131, 221, 30, 23);
+		add(MMFrom);
+		MMFrom.setColumns(2);
+		
+		labelSleh1 = new JLabel("/");
+		labelSleh1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelSleh1.setBounds(166, 215, 11, 30);
+		add(labelSleh1);
+		
+		yyFrom = new JTextField();
+		yyFrom.setToolTipText("yyyy");
+		yyFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		yyFrom.setBounds(177, 221, 41, 23);
+		add(yyFrom);
+		yyFrom.setColumns(4);
+		
+		lblTo = new JLabel("To :");
+		lblTo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTo.setBounds(245, 215, 28, 30);
+		add(lblTo);
+		
+		ddTo = new JTextField();
+		ddTo.setToolTipText("dd");
+		ddTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		ddTo.setBounds(275, 221, 30, 23);
+		add(ddTo);
+		ddTo.setColumns(2);
+		
+		labelSleh2 = new JLabel("/");
+		labelSleh2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelSleh2.setBounds(308, 215, 11, 30);
+		add(labelSleh2);
+		
+		MMTo = new JTextField();
+		MMTo.setToolTipText("mm");
+		MMTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		MMTo.setBounds(317, 221, 30, 23);
+		add(MMTo);
+		MMTo.setColumns(2);
+		
+		labelSleh3 = new JLabel("/");
+		labelSleh3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelSleh3.setBounds(352, 215, 11, 30);
+		add(labelSleh3);
+
+		
+		yyTo = new JTextField();
+		yyTo.setToolTipText("yyyy");
+		yyTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		yyTo.setBounds(363, 221, 41, 23);
+		add(yyTo);
+		yyTo.setColumns(4);
 		
 		JLabel lblBackground = new JLabel("New label");
+		lblBackground.setToolTipText("");
 		lblBackground.setBounds(0, 0, 671, 533);
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
-		
 		
 	}
 	
 	public void setExtraPanel(){
 		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(new Color(204, 255, 204));
+		panel.setBackground(new Color(230, 230, 250));
 		panel.setBounds(12, 254, 646, 265);
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -117,5 +179,4 @@ public class BookReportUI extends JPanel {
 		panel.add(bar,BorderLayout.CENTER);
 		panel.validate();
 	}
-	
 }

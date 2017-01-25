@@ -18,16 +18,13 @@ import org.jfree.chart.plot.CategoryPlot;
 import graphics.GUIimage;
 
 public class BookPopularityUI extends JPanel {
-	public JLabel lblBookReport;
+	public JLabel lblBookRating;
 	public JLabel lblBookId;
-	public JButton btnByPurchases;
-	public JButton btnBySearches;
+	public JButton btnTotalRank;
+	public JButton btnGenreRank;
 	public JButton btnBack;
 	public JTextField textField;
-	public JFreeChart chart;
-	public CategoryPlot p;
-	public ChartPanel bar;
-	public JPanel panel;
+
 	/**
 	 * Create the panel.
 	 */
@@ -40,63 +37,37 @@ public class BookPopularityUI extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		lblBookReport = new JLabel("Book Report");
-		lblBookReport.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblBookReport.setBounds(270, 159, 154, 30);
-		add(lblBookReport);
+		lblBookRating = new JLabel("Book Rating");
+		lblBookRating.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblBookRating.setBounds(270, 159, 154, 30);
+		add(lblBookRating);
 		
 		lblBookId = new JLabel("Book ID :");
 		lblBookId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBookId.setBounds(45, 209, 70, 30);
+		lblBookId.setBounds(55, 209, 70, 30);
 		add(lblBookId);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(125, 211, 86, 30);
-		add(textField);
+		textField.setBounds(135, 211, 86, 30);
 		textField.setColumns(10);
+		add(textField);
 		
-		btnByPurchases = new JButton("By purchases");
-		btnByPurchases.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnByPurchases.setBounds(240, 211, 120, 30);
-		add(btnByPurchases);
 		
-		btnBySearches = new JButton("By searches");
-		btnBySearches.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBySearches.setBounds(380, 211, 105, 30);
-		add(btnBySearches);
+		btnTotalRank = new JButton("Overall ranking");
+		btnTotalRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTotalRank.setBounds(250, 211, 130, 30);
+		add(btnTotalRank);
+		
+		btnGenreRank = new JButton("Rating by genre");
+		btnGenreRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnGenreRank.setBounds(410, 211, 130, 30);
+		add(btnGenreRank);
 		
 		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBack.setBounds(505, 211, 89, 30);
+		btnBack.setBounds(45, 472, 89, 30);
 		add(btnBack);
-		
-		/*panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(new Color(204, 255, 204));
-		panel.setBounds(12, 254, 646, 265);
-		add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-		panel.removeAll();*/
-		
-		/*
-		DefaultCategoryDataset san = new DefaultCategoryDataset();
-		san.setValue(8000, "ABC", "DEF");
-		san.setValue(5400, "GHI", "JKL");
-		san.setValue(2150, "MNO", "PQR");
-		san.setValue(6700, "STU", "VWX");
-		san.setValue(4200, "YZA", "BCD");
-		san.setValue(8300, "EFG", "HIJ");
-		*/
-		
-		/*JFreeChart chart = ChartFactory.createBarChart("Gidi The King","1","2",san,PlotOrientation.VERTICAL, false,true,false);
-		CategoryPlot p = chart.getCategoryPlot();
-		p.setRangeGridlinePaint(Color.black);*/
-		
-		/*ChartPanel bar = new ChartPanel(chart);
-		panel.removeAll();
-		panel.add(bar,BorderLayout.CENTER);
-		panel.validate();*/
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
@@ -104,18 +75,6 @@ public class BookPopularityUI extends JPanel {
 		add(lblBackground);
 		
 		
-	}
-	
-	public void setExtraPanel(){
-		panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(new Color(204, 255, 204));
-		panel.setBounds(12, 254, 646, 265);
-		add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-		panel.removeAll();
-		panel.add(bar,BorderLayout.CENTER);
-		panel.validate();
 	}
 	
 }

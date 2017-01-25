@@ -491,7 +491,7 @@ public Object logout(Object obj) {
 		return returnObj;
 	}
 	
-	public Object BookReport(int bId, int choice){
+	public Object BookReport(int bId, int choice, String fromDate, String toDate){
 		
 		Map<String,Object> returnObj = new HashMap<String,Object>();
 		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
@@ -501,8 +501,10 @@ public Object logout(Object obj) {
 		
 		try {
 			PreparedStatement pStmt = con
-					.prepareStatement("SELECT * FROM test.reader_book WHERE bookId = ? order by date ");
-			pStmt.setInt(1, bId);
+					.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND bookId = ? order by date ");
+			pStmt.setString(1, fromDate);
+			pStmt.setString(2, toDate);
+			pStmt.setInt(3, bId);
 			ResultSet rs = pStmt.executeQuery();
 			
 			if (!rs.isBeforeFirst()) {
@@ -523,6 +525,7 @@ public Object logout(Object obj) {
 							myTemp = tempDate.format(rs.getDate(5));
 						}
 					}
+					dataSet.setValue(count, "Amount of purchases", myTemp);
 				}
 				else if(choice == 1){ // By searched
 					rs.next();
@@ -537,6 +540,7 @@ public Object logout(Object obj) {
 							myTemp = tempDate.format(rs.getDate(5));
 						}
 					}
+					dataSet.setValue(count, "Amount of purchases", myTemp);
 				}
 			}
 
@@ -548,6 +552,50 @@ public Object logout(Object obj) {
 		returnObj.put("int", choice);
 		returnObj.put("data", dataSet);
 		return returnObj;
+	}
+	
+	
+	public int BookRank(int bId, int choice){
+
+		int count = 1;
+		String myTemp;
+		
+		try {/*choice = 0 - Total Rank, 1 - Genre Rank */
+			if(choice == 0){
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.books order by numOfPurchace DESC ");
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+				if(rs.getInt(1) == bId) return 1;
+				else
+					while(rs.next()){
+						count++;
+						if(rs.getInt(1) == bId) return count;
+				}
+			}else if(choice == 1){
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT books.genre FROM test.books WHERE id = ?;");
+				pStmt.setInt(1, bId);
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+				myTemp = rs.getString(1);
+				pStmt = con.prepareStatement("SELECT books.id,books.numOfSearch FROM test.books WHERE genre = ? order by numOfSearch DESC;");
+				pStmt.setString(1, myTemp);
+				rs = pStmt.executeQuery();
+				rs.next();
+				if(rs.getInt(1) == bId) return 1;
+				else
+					while(rs.next()){
+						count++;
+						if(rs.getInt(1) == bId) return count;
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 2; // book isn't exists	
+		}
+		return 0;
 	}
 	
 	public void closeSqlConnection(){
