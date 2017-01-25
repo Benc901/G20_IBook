@@ -28,6 +28,7 @@ import Views.HideBookUI;
 import Views.MainUI;
 import Views.ManagerUI;
 import Views.UserReportUI;
+import graphics.GUIimagejpg;
 
 public class ManagerCT implements Observer, ActionListener {
 	public static ManagerUI managerFrame;
@@ -313,7 +314,7 @@ public class ManagerCT implements Observer, ActionListener {
 				else if(map.get("obj") instanceof HashMap){
 					returnedHash = (HashMap<String, Object>) map.get("obj");
 					if((int)returnedHash.get("int") == 0){
-						bookreportFrame.chart = ChartFactory.createBarChart3D("Books histogram, by Purchases","Date","Amount of purchases",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart = ChartFactory.createBarChart3D("Books report, by Purchases","Date","Amount of purchases",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
 						bookreportFrame.chart.setBackgroundPaint(new Color(230, 230, 250));
 						bookreportFrame.chart.getTitle().setPaint(Color.red);
 						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
@@ -324,7 +325,7 @@ public class ManagerCT implements Observer, ActionListener {
 						bookreportFrame.setExtraPanel();
 					}
 					else if((int)returnedHash.get("int") == 1){
-						bookreportFrame.chart = ChartFactory.createBarChart3D("Books histogram, by Searches","Date","Amount of searches",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
+						bookreportFrame.chart = ChartFactory.createBarChart3D("Books report, by Searches","Date","Amount of searches",(DefaultCategoryDataset)(returnedHash.get("data")),PlotOrientation.VERTICAL, false,true,false);
 						bookreportFrame.chart.setBackgroundPaint(new Color(230, 230, 250));
 						bookreportFrame.chart.getTitle().setPaint(Color.red);
 						bookreportFrame.p = bookreportFrame.chart.getCategoryPlot();
@@ -340,10 +341,19 @@ public class ManagerCT implements Observer, ActionListener {
 				
 			case "BookRank":
 				
-				if((int)map.get("obj") == 0)
-					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
-				else
-					JOptionPane.showMessageDialog(null,"The book rank is : " + (int)map.get("obj"));	
+				if(map.get("obj") == null)
+					JOptionPane.showMessageDialog(null,"The book does not exist !");	
+				else{
+					BookET temp = (BookET)map.get("obj");
+					bookpopularityFrame.profile.setIcon(new GUIimagejpg("/books/" +temp.getBPhoto(),bookpopularityFrame.profile.getWidth(),bookpopularityFrame.profile.getHeight()).image);
+					bookpopularityFrame.lblNewBookName.setText("Book Name : " + temp.getBTitle());
+					bookpopularityFrame.lblAuthor.setText("Author : "+ temp.getBAuthor());
+					bookpopularityFrame.lblGenere.setText("Genere : " + temp.getBGenre());
+					if(temp.getBGenreRank() == 0)
+						bookpopularityFrame.lblRank.setText("Total Rank : " + temp.getBTotalRank());
+					else
+						bookpopularityFrame.lblRank.setText("Genere Rank : " + temp.getBGenreRank());
+				}
 			break;
 		
 			}	

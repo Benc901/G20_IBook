@@ -16,12 +16,18 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 
 import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 public class BookPopularityUI extends JPanel {
 	public JLabel lblBookRating;
 	public JLabel lblBookId;
 	public JButton btnTotalRank;
 	public JButton btnGenreRank;
+	public JLabel profile;
+	public JLabel lblNewBookName;
+	public JLabel lblAuthor;
+	public JLabel lblGenere;
+	public JLabel lblRank;
 	public JButton btnBack;
 	public JTextField textField;
 
@@ -44,29 +50,53 @@ public class BookPopularityUI extends JPanel {
 		
 		lblBookId = new JLabel("Book ID :");
 		lblBookId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBookId.setBounds(55, 209, 70, 30);
+		lblBookId.setBounds(25, 209, 70, 30);
 		add(lblBookId);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(135, 211, 86, 30);
+		textField.setBounds(92, 211, 86, 30);
 		textField.setColumns(10);
 		add(textField);
 		
 		
 		btnTotalRank = new JButton("Overall ranking");
 		btnTotalRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTotalRank.setBounds(250, 211, 130, 30);
+		btnTotalRank.setBounds(195, 211, 130, 30);
 		add(btnTotalRank);
 		
 		btnGenreRank = new JButton("Rating by genre");
 		btnGenreRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnGenreRank.setBounds(410, 211, 130, 30);
+		btnGenreRank.setBounds(342, 211, 130, 30);
 		add(btnGenreRank);
+		
+		profile = new JLabel("");
+		profile.setBounds(30, 254, 180, 224);
+		add(profile);
+		
+		lblNewBookName = new JLabel("");
+		lblNewBookName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewBookName.setBounds(240, 255, 350, 35);
+		add(lblNewBookName);
+		
+		lblAuthor = new JLabel("");
+		lblAuthor.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAuthor.setBounds(240, 301, 350, 35);
+		add(lblAuthor);
+		
+		lblGenere = new JLabel("");
+		lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblGenere.setBounds(240, 347, 350, 35);
+		add(lblGenere);
+		
+		lblRank = new JLabel("");
+		lblRank.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblRank.setBounds(240, 393, 350, 35);
+		add(lblRank);
 		
 		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBack.setBounds(45, 472, 89, 30);
+		btnBack.setBounds(20, 490, 89, 30);
 		add(btnBack);
 		
 		JLabel lblBackground = new JLabel("New label");

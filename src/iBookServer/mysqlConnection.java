@@ -502,19 +502,17 @@ public Object logout(Object obj) {
 		String myTemp;
 		
 		try {
-			PreparedStatement pStmt = con
-					.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND bookId = ? order by date ");
-			pStmt.setString(1, fromDate);
-			pStmt.setString(2, toDate);
-			pStmt.setInt(3, bId);
-			ResultSet rs = pStmt.executeQuery();
+			if(choice == 0){ 		//By purchased
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND bookId = ? order by date ");
+				pStmt.setString(1, fromDate);
+				pStmt.setString(2, toDate);
+				pStmt.setInt(3, bId);
+				ResultSet rs = pStmt.executeQuery();
 			
-			if (!rs.isBeforeFirst()) {
-				if(choice == 0) return 0; // The book has not yet been purchased
-				else if(choice == 1) return 1; // The book has not yet been searched
-			}
-			else{
-				if(choice == 0){ // By purchased
+				if (!rs.isBeforeFirst())
+					return 0;    	// The book has not yet been purchased
+				else{
 					rs.next();
 					myTemp = tempDate.format(rs.getDate(5));
 					count++;
@@ -529,36 +527,48 @@ public Object logout(Object obj) {
 					}
 					dataSet.setValue(count, "Amount of purchases", myTemp);
 				}
-				else if(choice == 1){ // By searched
+			}
+			else if(choice == 1){ // By searched		
+				PreparedStatement pStmt = con
+						.prepareStatement("SELECT * FROM test.search_book WHERE date BETWEEN ? AND ? AND book_id = ? order by date ");
+				pStmt.setString(1, fromDate);
+				pStmt.setString(2, toDate);
+				pStmt.setInt(3, bId);
+				ResultSet rs = pStmt.executeQuery();
+				if (!rs.isBeforeFirst())
+					return 1;    	 // The book has not yet been searched
+				else{
 					rs.next();
-					myTemp = tempDate.format(rs.getDate(5));
+					myTemp = tempDate.format(rs.getDate(2));
 					count++;
 					while(rs.next()){
-						if(tempDate.format(rs.getDate(5)).equals(myTemp))
+						if(tempDate.format(rs.getDate(2)).equals(myTemp))
 							count++;
 						else{
 							dataSet.setValue(count, "Amount of searches", myTemp);
 							count = 1; 
-							myTemp = tempDate.format(rs.getDate(5));
+							myTemp = tempDate.format(rs.getDate(2));
 						}
 					}
-					dataSet.setValue(count, "Amount of purchases", myTemp);
+					dataSet.setValue(count, "Amount of searches", myTemp);
 				}
 			}
-
 		}
+		
 		catch (SQLException e) {
 			e.printStackTrace();
 			return 2; // book isn't exists	
 		}
+		
 		returnObj.put("int", choice);
 		returnObj.put("data", dataSet);
 		return returnObj;
 	}
 	
 	
-	public int BookRank(int bId, int choice){
-
+	public BookET BookRank(int bId, int choice){
+		
+		BookET returnObj = null;
 		int count = 1;
 		String myTemp;
 		
@@ -567,12 +577,20 @@ public Object logout(Object obj) {
 				PreparedStatement pStmt = con
 						.prepareStatement("SELECT * FROM test.books order by numOfPurchace DESC ");
 				ResultSet rs = pStmt.executeQuery();
-				rs.next();
-				if(rs.getInt(1) == bId) return 1;
-				else
-					while(rs.next()){
+				while(rs.next()){
+					if(rs.getInt(1) == bId){
+						returnObj = new BookET(rs.getInt(1),
+								rs.getString(2),rs.getString(3),
+								rs.getString(4),rs.getString(5),
+								rs.getString(6),rs.getString(7),
+								rs.getString(8),rs.getString(9),
+								rs.getString(10),rs.getInt(11),
+								rs.getInt(12),rs.getInt(13),
+								count,0);
+						return returnObj;
+					}
+					else
 						count++;
-						if(rs.getInt(1) == bId) return count;
 				}
 			}else if(choice == 1){
 				PreparedStatement pStmt = con
@@ -581,23 +599,31 @@ public Object logout(Object obj) {
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();
 				myTemp = rs.getString(1);
-				pStmt = con.prepareStatement("SELECT books.id,books.numOfSearch FROM test.books WHERE genre = ? order by numOfSearch DESC;");
+				pStmt = con.prepareStatement("SELECT * FROM test.books WHERE genre = ? order by numOfPurchace DESC;");
 				pStmt.setString(1, myTemp);
 				rs = pStmt.executeQuery();
-				rs.next();
-				if(rs.getInt(1) == bId) return 1;
-				else
-					while(rs.next()){
+				while(rs.next()){
+					if(rs.getInt(1) == bId){
+						returnObj = new BookET(rs.getInt(1),
+								rs.getString(2),rs.getString(3),
+								rs.getString(4),rs.getString(5),
+								rs.getString(6),rs.getString(7),
+								rs.getString(8),rs.getString(9),
+								rs.getString(10),rs.getInt(11),
+								rs.getInt(12),rs.getInt(13),
+								0,count);
+						return returnObj;
+					}
+					else
 						count++;
-						if(rs.getInt(1) == bId) return count;
 				}
 			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			return 2; // book isn't exists	
+			return returnObj; // book isn't exists	
 		}
-		return 0;
+		return returnObj;
 	}
 	
 	public void closeSqlConnection(){

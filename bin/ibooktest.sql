@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `test`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
--- Host: localhost    Database: g10mygas
+-- Host: localhost    Database: g20iBook
 -- ------------------------------------------------------
 -- Server version	5.7.9
 
@@ -42,7 +42,7 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `user`
 --
 
 LOCK TABLES `user` WRITE;
@@ -69,7 +69,7 @@ CREATE TABLE `reader` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `reader`
 --
 
 LOCK TABLES `reader` WRITE;
@@ -104,7 +104,7 @@ CREATE TABLE `books` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `books`
 --
 
 LOCK TABLES `books` WRITE;
@@ -131,22 +131,22 @@ CREATE TABLE `reader_book` (
   `bookId` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
   `review` int(11) NOT NULL,
-  `date` varchar(45) NOT NULL,
+  `date` DATE NOT NULL,
   PRIMARY KEY (`id`,`bookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `reader_book`
 --
 
 LOCK TABLES `reader_book` WRITE;
 /*!40000 ALTER TABLE `reader_book` DISABLE KEYS */;
-INSERT INTO `reader_book` VALUES (2,1,'Robin hobb',0,'02/01/2017'),(2,2,'The Hunger Games',0,'02/01/2017'),(2,3,'Twilight',1,'02/01/2017'),(1,2,'The Hunger Games',0,'02/01/2017')
-,(3,2,'The Hunger Games',0,'02/01/2017'),(4,2,'The Hunger Games',0,'02/01/2017'),(5,2,'The Hunger Games',0,'02/01/2017'),(6,2,'The Hunger Games',0,'02/01/2017'),(7,2,'The Hunger Games',0,'02/01/2017')
-,(8,2,'The Hunger Games',0,'02/01/2017'),(9,2,'The Hunger Games',0,'02/01/2017'),(11,2,'The Hunger Games',0,'02/01/2017'),(22,2,'The Hunger Games',0,'02/01/2017'),(23,2,'The Hunger Games',0,'02/01/2017')
-,(24,2,'The Hunger Games',0,'02/01/2017'),(25,2,'The Hunger Games',0,'02/01/2017'),(26,2,'The Hunger Games',0,'02/01/2017'),(27,2,'The Hunger Games',0,'02/01/2017')
-,(28,2,'The Hunger Games',0,'02/01/2017'),(29,2,'The Hunger Games',0,'02/01/2017'),(30,2,'The Hunger Games',0,'02/01/2017'),(31,2,'The Hunger Games',0,'02/01/2017');
+INSERT INTO `reader_book` VALUES (2,1,'Robin hobb',0,'2017-11-02'),(2,2,'The Hunger Games',0,'2017-11-02'),(2,3,'Twilight',1,'2017-01-02'),(1,2,'The Hunger Games',0,'2017-01-02')
+,(3,2,'The Hunger Games',0,'2017-09-02'),(4,2,'The Hunger Games',0,'2016-01-02'),(5,2,'The Hunger Games',0,'2017-12-02'),(6,2,'The Hunger Games',0,'2017-02-02'),(7,2,'The Hunger Games',0,'2017-01-02')
+,(8,2,'The Hunger Games',0,'2017-07-02'),(9,2,'The Hunger Games',0,'2015-01-02'),(11,2,'The Hunger Games',0,'2017-08-02'),(22,2,'The Hunger Games',0,'2017-02-02'),(23,2,'The Hunger Games',0,'2017-01-02')
+,(24,2,'The Hunger Games',0,'2017-09-02'),(25,2,'The Hunger Games',0,'2014-01-02'),(26,2,'The Hunger Games',0,'2017-07-02'),(27,2,'The Hunger Games',0,'2017-02-02')
+,(28,2,'The Hunger Games',0,'2017-09-02'),(29,2,'The Hunger Games',0,'2015-01-02'),(30,2,'The Hunger Games',0,'2017-03-02'),(31,2,'The Hunger Games',0,'2017-02-02');
 /*!40000 ALTER TABLE `reader_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +172,7 @@ CREATE TABLE `review` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `review`
 --
 
 LOCK TABLES `review` WRITE;
@@ -194,7 +194,7 @@ CREATE TABLE `genere` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `genere`
 --
 
 LOCK TABLES `genere` WRITE;
@@ -215,7 +215,7 @@ CREATE TABLE `subject` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `subject`
 --
 
 LOCK TABLES `subject` WRITE;
@@ -237,13 +237,32 @@ CREATE TABLE `pairing` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fuel`
+-- Dumping data for table `pairing`
 --
 
 LOCK TABLES `pairing` WRITE;
 /*!40000 ALTER TABLE `pairing` DISABLE KEYS */;
 INSERT INTO `pairing` VALUES (1,2,2),(1,1,1),(2,1,3),(2,1,2),(3,1,2),(4,1,1),(5,3,9),(6,1,1),(7,1,1),(8,1,1),(9,1,1);
 /*!40000 ALTER TABLE `pairing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `search_book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `search_book` (
+  `book_id` int(11) NOT NULL,
+  `date` DATE NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `search_book`
+--
+
+LOCK TABLES `search_book` WRITE;
+/*!40000 ALTER TABLE `search_book` DISABLE KEYS */;
+INSERT INTO `search_book` VALUES (1,'2017-01-20'),(2,'2017-01-20'),(2,'2017-01-20');
+/*!40000 ALTER TABLE `search_book` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
