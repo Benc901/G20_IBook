@@ -235,6 +235,7 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("obj", getFile());
 				break;
 			case "Download":	
+				System.out.println("download case");
 				display(" : " + op, client);
 				returnObj.put("op", "Download");
 				returnObj.put("obj", Download((FileEvent)map.get("obj")));
@@ -249,10 +250,12 @@ public class IBookServer extends AbstractServer {
 		}
 	}
 	public FileEvent Download(FileEvent fileEvent){
-		java.net.URL url = getClass().getResource("\\"+fileEvent.getFilename());
+		java.net.URL url = getClass().getResource("/books/"+fileEvent.getFilename());
 		File file=new File(url.getPath());
+		System.out.println("download before if");
 		if (file.isFile()) {
 			try {
+				System.out.println("download inside if");
 			DataInputStream diStream = new DataInputStream(new FileInputStream(file));
 			long len = (int) file.length();
 			byte[] fileBytes = new byte[(int) len];

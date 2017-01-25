@@ -129,7 +129,7 @@ public class BookCT implements Observer, ActionListener{
 								else if((int)map.get("obj")==3)JOptionPane.showMessageDialog(null,"successful,Your invoice in your box");
 								else if((int)map.get("obj")==4)JOptionPane.showMessageDialog(null,"Failed,You got this book before");
 								else JOptionPane.showMessageDialog(null,"Failed");
-								//Download();
+								Download();
 								
 								break;}
 				case "SearchAdv":{
@@ -150,15 +150,18 @@ public class BookCT implements Observer, ActionListener{
 				case "ViewBook":break;
 				case "Download":{
 					try{
+						System.out.println("update begin");
 							FileEvent fileEvent=(FileEvent)map.get("obj");
 							if (fileEvent.getStatus().equalsIgnoreCase("Error")) {
 								System.out.println("Error occurred ..So exiting");
 								break;
 								}
+							System.out.println("before dst");
 							String outputFile = fileEvent.getDestinationDirectory() + fileEvent.getFilename();
 							if (!new File(fileEvent.getDestinationDirectory()).exists()) {
 							new File(fileEvent.getDestinationDirectory()).mkdirs();
 							}
+							System.out.println("after dst");
 							File dstFile=new File(outputFile);
 							FileOutputStream fileOutputStream= new FileOutputStream(dstFile);
 							fileOutputStream.write(fileEvent.getFileData());
@@ -252,10 +255,13 @@ public class BookCT implements Observer, ActionListener{
 		System.out.println(fileEvent.getFilename());
 
 		fileEvent.setDestinationDirectory(""+download.get(3));
+		System.out.println(fileEvent.getDestinationDirectory());
 
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "Download");
-		hmap.put("obj", fileEvent);
+		System.out.println("1");
+		hmap.put("obj", (Object)fileEvent);
+		System.out.println("2");
 		client.handleMessageFromUI(hmap);
 	}
 
