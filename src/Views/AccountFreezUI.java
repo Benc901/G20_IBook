@@ -36,10 +36,11 @@ public class AccountFreezUI extends JPanel {
 		
 		lbUserId = new JLabel("User ID :");
 		lbUserId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lbUserId.setBounds(82, 258, 107, 30);
+		lbUserId.setBounds(82, 260, 107, 30);
 		add(lbUserId);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(155, 260, 112, 30);
 		add(textField);
 		textField.setColumns(10);
@@ -49,10 +50,11 @@ public class AccountFreezUI extends JPanel {
 		add(btnFreeze);
 		
 		btnUnFreeze = new JButton("UnFreeze User");
-		btnUnFreeze.setBounds(413, 260, 107, 30);
+		btnUnFreeze.setBounds(413, 260, 120, 30);
 		add(btnUnFreeze);
 		
 		btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		

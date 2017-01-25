@@ -57,7 +57,7 @@ public class UserReportUI extends JPanel {
 
 		
 		lblUserID = new JLabel("User ID :");
-		lblUserID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblUserID.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblUserID.setBounds(40, 180, 113, 30);
 		add(lblUserID);
 		
@@ -67,11 +67,13 @@ public class UserReportUI extends JPanel {
 		add(textField);
 		
 		btnShowReport = new JButton("Show report");
-		btnShowReport.setBounds(233, 181, 100, 30);
+		btnShowReport.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnShowReport.setBounds(233, 181, 120, 30);
 		add(btnShowReport);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(40, 486, 89, 30);
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		
 		model = new DefaultTableModel();

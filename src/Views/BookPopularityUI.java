@@ -96,7 +96,7 @@ public class BookPopularityUI extends JPanel {
 		
 		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBack.setBounds(20, 490, 89, 30);
+		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		
 		JLabel lblBackground = new JLabel("New label");

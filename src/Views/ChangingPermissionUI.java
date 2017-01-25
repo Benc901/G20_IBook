@@ -40,30 +40,34 @@ public class ChangingPermissionUI extends JPanel {
 		
 		lblUserId = new JLabel("User ID :");
 		lblUserId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblUserId.setBounds(49, 233, 80, 30);
+		lblUserId.setBounds(52, 233, 71, 30);
 		add(lblUserId);
 		
 		textField = new JTextField();
-		textField.setBounds(117, 240, 86, 20);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField.setBounds(133, 234, 86, 30);
 		add(textField);
 		textField.setColumns(10);
 		
 		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
-		comboBox.setBounds(330, 240, 39, 20);
+		comboBox.setBounds(362, 234, 44, 30);
 		add(comboBox);
 		
 		lblNewPermission = new JLabel("New Permission :");
 		lblNewPermission.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewPermission.setBounds(213, 233, 107, 30);
+		lblNewPermission.setBounds(240, 233, 135, 30);
 		add(lblNewPermission);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(49, 483, 89, 23);
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		
 		btnChange = new JButton("Change");
-		btnChange.setBounds(379, 239, 89, 23);
+		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnChange.setBounds(440, 234, 89, 30);
 		add(btnChange);
 		
 		JLabel lblBackground = new JLabel("New label");
