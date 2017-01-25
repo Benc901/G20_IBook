@@ -63,7 +63,7 @@ public class ManagerCT implements Observer, ActionListener {
 			hidebookFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(hidebookFrame);
 		}
-		else if(hidebookFrame!=null){
+		if(hidebookFrame!=null){
 			if(e.getSource()==hidebookFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -83,14 +83,14 @@ public class ManagerCT implements Observer, ActionListener {
 		
 		/*******************************Account Freeze**************************************/
 		
-		else if(e.getSource()==managerFrame.btnAFreezing){
+		if(e.getSource()==managerFrame.btnAFreezing){
 			accountfreezFrame = new AccountFreezUI();
 			accountfreezFrame.btnFreeze.addActionListener((ActionListener)this);
 			accountfreezFrame.btnUnFreeze.addActionListener((ActionListener)this);
 			accountfreezFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(accountfreezFrame);
 		}
-		else if(accountfreezFrame!=null){
+		if(accountfreezFrame!=null){
 			if(e.getSource()==accountfreezFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -110,13 +110,13 @@ public class ManagerCT implements Observer, ActionListener {
 		
 		/********************************Changing Permission*************************************/
 		
-		else if(e.getSource()==managerFrame.btnCpermission){
+		if(e.getSource()==managerFrame.btnCpermission){
 			changingpermissionFrame = new ChangingPermissionUI();
 			changingpermissionFrame.btnChange.addActionListener((ActionListener)this);
 			changingpermissionFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(changingpermissionFrame);
 		}
-		else if(changingpermissionFrame!=null){
+		if(changingpermissionFrame!=null){
 			if(e.getSource()==changingpermissionFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -127,34 +127,41 @@ public class ManagerCT implements Observer, ActionListener {
 		
 		/********************************User Report*************************************/
 		
-		else if(e.getSource()==managerFrame.btnUreport){
+		if(e.getSource()==managerFrame.btnUreport){
 			userreportFrame = new UserReportUI();
 			userreportFrame.btnShowReport.addActionListener((ActionListener)this);
 			userreportFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(userreportFrame);
 		}
-		else if(userreportFrame!=null){
+		if(userreportFrame!=null){
 			if(e.getSource()==userreportFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==userreportFrame.btnShowReport){
 				if(!ifContainOnlyNum(userreportFrame.textField.getText()))
-					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
+					JOptionPane.showMessageDialog(null,"Please enter valid User ID");
+				else if(!validDate(userreportFrame.ddFrom.getText(),userreportFrame.MMFrom.getText(),userreportFrame.yyFrom.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid start date (dd/mm/yyyy) !");
+				else if(!validDate(userreportFrame.ddTo.getText(),userreportFrame.MMTo.getText(),userreportFrame.yyTo.getText()))
+					JOptionPane.showMessageDialog(null,"Please enter valid end date (dd/mm/yyyy) !");
 				else
-					showUserReport();
+					showUserReport(makeString(userreportFrame.ddFrom.getText(),userreportFrame.MMFrom.getText(),userreportFrame.yyFrom.getText()),
+							makeString(userreportFrame.ddTo.getText(),userreportFrame.MMTo.getText(),userreportFrame.yyTo.getText()));
 			}
+
 		}
+		
 		
 		/********************************Book Report*************************************/
 							/* 0 - By Purchases, 1 - By Searches */
-		else if(e.getSource()==managerFrame.btnBreport){ 
+		if(e.getSource()==managerFrame.btnBreport){ 
 			bookreportFrame = new BookReportUI();
 			bookreportFrame.btnByPurchases.addActionListener((ActionListener)this);
 			bookreportFrame.btnBySearches.addActionListener((ActionListener)this);
 			bookreportFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(bookreportFrame);
 		}
-		else if(bookreportFrame!=null){
+		if(bookreportFrame!=null){
 			if(e.getSource()==bookreportFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -183,15 +190,15 @@ public class ManagerCT implements Observer, ActionListener {
 		}
 		
 		/******************************Book Rank***************************************/
-		
-		else if(e.getSource()==managerFrame.btnPbook){
+	
+		if(e.getSource()==managerFrame.btnPbook){
 			bookpopularityFrame = new BookPopularityUI();
 			bookpopularityFrame.btnTotalRank.addActionListener((ActionListener)this);
 			bookpopularityFrame.btnGenreRank.addActionListener((ActionListener)this);
 			bookpopularityFrame.btnBack.addActionListener((ActionListener)this);
 			MainUI.MV.setView(bookpopularityFrame);
 		}
-		else if(bookpopularityFrame!=null){
+		if(bookpopularityFrame!=null){
 			if(e.getSource()==bookpopularityFrame.btnBack){
 				MainUI.MV.setView(managerFrame);
 			}
@@ -371,11 +378,13 @@ public class ManagerCT implements Observer, ActionListener {
 		
 	}
 	
-	public void showUserReport(){
+	public void showUserReport(String fromDate, String toDate){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "UserReport");
 		hmap.put("obj", userreportFrame.textField.getText());
-
+		hmap.put("from", fromDate);
+		hmap.put("to", toDate);
+		
 		client.handleMessageFromUI(hmap);
 	}
 	

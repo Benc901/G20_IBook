@@ -1,6 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class BookET implements Serializable {
 		private int bID;
@@ -13,7 +14,7 @@ public class BookET implements Serializable {
 		private String bGenre;
 		private String bSubject;
 		private String bPhoto;
-		private String bPurchaseDate;
+		private Date bPurchaseDate;
 		private int bNumOfSearch;
 		private int bNumOfPurchace;
 		private int bHidden;
@@ -44,10 +45,10 @@ public class BookET implements Serializable {
 			this.bTotalRank = bTotalRank;
 			this.bGenreRank = bGenreRank;
 		}
-		public BookET(int bID, String bTitle, String purchaseDate) {
+		public BookET(int bID, String bTitle, Date date) {
 			this.bID = bID;
 			this.bTitle = bTitle;
-			this.bPurchaseDate = purchaseDate;
+			this.bPurchaseDate = date;
 		}
 		public int getBID() {
 			return this.bID;
@@ -168,10 +169,10 @@ public class BookET implements Serializable {
 		public void setBGenreRank(int bGenreRank) {
 			this.bGenreRank = bGenreRank;
 		}
-		public String getbPurchaseDate() {
+		public Date getbPurchaseDate() {
 			return bPurchaseDate;
 		}
-		public void setbPurchaseDate(String bPurchaseDate) {
+		public void setbPurchaseDate(Date bPurchaseDate) {
 			this.bPurchaseDate = bPurchaseDate;
 		}
 

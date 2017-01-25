@@ -69,8 +69,9 @@ public class BookReportUI extends JPanel {
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(125, 187, 86, 30);
-		add(textField);
 		textField.setColumns(10);
+		add(textField);
+
 		
 		btnByPurchases = new JButton("By purchases");
 		btnByPurchases.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -84,10 +85,11 @@ public class BookReportUI extends JPanel {
 		
 		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBack.setBounds(505, 211, 89, 30);
+		btnBack.setBounds(505, 205, 89, 30);
 		add(btnBack);
 		
 		lblFrom = new JLabel("From :");
+		lblFrom.setToolTipText("dd-MM-yyyy");
 		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblFrom.setBounds(45, 215, 46, 30);
 		add(lblFrom);
@@ -96,10 +98,12 @@ public class BookReportUI extends JPanel {
 		ddFrom.setToolTipText("dd");
 		ddFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		ddFrom.setBounds(89, 221, 30, 23);
-		add(ddFrom);
 		ddFrom.setColumns(2);
+		add(ddFrom);
+
 		
 		labelSleh = new JLabel("/");
+		labelSleh.setToolTipText(null);
 		labelSleh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelSleh.setBounds(122, 215, 11, 30);
 		add(labelSleh);
@@ -108,10 +112,12 @@ public class BookReportUI extends JPanel {
 		MMFrom.setToolTipText("mm");
 		MMFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		MMFrom.setBounds(131, 221, 30, 23);
-		add(MMFrom);
 		MMFrom.setColumns(2);
+		add(MMFrom);
+
 		
 		labelSleh1 = new JLabel("/");
+		labelSleh1.setToolTipText(null);
 		labelSleh1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelSleh1.setBounds(166, 215, 11, 30);
 		add(labelSleh1);
@@ -120,10 +126,12 @@ public class BookReportUI extends JPanel {
 		yyFrom.setToolTipText("yyyy");
 		yyFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		yyFrom.setBounds(177, 221, 41, 23);
-		add(yyFrom);
 		yyFrom.setColumns(4);
+		add(yyFrom);
+
 		
 		lblTo = new JLabel("To :");
+		lblTo.setToolTipText("dd-MM-yyyy");
 		lblTo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTo.setBounds(245, 215, 28, 30);
 		add(lblTo);
@@ -132,10 +140,12 @@ public class BookReportUI extends JPanel {
 		ddTo.setToolTipText("dd");
 		ddTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		ddTo.setBounds(275, 221, 30, 23);
-		add(ddTo);
 		ddTo.setColumns(2);
+		add(ddTo);
+
 		
 		labelSleh2 = new JLabel("/");
+		labelSleh2.setToolTipText(null);
 		labelSleh2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelSleh2.setBounds(308, 215, 11, 30);
 		add(labelSleh2);
@@ -144,10 +154,12 @@ public class BookReportUI extends JPanel {
 		MMTo.setToolTipText("mm");
 		MMTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		MMTo.setBounds(317, 221, 30, 23);
-		add(MMTo);
 		MMTo.setColumns(2);
+		add(MMTo);
+
 		
 		labelSleh3 = new JLabel("/");
+		labelSleh3.setToolTipText(null);
 		labelSleh3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelSleh3.setBounds(352, 215, 11, 30);
 		add(labelSleh3);
@@ -157,8 +169,15 @@ public class BookReportUI extends JPanel {
 		yyTo.setToolTipText("yyyy");
 		yyTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		yyTo.setBounds(363, 221, 41, 23);
-		add(yyTo);
 		yyTo.setColumns(4);
+		add(yyTo);
+
+		
+		panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBackground(new Color(230, 230, 250));
+		panel.setBounds(12, 254, 646, 265);
+		add(panel);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setToolTipText("");
@@ -169,11 +188,6 @@ public class BookReportUI extends JPanel {
 	}
 	
 	public void setExtraPanel(){
-		panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(new Color(230, 230, 250));
-		panel.setBounds(12, 254, 646, 265);
-		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		panel.removeAll();
 		panel.add(bar,BorderLayout.CENTER);

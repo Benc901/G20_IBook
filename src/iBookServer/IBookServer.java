@@ -137,7 +137,7 @@ public class IBookServer extends AbstractServer {
 			case "UserReport":
 				display(" : " + op, client);
 				returnObj.put("op", "UserReport");
-				returnObj.put("obj", sqlCon.UserReport((String)map.get("obj")));	
+				returnObj.put("obj", sqlCon.UserReport((String)map.get("obj"),(String) map.get("from"),(String) map.get("to")));	
 				break;	
 			case "BookReport":
 				display(" : " + op, client);

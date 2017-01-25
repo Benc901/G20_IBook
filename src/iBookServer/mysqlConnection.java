@@ -464,12 +464,14 @@ public Object logout(Object obj) {
 		}
 	}
 	
-	public ArrayList<BookET> UserReport(String userId){
+	public ArrayList<BookET> UserReport(String userId, String fromDate, String toDate){
 		ArrayList<BookET> returnObj = new ArrayList<BookET>();
 		try {
 			PreparedStatement pStmt = con
-				.prepareStatement("SELECT * FROM test.reader_book WHERE id = ? ");
-			pStmt.setString(1, userId);
+				.prepareStatement("SELECT * FROM test.reader_book WHERE date BETWEEN ? AND ? AND  id = ? order by date");
+			pStmt.setString(1, fromDate);
+			pStmt.setString(2, toDate);
+			pStmt.setString(3, userId);
 			ResultSet rs = pStmt.executeQuery();
 			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No
 			// user found).
@@ -479,7 +481,7 @@ public Object logout(Object obj) {
 			else{
 				while(rs.next())
 						returnObj.add(new BookET(rs.getInt(1),
-									rs.getString(3),rs.getString(5)));
+									rs.getString(3),rs.getDate(5)));
 			}
 			
 			rs.close();
