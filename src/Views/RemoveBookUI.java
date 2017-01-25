@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 import Entities.BookET;
 
@@ -20,7 +21,7 @@ public class RemoveBookUI extends JPanel{
 	
 	public JButton btnBack;
 	public JButton btnRBook;
-	public JComboBox comboBoxBooks;
+	public JTextField txtBookId;
 	public ArrayList<BookET> books;
 	
 	public RemoveBookUI(ArrayList<BookET> booksET) {
@@ -40,17 +41,9 @@ public class RemoveBookUI extends JPanel{
 		btnBack.setBounds(40, 466, 89, 30);
 		add(btnBack);
 		
-		comboBoxBooks = new JComboBox();
-		comboBoxBooks.setBounds(210, 269, 217, 30);
-		add(comboBoxBooks);
-		BringBooksTCB();
-		comboBoxBooks.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		txtBookId = new JTextField();
+		txtBookId.setBounds(210, 269, 217, 30);
+		add(txtBookId);
 		
 		btnRBook = new JButton("Delete");
 		btnRBook.setBounds(439, 269, 89, 30);
@@ -68,9 +61,5 @@ public class RemoveBookUI extends JPanel{
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 	}
-	public void BringBooksTCB()
-	{
-		for(int i=0;i<books.size();i++)
-			comboBoxBooks.addItem(books.get(i).getBID()+" - "+books.get(i).getBTitle());
-	}
+
 }

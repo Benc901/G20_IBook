@@ -223,7 +223,7 @@ public class IBookServer extends AbstractServer {
 			case "RemoveSubject":
 				display(" : " + op, client);
 				returnObj.put("op", "RemoveSubject");
-				returnObj.put("obj", sqlCon.RemoveSubject((HashMap<String, Object>) map.get("obj")));
+				returnObj.put("obj", sqlCon.RemoveSubject((HashMap<Integer, Object>) map.get("obj")));
 				break;
 		}
 		
