@@ -1,19 +1,18 @@
 package Views;
 
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 import Controllers.ReviewCT;
 import graphics.GUIimage;
-
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
 
 public class PublishReviewUI extends JPanel{
 	public JButton btnBack ;

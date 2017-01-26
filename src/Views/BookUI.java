@@ -1,29 +1,23 @@
 package Views;
 
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-
-import Entities.BookET;
-import graphics.GUIimage;
-import graphics.GUIimagejpg;
-
-import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import Controllers.BookCT;
 import Controllers.UserCT;
-
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+import Entities.BookET;
+import graphics.GUIimage;
+import graphics.GUIimagejpg;
 
 public class BookUI extends JPanel {
 	public JButton btnBack;

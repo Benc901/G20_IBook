@@ -1,47 +1,35 @@
 package iBookServer;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Date;
-import javax.swing.UIManager.*;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
+import com.alee.laf.optionpane.WebOptionPane;
 
 import CommonUI.CommonIF;
-import iBookServer.SET_DB_WITH_SQL_FILE;
 import ocsf.server.ConnectionToClient;
 /*
 import com.alee.laf.button.WebButton;
 import com.alee.laf.optionpane.WebOptionPane;
 */
-
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import com.alee.laf.optionpane.WebOptionPane;
-
-import javax.swing.JButton;
-
-import java.awt.TextArea;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JSeparator;
-import java.awt.Component;
-import java.awt.Rectangle;
-import javax.swing.JTextField;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.JToggleButton;
-import java.awt.SystemColor;
 
 public class serverUI extends JFrame implements CommonIF {
 	

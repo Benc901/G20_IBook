@@ -1,44 +1,26 @@
 package Views;
 
-import graphics.GUIimage;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.net.URISyntaxException;
 import javax.swing.JSeparator;
-
-
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.SystemColor;
-
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import com.alee.laf.button.WebButton;
 
 import Controllers.ManagerCT;
-import Entities.UserET;
-
-import java.awt.Font;
-
-import javax.swing.JProgressBar;
+import graphics.GUIimage;
 
 public class ManagerUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebButton btnBreport;
+	public WebButton btnBreport;
 	public JButton btnBack;
 	public WebButton btnCpermission;
 	public WebButton btnThidebook;
 	public WebButton btnPbook;
-	public WebButton btnPreport;
+	public WebButton btnUreport;
 	public WebButton btnAFreezing;
 	/*
 	 * Create the application.
@@ -59,16 +41,17 @@ public class ManagerUI extends JPanel {
 		
 		//*** DO NOT DELETE! - END ***//
 		
-		btnPreport = new WebButton("Periodic report");
-		btnPreport.setBounds(196, 200, 146, 54);
-		add(btnPreport);
+		btnUreport = new WebButton("User report");
+		btnUreport.setText("User report");
+		btnUreport.setBounds(196, 200, 146, 54);
+		add(btnUreport);
 		
 		
 		btnBreport = new WebButton("Book report");
 		btnBreport.setBounds(196, 270, 146, 54);
 		add(btnBreport);
 		
-		btnPbook = new WebButton("Popular book");
+		btnPbook = new WebButton("Book Popularity");
 		btnPbook.setBounds(196, 340, 146, 54);
 		add(btnPbook);
 

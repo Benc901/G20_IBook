@@ -1,10 +1,16 @@
 package Views;
 
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import graphics.GUIimage;
+<<<<<<< HEAD
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 
@@ -15,6 +21,8 @@ import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+=======
+>>>>>>> refs/heads/Gidi_Finish
 
 public class GetBookUI extends JPanel{
 	public JComboBox cbFormat; 

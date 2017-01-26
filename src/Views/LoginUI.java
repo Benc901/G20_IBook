@@ -1,35 +1,26 @@
 package Views;
 
-import javax.swing.*;
-
+import java.awt.Color;
 import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.UIManager.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.alee.extended.layout.VerticalFlowLayout;
 import com.alee.extended.window.WebPopOver;
-import com.alee.laf.WebLookAndFeel;
-import com.alee.laf.button.WebButton;
-import com.alee.laf.optionpane.WebOptionPane;
 
 import Controllers.UserCT;
 import graphics.GUIimage;
 import graphics.InfiniteProgressPanel;
-
-import java.awt.Color;
 
 
 public class LoginUI extends JPanel {
