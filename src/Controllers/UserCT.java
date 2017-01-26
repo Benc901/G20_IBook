@@ -30,6 +30,7 @@ import Views.ManagerUI;
 import Views.PublishReviewUI;
 import Views.ReaderUI;
 import Views.RecoverPasswordUI;
+import Views.RenewSubUI;
 import Views.SearchAdvUI;
 import Views.SearchBookUI;
 import Views.SearchReviewUI;
@@ -57,6 +58,7 @@ public class UserCT implements Observer, ActionListener {
 	public static int port;
 	public  static String host;
 	public static Object current;
+	public static RenewSubUI renewFrame;
 	
 	public UserCT(LoginUI frame, int port){
 		userCT=this;
@@ -126,6 +128,15 @@ public class UserCT implements Observer, ActionListener {
 				managerFrame.btnBack.addActionListener((ActionListener)this);
 				MainUI.MV.setView(managerFrame);
 			}
+			if(e.getSource()==readerFrame.btnRenew){
+				if(userET.getConfirm()==0) JOptionPane.showMessageDialog(null,"Please Enable payment first");
+				else{
+					renewFrame=new RenewSubUI();
+					renewFrame.btnBack.addActionListener((ActionListener)this);
+					renewFrame.btnRenew.addActionListener((ActionListener)this);
+					MainUI.MV.setView(renewFrame);
+				}
+			}
 			
 		}
 		if(searchbookFrame!=null){
@@ -168,6 +179,14 @@ public class UserCT implements Observer, ActionListener {
 					MainUI.MV.setView(readerFrame);
 				}
 		}
+		if(renewFrame!=null){
+			if(e.getSource()==renewFrame.btnBack){
+				MainUI.MV.setView(readerFrame);
+			}
+			if(e.getSource()==renewFrame.btnRenew){
+				RenewSub();
+			}
+		}
 	}
 
 	@Override
@@ -206,13 +225,13 @@ public class UserCT implements Observer, ActionListener {
 				else
 				{
 					userET = (UserET) map.get("obj");
-					//loginFrame.setVisible(false);
-					// Build the GUI depends on the permission.
+
 							readerFrame=new ReaderUI(userET);
 							readerFrame.btnLogout.addActionListener((ActionListener) this);
 							readerFrame.btnSearchBook.addActionListener((ActionListener) this);
 							readerFrame.btnSearchReview.addActionListener((ActionListener) this);
 							readerFrame.btnEnablePublish.addActionListener((ActionListener) this);
+							readerFrame.btnRenew.addActionListener((ActionListener) this);
 							if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9)
 								readerFrame.wbtnLibririan.addActionListener((ActionListener) this);
 							if(userET.getPermission()==4 || userET.getPermission()==9)
@@ -222,6 +241,8 @@ public class UserCT implements Observer, ActionListener {
 							JOptionPane.showMessageDialog(null,
 									"The manager freeze your account,\n you cant get books,\n please contact with lib stuff",
 									"Freeze", JOptionPane.ERROR_MESSAGE);
+							if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9)
+								CheckNotif();
 				}
 				break;
 				
@@ -277,6 +298,16 @@ public class UserCT implements Observer, ActionListener {
 											MainUI.MV.setView(enablepaymentFrame);
 									   }
 							break;}	
+			case "RenewSub": {
+				if((int)map.get("obj")==0) JOptionPane.showMessageDialog(null,"Failed,You still have books in your subscription");
+				else JOptionPane.showMessageDialog(null,"Success,You got a new subscription");
+				MainUI.MV.setView(readerFrame);
+				break;
+			}
+			case "CheckNotif":{
+				if((int)map.get("obj")!=0) JOptionPane.showMessageDialog(null,"You have "+(int)map.get("obj")+" reviews to check");
+				break;
+			}
 			
 			default : System.out.println("Wrong CT or add break;");
 				
@@ -329,8 +360,8 @@ public class UserCT implements Observer, ActionListener {
 		ArrayList<Object> obj=new ArrayList<Object>();
 		int sub=enablepaymentFrame.cbPmethod.getSelectedIndex();
 		int bookLeft=0;
-		if(sub==1) bookLeft=10;
-		if(sub==2) bookLeft=30;
+		if(sub==1) bookLeft=5;
+		if(sub==2) bookLeft=20;
 		obj.add((int)sub);
 		obj.add((String)enablepaymentFrame.tfCnumber.getText());
 		obj.add((String)enablepaymentFrame.cbMvalid.getSelectedItem());
@@ -356,6 +387,25 @@ public class UserCT implements Observer, ActionListener {
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "CheckApplication");
 		hmap.put("us", userET.getId());
+		client.handleMessageFromUI(hmap);
+	}
+	public void RenewSub(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		ArrayList<Object> obj=new ArrayList<Object>();
+		int sub=renewFrame.cbPmethod.getSelectedIndex();
+		int bookLeft=0;
+		if(sub==1) bookLeft=5;
+		if(sub==2) bookLeft=20;
+		obj.add((int)userET.getId());
+		obj.add((int)sub);
+		obj.add((int)bookLeft);
+		hmap.put("op", "RenewSub");
+		hmap.put("obj", obj);
+		client.handleMessageFromUI(hmap);
+	}
+	public void CheckNotif(){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "CheckNotif");
 		client.handleMessageFromUI(hmap);
 	}
 

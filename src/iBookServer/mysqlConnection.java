@@ -1,6 +1,7 @@
 package iBookServer;
 
 import java.awt.Color;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -1422,6 +1423,94 @@ public FileEvent Download(FileEvent fileEvent){
 		return null;
 	}
 	return fileEvent;
+}
+public int RenewSub(ArrayList<Object> details){
+	
+	try {
+		String sql = "SELECT book_left FROM reader WHERE id=?";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, (int)details.get(0));
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		if(rs.getInt(1)!=0 && (int)details.get(1)==0) return 0;
+		
+		PreparedStatement qStmt = con
+				.prepareStatement("UPDATE reader SET book_left = book_left+? WHERE id = ?");
+			qStmt.setInt(1, (int)details.get(2));
+			qStmt.setInt(2, (int)details.get(0));
+			qStmt.executeUpdate();
+			
+			qStmt = con
+					.prepareStatement("UPDATE reader SET subscription = ? WHERE id = ?");
+				qStmt.setInt(1, (int)details.get(1));
+				qStmt.setInt(2, (int)details.get(0));
+				qStmt.executeUpdate();
+				
+	} catch (SQLException e) {
+		e.printStackTrace();
+		return 0;
+		
+	}
+
+	return 1;
+}
+public int CheckNotif(){
+	int count=0;
+	try{
+		
+		String sql = "SELECT COUNT(*) FROM review WHERE confirm=0";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		count=rs.getInt(1);
+	} catch (SQLException e) {
+		e.printStackTrace();
+		return 0;
+	}
+	return count;
+}
+public void SetBooksFiles(){
+	byte[] fileBytes;
+	byte[] fileBytes1;
+	byte[] fileBytes2;
+	File file=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.pdf");
+	File file1=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.docx");
+	File file2=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.fb2");
+	if (file.isFile() && file1.isFile() && file2.isFile()) {
+		try {
+		DataInputStream diStream = new DataInputStream(new FileInputStream(file));
+		long len = (int) file.length();
+		fileBytes = new byte[(int) len];
+		int read = 0;int numRead = 0;
+		while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
+		read = read + numRead;
+		}
+		diStream = new DataInputStream(new FileInputStream(file1));
+		len = (int) file1.length();
+		fileBytes1 = new byte[(int) len];
+		read = 0;numRead = 0;
+		while (read < fileBytes1.length && (numRead = diStream.read(fileBytes1, read, fileBytes1.length - read)) >= 0) {
+		read = read + numRead;
+		}
+		diStream = new DataInputStream(new FileInputStream(file2));
+		len = (int) file2.length();
+		fileBytes2 = new byte[(int) len];
+		read = 0;numRead = 0;
+		while (read < fileBytes2.length && (numRead = diStream.read(fileBytes2, read, fileBytes2.length - read)) >= 0) {
+		read = read + numRead;
+		}
+		PreparedStatement qStmt = con
+				.prepareStatement("UPDATE books SET pdf = ? ,doc=? ,fb2=?");
+		qStmt.setBytes(1,fileBytes);
+		qStmt.setBytes(2,fileBytes1);
+		qStmt.setBytes(3,fileBytes2);
+			qStmt.executeUpdate();
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+	}else {
+		System.out.println("path specified is not pointing to a file");
+		}
 }
 
 }

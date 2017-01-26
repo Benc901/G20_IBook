@@ -24,8 +24,8 @@ public class SET_DB_WITH_SQL_FILE {
 	private static InputStream filePath = SET_DB_WITH_SQL_FILE.class.getResourceAsStream("/ibooktest.sql");
 	
 	private static Connection conn;
-	private static String SQLusername = "root";
-	private static String SQLpassword = "1234";
+	public static String SQLusername = "root";
+	public static String SQLpassword = "1234";
 	private static boolean catched;
 	
 	public static void main(String[] args) {
@@ -53,7 +53,8 @@ public class SET_DB_WITH_SQL_FILE {
 		if (!catched)
 			 WebOptionPane.showMessageDialog ( null, "Data Base reset complete", "DB reset", WebOptionPane.INFORMATION_MESSAGE );
 		else{WebOptionPane.showMessageDialog ( null, "Data Base reset failed! ", "DB reset", WebOptionPane.WARNING_MESSAGE );}
-
+		
+		IBookServer.sqlCon.SetBooksFiles();
 
 	}
 

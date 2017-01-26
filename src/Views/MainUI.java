@@ -8,6 +8,8 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
@@ -18,6 +20,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.alee.laf.progressbar.WebProgressBar;
+
+import Controllers.UserCT;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -110,25 +114,22 @@ public class MainUI {
 		
 		
 	//logout automatically when the window is closing
-		/**
+
 		frame.addWindowListener(new WindowAdapter() {
 		
-			@Override
 			public void windowClosing(WindowEvent e) {
 
 				frame.setVisible(false);
 				
 				try {
-					LoginEntity entity = MainClass.masterControler.LoginCont.loginEntity;
-					if (entity!=null && entity.isLoginOK() && !entity.isLogout()) 
-						MainClass.gasclient.sendMessegeToServer(entity);
+					if(UserCT.userET!=null) UserCT.userCT.logout();
 				} catch (Exception x) {}
 				
 				System.exit(0);
 
 			}
 				
-		});**/
+		});
     
 	}
 	public void setView(JPanel panel) { //מתודת החלפת פנלים

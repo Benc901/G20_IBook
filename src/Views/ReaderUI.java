@@ -20,6 +20,7 @@ import com.alee.laf.button.WebButton;
 import Entities.UserET;
 import graphics.GUIimage;
 import graphics.GUIimagejpg;
+import javax.swing.JButton;
 
 public class ReaderUI extends JPanel {
 
@@ -30,15 +31,13 @@ public class ReaderUI extends JPanel {
 	public JLabel lblUsernameVar;
 	public JLabel lblEmail;
 	public JLabel lblTelephonVAR; 
-	public JLabel lblPoints;
 	public WebButton btnLogout;
 	public WebButton btnSearchBook;
 	public JLabel profile;
 	public WebButton btnEnablePublish;
 	public WebButton wbtnLibririan;
 	public WebButton wbtnManagerMenu;
-	
-	public JProgressBar Rank;
+	public JButton btnRenew;
 	
 	/**
 	 * Create the application.
@@ -90,30 +89,6 @@ public class ReaderUI extends JPanel {
 		lblTelephonVAR.setBounds(127, 190, 198, 16);
 		panel.add(lblTelephonVAR);
 		
-		lblPoints = new JLabel("Customer Rate:");
-		lblPoints.setBounds(15, 218, 102, 16);
-		panel.add(lblPoints);
-		
-		
-		Rank = new JProgressBar();
-		Rank.setUI(new BasicProgressBarUI() {
-		      protected Color getSelectionBackground() { return Color.black; }
-		      protected Color getSelectionForeground() { return Color.BLACK; }
-		    });
-		Rank.setMaximum(10);
-		Rank.setBounds(127, 220, 146, 14);
-		Rank.setStringPainted(true);
-		Rank.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				int i=Rank.getValue();
-				if (0<i && i<4) Rank.setForeground(Color.RED);
-				if (3<i && i<8) Rank.setForeground(Color.YELLOW);
-				if (7<i && i<11) Rank.setForeground(Color.GREEN);
-				Rank.setString("Rate "+i);
-			}
-		});
-		panel.add(Rank);
-		
 		
 		
 		//*** DO NOT DELETE! - END ***//
@@ -139,7 +114,11 @@ public class ReaderUI extends JPanel {
 		
 		btnLogout.setIcon(new GUIimage("logout",20,25).image);
 		
-		JLabel lblNewLabel = new JLabel("Welcome o "+userET.getFirstName()+" "+userET.getLastName());
+		btnRenew = new JButton("Renew subscription");
+		btnRenew.setBounds(58, 482, 146, 23);
+		add(btnRenew);
+		
+		JLabel lblNewLabel = new JLabel("Welcome  "+userET.getFirstName()+" "+userET.getLastName());
 		lblNewLabel.setFont(new Font("OpenSansHebrew-Regular", Font.BOLD, 26));
 		lblNewLabel.setBounds(282, 150, 335, 41);
 		add(lblNewLabel);

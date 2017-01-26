@@ -248,6 +248,16 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "BookRank");
 				returnObj.put("obj", sqlCon.BookRank(Integer.parseInt((String) map.get("obj")),(int)map.get("choice")));	
 				break;	
+			case "RenewSub":	
+				display(" : " + op, client);
+				returnObj.put("op", "RenewSub");
+				returnObj.put("obj", sqlCon.RenewSub((ArrayList<Object>)map.get("obj")));	
+				break;
+			case "CheckNotif":
+				display(" : " + op, client);
+				returnObj.put("op", "CheckNotif");
+				returnObj.put("obj", sqlCon.CheckNotif());	
+				break;
 		}
 		
 		try {

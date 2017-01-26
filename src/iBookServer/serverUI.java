@@ -166,6 +166,8 @@ public class serverUI extends JFrame implements CommonIF {
 								" Warning ! Warning ! Warning ! Warning ! Warning !", WebOptionPane.YES_NO_OPTION,
 								WebOptionPane.WARNING_MESSAGE );
 				if(selection == 0) {
+					SET_DB_WITH_SQL_FILE.SQLusername=textFieldSQLuser.getText();
+					SET_DB_WITH_SQL_FILE.SQLpassword=textFieldSQLpass.getText();
 					SET_DB_WITH_SQL_FILE.main(null);
 				}
 			}
