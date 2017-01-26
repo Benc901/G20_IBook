@@ -76,6 +76,10 @@ public class LibrarianCT implements Observer, ActionListener{
 	
 
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -288,6 +292,9 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object obj) {
 		// TODO Auto-generated method stub
@@ -599,6 +606,14 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 	}
 	
+	/**Bring from database the book entity with the book id Bid.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Bring Book.
+	 * To second compartment put the book id to bring from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param Bid - the book id to bring from database - Integer.
+	 */
 	public void BringBook(int Bid)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -607,6 +622,19 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Put in database the new user
+	 * Build a new user entity with the parameters that the function get and permission=1.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Add User.
+	 * To second compartment put the user entity to put in database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param UserName - The user name to add.
+	 * @param UserPassword - The password of the user to add.
+	 * @param FirstN - The first name of the user to add.
+	 * @param LastN - The last name of the user to add.
+	 * @param eMail - The eMail of the user to add.
+	 */
 	public void AddUser(String UserName,String UserPassword,String FirstN,String LastN,String eMail)
 	{
 		userET =new UserET(UserName,UserPassword);
@@ -622,6 +650,14 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Put in the book entity (bookET) the parameters that the user enter in the GUI window "UpdateBFrame"
+	 * Title from txtTitle , Author from txtAuthor , Language from txtLan , Content from txtContent , Keywords from txtKwords , Summary from txtASummary
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Update Book.
+	 * To second compartment put the book entity (bookET) to update in database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 */
 	public void UpdateBook()
 	{
 		bookET.setBTitle(UpdateBFrame.getTxtTitle().getText());
@@ -637,6 +673,11 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Bring ArrayList of all Genres in database.(all subject is in the Genres entitys.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Bring Genres and Subject.
+	 * Send the HashMap to the server to handle.
+	 */
 	public void BringGandS()
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -644,6 +685,11 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Bring ArrayList of all books in database.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Bring Books.
+	 * Send the HashMap to the server to handle. 
+	 */
 	public void BringBooks()
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -651,6 +697,14 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Delete from database the book with Bid - book id.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Bring Books.
+	 * To second compartment put the book id (Bid) to delete from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param Bid - book id to delete from database - Integer.
+	 */
 	public void DeleteBook(int Bid)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -659,6 +713,17 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Put in database the new book 
+	 * Build a new book entity with the parameters that the user enter in the GUI window "AddBFrame"
+	 * Title from txtTitle , Author from txtAuthor , Language from txtLan , Content from txtContent , Keywords from txtKwords , Summary from txtASummary
+	 * Price from txtPrice , Genre from ComboBoxGenres , Subject from ComboBoxSubject.
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Add Book.
+	 * To second compartment put the book entity to put in database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 */
 	public void AddBook()
 	{
 		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0,Integer.parseInt(AddBFrame.getTxtPrice().getText()));
@@ -719,6 +784,16 @@ public class LibrarianCT implements Observer, ActionListener{
 		client.handleMessageFromUI(hmap);
 	}
 
+	/**Put in database a pair with the book id from txtIdBooks and genre and subject from there comboBox
+	 *  Build a new book entity with the parameters that the user enter in the GUI window "PairingFrame"
+	 * Book id from txtBooks , Genre from ComboBoxGenres , Subject from ComboBoxSubject.
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Pair Book.
+	 * To second compartment put the book entity to pair in database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 */
 	public void PairBook()
 	{
 		BookET NewBookET = new BookET();
@@ -732,6 +807,16 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Put in database The new genre - Newgenre
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Add Genre.
+	 * To second compartment put the genre entity to put in database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param Newgenre - Genre entity to put in database - GenreET
+	 * 
+	 */
 	public void AddGenre(GenreET Newgenre)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -740,6 +825,15 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Put in database The new subject - Newsubject
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Add Subject.
+	 * To second compartment put the subject entity to put in database(bond with the genre that in the subject entity).
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param Newsubject - Subject entity to put in database - SubjectET
+	 */
 	public void AddSubject(SubjectET Newsubject)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -748,6 +842,15 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Remove Genre with the genre id Gid.
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Remove Genre.
+	 * To second compartment put the genre id to the genre to delete from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param Gid - Genre id to delete from database - Integer
+	 */
 	public void RemoveGenre(int Gid)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -756,6 +859,18 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**Remove Subject with the Subject title - STitle and with bond to genre with gere id GTitle.
+	 * 
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Remove Subject.
+	 * To second compartment put a HashMap of Integer and Object, in first compartment put Integer with the genre id, in second compartment put String with the title of the Subject to delete.
+	 * 
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * 
+	 * @param GTitle - Genre id that bond with the subject to delete - Integer.
+	 * @param STitle - Subject title to delete from database - String.
+	 */
 	public void RemoveSubject(int GTitle,String STitle)
 	{
 		Map<Integer,Object> Titles = new HashMap<Integer,Object>();
