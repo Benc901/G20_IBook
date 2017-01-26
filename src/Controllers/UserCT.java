@@ -159,7 +159,7 @@ public class UserCT implements Observer, ActionListener {
 		}
 		if(libririanFrame!=null){
 			if(e.getSource()==libririanFrame.btnBack){
-				changeObserver(this,ReviewCT.reviewCT);
+				changeObserver(this,LibrarianCT.librarianCT);
 				MainUI.MV.setView(readerFrame);
 			}}
 		if(managerFrame!=null){

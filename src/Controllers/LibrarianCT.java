@@ -47,7 +47,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	public ArrayList<ReaderET> readers;
 	public ArrayList<ReviewET> reviews;
 	public static ArrayList<BookET> BooksET;
-	int check=0;
+	public static int check=0;
 	int id;
 	
 	
@@ -65,7 +65,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		librarianCT=this;
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
-		BringBooks();
+		//BringBooks();
 		libririanFrame.btnCstructure.addActionListener((ActionListener)this);
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
@@ -315,7 +315,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.INFORMATION_MESSAGE);
-				adduserFrame.clearFields();
+				
 			}
 			break;
 		case "BringBook":
@@ -352,7 +352,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The book is update in DB", "The book is update in DB", JOptionPane.INFORMATION_MESSAGE);
-				UpdateBFrame.clearFields();	
+				
 			}
 			break;
 		case "BringGandS":
@@ -361,7 +361,6 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else
 			{
-
 				genresET=(ArrayList<GenreET>)map.get("obj");
 				switch(check){
 				case 1:{
@@ -369,6 +368,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					AddGenreFrame.btnAdd.addActionListener((ActionListener)this);
 					AddGenreFrame.btnBack.addActionListener((ActionListener)this);
 					MainUI.MV.setView(AddGenreFrame);
+					check=0;
 					break;
 				}
 				
@@ -377,6 +377,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
 					AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
 					MainUI.MV.setView(AddSubjectFrame);
+					check=0;
 					break;
 				}
 				case 3:{
@@ -384,6 +385,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
 					RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
 					MainUI.MV.setView(RemoveGenreFrame);
+					check=0;
 					break;
 				}
 				case 4:{
@@ -391,6 +393,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
 					RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
 					MainUI.MV.setView(RemoveSubjectFrame);
+					check=0;
 					break;
 				}
 				case 5:{
@@ -398,6 +401,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					PairingFrame.btnBack.addActionListener((ActionListener)this);
 					PairingFrame.btnPairBook.addActionListener((ActionListener)this);
 					MainUI.MV.setView(PairingFrame);
+					check=0;
 					break;
 				}
 				case 6:{
@@ -407,19 +411,19 @@ public class LibrarianCT implements Observer, ActionListener{
 					IUpdateFrame.btnRBook.addActionListener((ActionListener)this);
 					IUpdateFrame.btnUBook.addActionListener((ActionListener)this);
 					MainUI.MV.setView(IUpdateFrame);
+					check=0;
 					break;
 				}
 				
 			}
-				}break;
-
+		break;
+		}		
 		case "AddBook":{
 			id=(int)map.get("obj");
 			if((int)map.get("obj")!=(-1))
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
-				AddBFrame.clearFields();
 				
 			}
 			else
@@ -429,7 +433,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			break;
 		}
-		case "GetPaymentList":
+		case "GetPaymentList":{
 			readers=(ArrayList<ReaderET>)map.get("obj");
 			String sub=new String();
 			paymentFrame=new PaymentConfirmationUI();
@@ -446,11 +450,13 @@ public class LibrarianCT implements Observer, ActionListener{
 				}
 			MainUI.MV.setView(paymentFrame);
 			break;
-		case "pConfirm":
+		}
+		case "pConfirm":{
 			MainUI.MV.setView(libririanFrame);
 			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			break;
-		case "GetReviewList":
+		}
+		case "GetReviewList":{
 			reviews=(ArrayList<ReviewET>)map.get("obj");
 			reviewFrame=new ReviewConfirmationUI();
 			reviewFrame.btnBack.addActionListener((ActionListener)this);
@@ -464,6 +470,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				}
 			MainUI.MV.setView(reviewFrame);
 			break;
+		}
 		case "rConfirm":
 			MainUI.MV.setView(libririanFrame);
 			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -472,7 +479,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			MainUI.MV.setView(libririanFrame);
 			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			break;
-		case "BringBooks":
+		case "BringBooks":{
 			if(map.get("obj") instanceof Integer){
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 			}
@@ -481,49 +488,61 @@ public class LibrarianCT implements Observer, ActionListener{
 				BooksET=(ArrayList<BookET>)map.get("obj");
 			}
 			break;
-		case "DeleteBook":
+		}
+		case "DeleteBook":{
 			if((int)map.get("obj")==1)
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The Book Remove From DB", "The Book Remove From DB", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
-			else
+			if((int)map.get("obj")==0)
+			{
+				JOptionPane.showMessageDialog(null, "The Book not exist in DB!", "The Book not exist in DB!", JOptionPane.ERROR_MESSAGE);
+			}
+			if((int)map.get("obj")==-1)
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 			}
 			break;
-		case "PairBook":
-			if ((boolean)map.get("obj") == false) 
+		}
+		case "PairBook":{
+			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
-				UpdateBFrame.clearFields();	
 			}
-			else if((boolean)map.get("obj") == true)
+			if((int)map.get("obj")==0)
+			{
+				MainUI.MV.setView(libririanFrame);
+				JOptionPane.showMessageDialog(null, "The Book not exist in DB!", "The Book not exist in DB!", JOptionPane.INFORMATION_MESSAGE);
+			}
+			 if((int)map.get("obj") == 1)
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Success Pairing the book in DB", "Success Pairing the book in DB", JOptionPane.INFORMATION_MESSAGE);
-				UpdateBFrame.clearFields();	
 			}
 			break;
-		case "AddGenre":
+		}
+		case "AddGenre":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 				AddGenreFrame.clearFields();	
 			}
-			else if((int)map.get("obj") == 0)
+			if((int)map.get("obj") == 0)
 			{
 				JOptionPane.showMessageDialog(null, "The Genre already in DB", "The Genre already in DB", JOptionPane.INFORMATION_MESSAGE);
 				AddGenreFrame.clearFields();	
 			}
-			else if ((int)map.get("obj")==1) 
+			if ((int)map.get("obj")==1) 
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Genre to DB", "Insert Genre to DB", JOptionPane.INFORMATION_MESSAGE);
-				AddGenreFrame.clearFields();
+				
 			}
 			break;
-		case "AddSubject":
+		}
+		case "AddSubject":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
@@ -538,12 +557,11 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Subject to DB", "Insert Subject to DB", JOptionPane.INFORMATION_MESSAGE);
-				AddSubjectFrame.clearFields();
 				
 			}
 			break;
-		case "RemoveGenre":
-			System.out.println((int)map.get("obj"));
+		}
+		case "RemoveGenre":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
@@ -556,9 +574,11 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The genre delete from DB", "The genre delete from DB", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
 			break;
-		case "RemoveSubject":
+		}
+		case "RemoveSubject":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
@@ -571,8 +591,10 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
-			break;	
+			break;
+		}
 		}
 		}
 	}
@@ -693,6 +715,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		hmap.put("op", "EditReview");
 		hmap.put("review", review.getReview());
 		hmap.put("id", review.getId());
+		
 		client.handleMessageFromUI(hmap);
 	}
 

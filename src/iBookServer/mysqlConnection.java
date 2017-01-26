@@ -1007,7 +1007,7 @@ public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 			pstmt.setBytes(19, fileEvents.get(2).getFileData());
 			pstmt.executeUpdate();
 			pstmt.close();
-			if(PairingBook(newBook))
+			if(PairingBook(newBook)==1)
 			{
 				return id;
 			}
@@ -1020,13 +1020,25 @@ public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 	}
 	
 }
-public boolean PairingBook(BookET BookToPair)
+public int PairingBook(BookET BookToPair)
 {
 	int Gid=0,Sid=0;
 	try
 	{
-		PreparedStatement pstmt = con.prepareStatement("SELECT * FROM genere g INNER JOIN subject s ON g.id=s.genere_id");
+		System.out.println(BookToPair.getBID());
+		PreparedStatement pstmt = con.prepareStatement("SELECT id FROM books WHERE id=?");
+		pstmt.setInt(1, BookToPair.getBID());
 		ResultSet rs = pstmt.executeQuery();
+		if (!rs.isBeforeFirst()) 
+		{ // Checks if ResultSet is empty (No book
+			// found).
+			display("The book not exist in DB!");
+			return 0;
+		}
+		else 
+		{
+		pstmt = con.prepareStatement("SELECT * FROM genere g INNER JOIN subject s ON g.id=s.genere_id");
+		 rs = pstmt.executeQuery();
 		while(rs.next())
 		{
 			if(rs.getString(2).equals(BookToPair.getBGenre()) && rs.getString(5).equals(BookToPair.getBSubject()))
@@ -1042,12 +1054,13 @@ public boolean PairingBook(BookET BookToPair)
 		pstmt.setInt(3, Sid);
 		pstmt.executeUpdate();
 		pstmt.close();
-		return true;
+		return 1;
+		}
 	}
 	catch(SQLException e)
 	{
 		e.printStackTrace();
-		return false;
+		return -1;
 	}
 }
 public Object GetReviewList(){
@@ -1131,8 +1144,7 @@ public Object BringArrayBooks()
 				.prepareStatement("SELECT * FROM books");
 		ResultSet rs = pStmt.executeQuery();
 		//pStmt.close();
-		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No user
-			// found).
+		if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty 
 			display("no books in DB.");
 			return 0;
 		}
@@ -1161,18 +1173,28 @@ public int DeleteBook(int Bid)
 {
 	try
 	{
-			PreparedStatement qStmt = con.prepareStatement("DELETE FROM books WHERE id = ?");
+			PreparedStatement qStmt = con.prepareStatement("SELECT id FROM books WHERE id=?");
+			qStmt.setInt(1, Bid);
+			ResultSet rs = qStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (No book
+				// found).
+				display("The book not exist in DB!");
+				return 0;
+			}
+			else{
+			 qStmt = con.prepareStatement("DELETE FROM books WHERE id = ?");
 			qStmt.setInt(1, Bid);
 			qStmt.executeUpdate();
 			qStmt = con.prepareStatement("DELETE FROM pairing WHERE book_id = ?");
 			qStmt.setInt(1, Bid);
 			qStmt.executeUpdate();
 			return 1;
+			}
 	}
 	catch(SQLException e)
 	{
 		e.printStackTrace();
-		return 0;
+		return -1;
 	}
 }
 /**
