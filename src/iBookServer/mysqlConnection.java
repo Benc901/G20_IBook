@@ -1,6 +1,8 @@
 package iBookServer;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +20,10 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.Blob;
+
 import Entities.BookET;
+import Entities.FileEvent;
 import Entities.GenreET;
 import Entities.ReaderET;
 import Entities.ReviewET;
@@ -805,7 +810,7 @@ public Object BringGandS()
 }
 	
 }
-public int AddBook(BookET newBook)
+public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 {
 	try
 	{
@@ -817,7 +822,7 @@ public int AddBook(BookET newBook)
 			id=(int) rs.getObject(1);
 			id+=1;
 			newBook.setBID(id);
-			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, newBook.getBTitle());
@@ -835,11 +840,14 @@ public int AddBook(BookET newBook)
 			pstmt.setInt(14, 0);
 			pstmt.setInt(15, 0);
 			pstmt.setInt(16,newBook.getPrice());
+			pstmt.setBytes(17, fileEvents.get(0).getFileData());
+			pstmt.setBytes(18, fileEvents.get(1).getFileData());
+			pstmt.setBytes(19, fileEvents.get(2).getFileData());
 			pstmt.executeUpdate();
 			pstmt.close();
 			if(PairingBook(newBook))
 			{
-				return 1;
+				return id;
 			}
 			else return -1;
 	}
@@ -1136,6 +1144,45 @@ public int RemoveSubject(HashMap<String,Object> Titles)
 		e.printStackTrace();
 		return -1;
 	}
+}
+public int sendfile(FileEvent fileEvent){
+	try{
+		
+		String sql = "INSERT INTO files (id, file) VALUES (?, ?)";
+		PreparedStatement stmt = con.prepareStatement(sql);
+	    stmt.setInt(1, 1);
+	    stmt.setBytes(2, fileEvent.getFileData());
+	    stmt.execute();
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+		return 0;
+	}
+	return 1;
+}
+public FileEvent Download(FileEvent fileEvent){
+	try{
+		int col=0;
+		if(fileEvent.getFilename().contains("pdf")) col=17;
+		if(fileEvent.getFilename().contains("doc")) col=18;
+		if(fileEvent.getFilename().contains("fb2")) col=19;
+		String sql = "SELECT * FROM books WHERE id=?";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, fileEvent.getBookid());
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		
+		Blob blob=(Blob) rs.getBlob(col);
+		int len=(int)blob.length();
+		byte[] bl=blob.getBytes(1, len);
+		fileEvent.setFileData(bl);
+		fileEvent.setStatus("Success");
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+		return null;
+	}
+	return fileEvent;
 }
 
 }

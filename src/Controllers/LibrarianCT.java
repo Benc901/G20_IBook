@@ -2,6 +2,9 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +46,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	public ArrayList<ReviewET> reviews;
 	public static ArrayList<BookET> BooksET;
 	int check=0;
+	int id;
 	
 	/**
 	 * @param frame
@@ -399,11 +403,13 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 				}break;
 
-		case "AddBook":
-			if((int)map.get("obj")==1)
+		case "AddBook":{
+			id=(int)map.get("obj");
+			if((int)map.get("obj")!=(-1))
 			{
 				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
 				AddBFrame.clearFields();
+				
 			}
 			else
 			{
@@ -411,6 +417,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				AddBFrame.clearFields();
 			}
 			break;
+		}
 		case "GetPaymentList":
 			readers=(ArrayList<ReaderET>)map.get("obj");
 			String sub=new String();
@@ -548,7 +555,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
 			}
-			break;
+			break;	
 		}
 		}
 	}
@@ -616,10 +623,12 @@ public class LibrarianCT implements Observer, ActionListener{
 	public void AddBook()
 	{
 		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0,Integer.parseInt(AddBFrame.getTxtPrice().getText()));
-		
+		ArrayList<FileEvent> fileEvents=new ArrayList<FileEvent>();
+		fileEvents=SendBooktoDB();
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "AddBook");
 		hmap.put("obj", NewBookET);
+		hmap.put("file",fileEvents);
 		
 		client.handleMessageFromUI(hmap);
 	}
@@ -719,4 +728,90 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	public ArrayList<FileEvent> SendBooktoDB(){
+		ArrayList<FileEvent> fileEvents=new ArrayList<FileEvent>();
+		
+			
+			FileEvent fileEvent=new FileEvent();
+			File file=new File(AddBFrame.tfFile1.getText());
+			if (file.isFile()) {
+				try {
+				DataInputStream diStream = new DataInputStream(new FileInputStream(file));
+				long len = (int) file.length();
+				byte[] fileBytes = new byte[(int) len];
+				int read = 0;
+				int numRead = 0;
+				while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
+				read = read + numRead;
+				}
+				fileEvent.setFileSize(len);
+				fileEvent.setFileData(fileBytes);
+				fileEvent.setStatus("Success");
+				} catch (Exception e) {
+				e.printStackTrace();
+				fileEvent.setStatus("Error");
+				}
+			}else {
+				System.out.println("path specified is not pointing to a file");
+				fileEvent.setStatus("Error");
+				}
+			
+			fileEvents.add(fileEvent);
+			
+			FileEvent fileEvent1=new FileEvent();
+			File file1=new File(AddBFrame.tfFile2.getText());
+			if (file.isFile()) {
+				try {
+				DataInputStream diStream = new DataInputStream(new FileInputStream(file1));
+				long len = (int) file.length();
+				byte[] fileBytes = new byte[(int) len];
+				int read = 0;
+				int numRead = 0;
+				while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
+				read = read + numRead;
+				}
+				fileEvent1.setFileSize(len);
+				fileEvent1.setFileData(fileBytes);
+				fileEvent1.setStatus("Success");
+				} catch (Exception e) {
+				e.printStackTrace();
+				fileEvent1.setStatus("Error");
+				}
+			}else {
+				System.out.println("path specified is not pointing to a file");
+				fileEvent1.setStatus("Error");
+				}
+			
+			fileEvents.add(fileEvent1);
+			
+			FileEvent fileEvent2=new FileEvent();
+			File file2=new File(AddBFrame.tfFile3.getText());
+			if (file.isFile()) {
+				try {
+				DataInputStream diStream = new DataInputStream(new FileInputStream(file2));
+				long len = (int) file.length();
+				byte[] fileBytes = new byte[(int) len];
+				int read = 0;
+				int numRead = 0;
+				while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
+				read = read + numRead;
+				}
+				fileEvent2.setFileSize(len);
+				fileEvent2.setFileData(fileBytes);
+				fileEvent2.setStatus("Success");
+				} catch (Exception e) {
+				e.printStackTrace();
+				fileEvent2.setStatus("Error");
+				}
+			}else {
+				System.out.println("path specified is not pointing to a file");
+				fileEvent2.setStatus("Error");
+				}
+			
+			fileEvents.add(fileEvent2);
+
+		
+		return fileEvents;
+	}
+	
 }

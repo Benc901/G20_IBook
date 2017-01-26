@@ -15,6 +15,15 @@ public class FileEvent implements Serializable {
 	private long fileSize;
 	private byte[] fileData;
 	private String status;
+	private int bookid;
+	
+	public int getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(int bookid) {
+		this.bookid = bookid;
+	}
 
 	public String getDestinationDirectory() {
 	return destinationDirectory;

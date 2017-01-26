@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -167,7 +168,7 @@ public class IBookServer extends AbstractServer {
 			case "AddBook":
 				display(" : " + op, client);
 				returnObj.put("op", "AddBook");
-				returnObj.put("obj", sqlCon.AddBook((BookET)map.get("obj")));
+				returnObj.put("obj", sqlCon.AddBook((BookET)map.get("obj"),(ArrayList<FileEvent>)map.get("file")));
 				break;
 			case "GetPaymentList":
 				display(" : " + op, client);
@@ -229,17 +230,12 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "RemoveSubject");
 				returnObj.put("obj", sqlCon.RemoveSubject((HashMap<String, Object>) map.get("obj")));
 				break;
-			case "GetFile":
-				display(" : " + op, client);
-				returnObj.put("op", "GetFile");
-				returnObj.put("obj", getFile());
-				break;
 			case "Download":	
-				System.out.println("download case");
 				display(" : " + op, client);
 				returnObj.put("op", "Download");
-				returnObj.put("obj", Download((FileEvent)map.get("obj")));
+				returnObj.put("obj", sqlCon.Download((FileEvent)map.get("obj")));
 				break;
+
 		}
 		
 		try {
@@ -249,64 +245,7 @@ public class IBookServer extends AbstractServer {
 			e.printStackTrace();
 		}
 	}
-	public FileEvent Download(FileEvent fileEvent){
-		java.net.URL url = getClass().getResource("/books/"+fileEvent.getFilename());
-		File file=new File(url.getPath());
-		System.out.println("download before if");
-		if (file.isFile()) {
-			try {
-				System.out.println("download inside if");
-			DataInputStream diStream = new DataInputStream(new FileInputStream(file));
-			long len = (int) file.length();
-			byte[] fileBytes = new byte[(int) len];
-			int read = 0;
-			int numRead = 0;
-			while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
-			read = read + numRead;
-			}
-			fileEvent.setFileSize(len);
-			fileEvent.setFileData(fileBytes);
-			fileEvent.setStatus("Success");
-			} catch (Exception e) {
-			e.printStackTrace();
-			fileEvent.setStatus("Error");
-			}
-		}else {
-			System.out.println("path specified is not pointing to a file");
-			fileEvent.setStatus("Error");
-			}
-		return fileEvent;
-	}
-	public FileEvent getFile(){
-		FileEvent fileEvent=new FileEvent();
-		java.net.URL url = getClass().getResource("\\shany.jpg");
-		File file=new File(url.getPath());
-		String destinationPath = "C:\\Users\\1\\Desktop\\test\\";
-		fileEvent.setDestinationDirectory(destinationPath);
-		fileEvent.setFilename("shany.jpg");
-		if (file.isFile()) {
-			try {
-			DataInputStream diStream = new DataInputStream(new FileInputStream(file));
-			long len = (int) file.length();
-			byte[] fileBytes = new byte[(int) len];
-			int read = 0;
-			int numRead = 0;
-			while (read < fileBytes.length && (numRead = diStream.read(fileBytes, read, fileBytes.length - read)) >= 0) {
-			read = read + numRead;
-			}
-			fileEvent.setFileSize(len);
-			fileEvent.setFileData(fileBytes);
-			fileEvent.setStatus("Success");
-			} catch (Exception e) {
-			e.printStackTrace();
-			fileEvent.setStatus("Error");
-			}
-		}else {
-			System.out.println("path specified is not pointing to a file");
-			fileEvent.setStatus("Error");
-			}
-		return fileEvent;
-	}
+
 	
 	public static void main(String[] args) {
 		int port = 0;      // Port to listen on

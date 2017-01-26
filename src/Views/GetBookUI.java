@@ -52,7 +52,7 @@ public class GetBookUI extends JPanel{
 		add(lblNewLabel);
 		
 		cbFormat = new JComboBox();
-		cbFormat.setModel(new DefaultComboBoxModel(new String[] {"pdf", "Fb2", "Doc"}));
+		cbFormat.setModel(new DefaultComboBoxModel(new String[] {"pdf", "fb2", "doc"}));
 		cbFormat.setBounds(340, 232, 81, 30);
 		add(cbFormat);
 		

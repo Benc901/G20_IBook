@@ -16,6 +16,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 import Entities.GenreET;
 import Entities.SubjectET;
@@ -36,6 +37,13 @@ public class AddBookUI extends JPanel {
 	private JComboBox comboBoxSubject;
 	private ArrayList<GenreET> GenresET;
 	private JTextField txtPrice;
+	public JTextField tfFile1;
+	public JTextField tfFile2;
+	public JTextField tfFile3;
+	public JButton btnBrowse1;
+	public JButton btnBrowse2;
+	public JButton btnBrowse3;
+	public AddBookUI frame;
 	
 	public JTextField getTxtPrice() {
 		return txtPrice;
@@ -109,7 +117,7 @@ public class AddBookUI extends JPanel {
 		setBackground(new Color(153, 204, 204));
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
-		
+		this.frame=this;
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
@@ -174,11 +182,11 @@ public class AddBookUI extends JPanel {
 		
 		JLabel lblSummary = new JLabel("Summary :");
 		lblSummary.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSummary.setBounds(278, 225, 70, 14);
+		lblSummary.setBounds(341, 206, 70, 14);
 		add(lblSummary);
 		
 		btnAddBook = new JButton("Add");
-		btnAddBook.setBounds(514, 458, 89, 30);
+		btnAddBook.setBounds(541, 466, 89, 30);
 		add(btnAddBook);
 		
 		
@@ -240,6 +248,102 @@ public class AddBookUI extends JPanel {
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPrice.setBounds(40, 434, 70, 14);
 		add(lblPrice);
+		
+		tfFile1 = new JTextField();
+		tfFile1.setBounds(376, 362, 155, 25);
+		add(tfFile1);
+		tfFile1.setColumns(10);
+		
+		btnBrowse1 = new JButton("Browse");
+		btnBrowse1.setBounds(541, 362, 89, 25);
+		add(btnBrowse1);
+		btnBrowse1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setSize(50, 30);
+				chooser.setLocation(290, 420);
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("select folder");
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				chooser.setAcceptAllFileFilterUsed(true);
+				
+				if(chooser.showOpenDialog(frame)== JFileChooser.APPROVE_OPTION){
+					
+					tfFile1.setText(""+chooser.getSelectedFile());
+				}
+				
+				
+			}
+		});
+		
+		tfFile2 = new JTextField();
+		tfFile2.setColumns(10);
+		tfFile2.setBounds(376, 396, 155, 25);
+		add(tfFile2);
+		
+		btnBrowse2 = new JButton("Browse");
+		btnBrowse2.setBounds(541, 396, 89, 25);
+		add(btnBrowse2);
+		btnBrowse2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setSize(50, 30);
+				chooser.setLocation(290, 420);
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("select folder");
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				chooser.setAcceptAllFileFilterUsed(true);
+				
+				if(chooser.showOpenDialog(frame)== JFileChooser.APPROVE_OPTION){
+					
+					tfFile2.setText(""+chooser.getSelectedFile());
+				}
+				
+				
+			}
+		});
+		
+		tfFile3 = new JTextField();
+		tfFile3.setColumns(10);
+		tfFile3.setBounds(376, 430, 155, 25);
+		add(tfFile3);
+		
+		btnBrowse3 = new JButton("Browse");
+		btnBrowse3.setBounds(541, 430, 89, 25);
+		add(btnBrowse3);
+		btnBrowse3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setSize(50, 30);
+				chooser.setLocation(290, 420);
+				chooser.setCurrentDirectory(new java.io.File("."));
+				chooser.setDialogTitle("select folder");
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				chooser.setAcceptAllFileFilterUsed(true);
+				
+				if(chooser.showOpenDialog(frame)== JFileChooser.APPROVE_OPTION){
+					
+					tfFile3.setText(""+chooser.getSelectedFile());
+				}
+				
+				
+			}
+		});
+		
+		JLabel lblPdf = new JLabel("PDF:");
+		lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPdf.setBounds(340, 362, 46, 25);
+		add(lblPdf);
+		
+		JLabel lblDoc = new JLabel("Doc:");
+		lblDoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDoc.setBounds(340, 396, 46, 25);
+		add(lblDoc);
+		
+		JLabel lblFb = new JLabel("Fb2:");
+		lblFb.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFb.setBounds(340, 430, 46, 25);
+		add(lblFb);
 		
 		
 		

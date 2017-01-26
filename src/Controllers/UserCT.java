@@ -2,7 +2,9 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -277,28 +279,7 @@ public class UserCT implements Observer, ActionListener {
 											MainUI.MV.setView(enablepaymentFrame);
 									   }
 							break;}	
-			case "GetFile":{
-				try{
-						FileEvent fileEvent=(FileEvent)map.get("obj");
-						if (fileEvent.getStatus().equalsIgnoreCase("Error")) {
-							System.out.println("Error occurred ..So exiting");
-							break;
-							}
-						String outputFile = fileEvent.getDestinationDirectory() + fileEvent.getFilename();
-						if (!new File(fileEvent.getDestinationDirectory()).exists()) {
-						new File(fileEvent.getDestinationDirectory()).mkdirs();
-						}
-						File dstFile=new File(outputFile);
-						FileOutputStream fileOutputStream= new FileOutputStream(dstFile);
-						fileOutputStream.write(fileEvent.getFileData());
-						fileOutputStream.flush();
-						fileOutputStream.close();
-						System.out.println("Output file : " + outputFile + " is successfully saved ");
-				}catch (IOException e) {
-					e.printStackTrace();
-				} 
-				break;
-			}
+			
 			default : System.out.println("Wrong CT or add break;");
 				
 		}//end switch case
@@ -377,11 +358,6 @@ public class UserCT implements Observer, ActionListener {
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "CheckApplication");
 		hmap.put("us", userET.getId());
-		client.handleMessageFromUI(hmap);
-	}
-	public void GetFile(){
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("op", "GetFile");
 		client.handleMessageFromUI(hmap);
 	}
 

@@ -253,7 +253,7 @@ public class BookCT implements Observer, ActionListener{
 		FileEvent fileEvent=new FileEvent(); 
 		fileEvent.setFilename(download.get(0)+"."+download.get(2));
 		System.out.println(fileEvent.getFilename());
-
+		fileEvent.setBookid(Integer.parseInt(download.get(0)));
 		fileEvent.setDestinationDirectory(""+download.get(3));
 		System.out.println(fileEvent.getDestinationDirectory());
 
