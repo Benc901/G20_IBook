@@ -711,7 +711,7 @@ public Object logout(Object obj) {
 								rs.getString(8),rs.getString(9),
 								rs.getString(10),rs.getInt(11),
 								rs.getInt(12),rs.getInt(13),
-								count,0);
+								count,0,rs.getInt(16));
 						return returnObj;
 					}
 					else
@@ -736,7 +736,7 @@ public Object logout(Object obj) {
 								rs.getString(8),rs.getString(9),
 								rs.getString(10),rs.getInt(11),
 								rs.getInt(12),rs.getInt(13),
-								0,count);
+								0,count,rs.getInt(16));
 						return returnObj;
 					}
 					else

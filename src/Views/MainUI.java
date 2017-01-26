@@ -1,12 +1,11 @@
 package Views;
 
-<<<<<<< HEAD
+
 import graphics.GUIimage;
 import javax.swing.UIManager.*;
 
 import java.awt.Color;
-=======
->>>>>>> refs/heads/Gidi_Finish
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.net.URISyntaxException;
@@ -20,13 +19,12 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.alee.laf.progressbar.WebProgressBar;
 
-<<<<<<< HEAD
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-=======
+
 import graphics.GUIimage;
 import graphics.SlideContainer;
->>>>>>> refs/heads/Gidi_Finish
+
 
 public class MainUI {
 
