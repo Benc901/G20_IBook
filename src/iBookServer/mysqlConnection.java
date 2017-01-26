@@ -925,6 +925,15 @@ public int rConfirm(int id,int confirm){
 	}
 	return 1;
 }
+/**
+ * Get review id for edit and the string review.
+ * First update the review to the review table
+ * 
+ * 
+ * @param id - the review id to edit - Integer.
+ * @param review - the review itself to insert instead of that in the database in review table - String.
+ * @return
+ */
 public int EditReview(int id,String review){
 	try{
 		PreparedStatement qStmt = con
@@ -944,6 +953,13 @@ public int EditReview(int id,String review){
 	}
 	return 1;
 }
+/**
+ * First retrieve all rows from books table.
+ * Second check if has no books in database.
+ * Third if there is more than one book, create a book entity for all books in database and add it to the ArrayList to return.
+ * 
+ * @return 0 if not exist books in database and if SQLException , ArrayList of all books entities from books tables.
+ */
 public Object BringArrayBooks()
 {
 	ArrayList<BookET> booksET = new ArrayList<BookET>();
@@ -972,9 +988,15 @@ public Object BringArrayBooks()
 		return 0;
 	}
 }
+/**Get book id to remove. 
+ * First delete the book from books table. 
+ * second delete the book from pairing table. 
+ * 
+ * @param Bid - the book id to delete - integer type.
+ * @return 0 if SQLException , 1 if the book removed from the database from the book table and the pairing table. 
+ */
 public int DeleteBook(int Bid)
 {
-	System.out.println(Bid);
 	try
 	{
 			PreparedStatement qStmt = con.prepareStatement("DELETE FROM books WHERE id = ?");
@@ -991,6 +1013,15 @@ public int DeleteBook(int Bid)
 		return 0;
 	}
 }
+/**
+ * Get entity of genre to add.
+ * First - check if the genre already exist in the database.
+ * Second - retrieve from the database the max genre id that the next id will be for the new genre to add.
+ * Third - insert the genre to the data base to the genre table.
+ * 
+ * @param genre - the genre entity to add to the database.
+ * @return -1 if SQLException , 0 if this genre exist in the database, 1 if the genre add to the genere table. 
+ */
 public int AddGenre(GenreET genre)
 {
 	try
@@ -1028,12 +1059,16 @@ public int AddGenre(GenreET genre)
 	}
 }
 /**
- * @param subject
- * @return
+ * Get entity of subject to add.
+ * First - check if the subject already exist in the database.
+ * Second - retrieve from the database the max subject id that the next id will be for the new subject to add.
+ * Third - insert the subject to the data base to the subject table.
+ * 
+ * @param subject - the subject entity to add to the database.
+ * @return -1 if SQLException , 0 if this subject exist in the database, 1 if the subject add to the subject table. 
  */
 public int AddSubject(SubjectET subject)
 {
-	//System.out.println(subject.getGenreId() + "   " + subject.getSubjectTitle());
 	try
 	{
 		PreparedStatement pStmt = con
@@ -1069,8 +1104,18 @@ public int AddSubject(SubjectET subject)
 		return -1;
 	}
 }
+/**
+ * Get a genre id.
+ * First - check if there is a subject that attached to the genre to remove.
+ * second - if Does not exist subject that attached to this genre delete the genre from the genere table.
+ * 
+ * 
+ * @param Gid - the id of the genre to remove.
+ * @return -1 if SQLException , 0 if there is a subject that attached to the genre , 1 if the genre has removed from database.
+ */
 public int RemoveGenre(int Gid)
 {
+	
 	try
 	{
 			PreparedStatement pStmt = con.prepareStatement("SELECT * FROM subject WHERE genere_id=?");
@@ -1097,7 +1142,17 @@ public int RemoveGenre(int Gid)
 		return -1;
 	}
 }
-public int RemoveSubject(HashMap<String,Object> Titles)
+/**
+ * Get a genre id and subject title. 
+ * First - retrieve from the database the id of the subject to remove.
+ * Second - retrieve from database all books that pair to the subject to remove.
+ * Third - checks for every book that pair to the subject if that subject is the only subject that attached to this book.
+ * Fourth - if Does not exist book like this delete the subject from the subject table and from the pairing table. 
+ * 
+ * @param Titles - HashMap of Integer and Object the first object is of type integer the second is of type string 
+ * @return -1 if SQLException , 0 if there is a book that attached to the subject , 1 if the subject removed from the database
+ */
+public int RemoveSubject(HashMap<Integer,Object> Titles)
 {
 	int GTitle=(int) Titles.get(1),Sid=0;
 	ArrayList<Integer> book_id= new ArrayList<Integer>();

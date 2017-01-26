@@ -18,6 +18,8 @@ import Mains.IBookClient;
 import Views.*;
 
 
+
+
 public class LibrarianCT implements Observer, ActionListener{
 	
 	public static LibrarianCT librarianCT;
@@ -48,15 +50,21 @@ public class LibrarianCT implements Observer, ActionListener{
 	int check=0;
 	int id;
 	
+	
 	/**
-	 * @param frame
+	 * The constructor of the librarian controller 
+	 * Build a controller that initialize
+	 * Add ActionListener to every button in every panels of the librarian
+	 * Change the observer from the user controller to the librarian controller
+	 * Get the connection to the server 
+	 * 
+	 * @param frame - the first frame that viewed on the screen in this controller.
 	 */
-	public LibrarianCT(LibririanUI frame) {
-		// TODO Auto-generated constructor stub
+	public LibrarianCT(LibririanUI frame) 
+	{	// TODO Auto-generated constructor stub
 		librarianCT=this;
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
-		
 		BringBooks();
 		libririanFrame.btnCstructure.addActionListener((ActionListener)this);
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
@@ -230,7 +238,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==RemoveBFrame.btnRBook)
 			{
-				DeleteBook((int)RemoveBFrame.comboBoxBooks.getSelectedIndex()+1);
+				DeleteBook(Integer.parseInt(RemoveBFrame.txtBookId.getText()));
 			}
 		}
 		if(AddBFrame!=null)
@@ -305,6 +313,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.INFORMATION_MESSAGE);
 				adduserFrame.clearFields();
 			}
@@ -341,6 +350,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if((boolean)map.get("obj") == true)
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The book is update in DB", "The book is update in DB", JOptionPane.INFORMATION_MESSAGE);
 				UpdateBFrame.clearFields();	
 			}
@@ -407,6 +417,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			id=(int)map.get("obj");
 			if((int)map.get("obj")!=(-1))
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
 				AddBFrame.clearFields();
 				
@@ -473,6 +484,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		case "DeleteBook":
 			if((int)map.get("obj")==1)
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The Book Remove From DB", "The Book Remove From DB", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
@@ -488,6 +500,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if((boolean)map.get("obj") == true)
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Success Pairing the book in DB", "Success Pairing the book in DB", JOptionPane.INFORMATION_MESSAGE);
 				UpdateBFrame.clearFields();	
 			}
@@ -505,6 +518,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Genre to DB", "Insert Genre to DB", JOptionPane.INFORMATION_MESSAGE);
 				AddGenreFrame.clearFields();
 			}
@@ -522,6 +536,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Subject to DB", "Insert Subject to DB", JOptionPane.INFORMATION_MESSAGE);
 				AddSubjectFrame.clearFields();
 				
@@ -539,6 +554,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The genre delete from DB", "The genre delete from DB", JOptionPane.INFORMATION_MESSAGE);
 			}
 			break;
@@ -553,6 +569,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
 			}
 			break;	
