@@ -20,9 +20,11 @@ public class LibririanUI extends JPanel {
 	public JButton btnIupdate;
 	public JButton btnCreview;
 	public JButton btnAdduser;
-	/*
-	 * Create the application.
+	
+	/**The constrctor of the GUI Class AddBookUI
+	 * Build a GUI panel to the action AddBook
 	 * @throws URISyntaxException 
+	 * 
 	 */
 	public LibririanUI() {
 		

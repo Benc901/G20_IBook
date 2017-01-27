@@ -34,6 +34,11 @@ public class AddSubjectUI extends JPanel{
 	}
 	
 	
+	/**The constrctor of the GUI Class AddSubjectUI
+	 * Build a GUI panel to the action AddSubject
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 */
 	public AddSubjectUI(ArrayList<GenreET> genresET) {
 		// TODO Auto-generated constructor stub
 		GenresET=genresET;
@@ -89,6 +94,9 @@ public class AddSubjectUI extends JPanel{
 				lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 				add(lblBackground);
 	}
+	/**
+	 * Put in the genre combo box all the genres that in database(from the genres ArrayList)
+	 */
 	public void BringGenreTCB()
 	{
 		for(int i=0;i<GenresET.size();i++)

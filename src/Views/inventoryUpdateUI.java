@@ -18,6 +18,11 @@ public class inventoryUpdateUI extends JPanel
 	public JButton btnRBook;
 	public JButton btnUBook;
 	
+	/**The constrctor of the GUI Class inventoryUpdateUI.   
+	 * Build a GUI panel to choose several options: 
+	 * AddBook , RemoveBook , UpdateBook.
+	 * 
+	 */
 	public inventoryUpdateUI() 
 	{
 		setBackground(new Color(153, 204, 204));

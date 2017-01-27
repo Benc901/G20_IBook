@@ -32,6 +32,9 @@ public class AddBookUI extends JPanel {
 	private JTextField txtContent;
 	private JTextArea txtASummary;
 	private JTextField txtKwords;
+	/**
+	 * Name of the photo of the book
+	 */
 	private JTextField txtPhoto;
 	private JComboBox comboBoxGenres;
 	private JComboBox comboBoxSubject;
@@ -111,6 +114,11 @@ public class AddBookUI extends JPanel {
 	public void setGenresET(ArrayList<GenreET> genresET) {
 		GenresET = genresET;
 	}
+	/**The constrctor of the GUI Class AddBookUI
+	 * Build a GUI panel to the action AddBook
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 */
 	public AddBookUI(ArrayList<GenreET> genresET)
 	{
 		GenresET=genresET;
@@ -352,11 +360,17 @@ public class AddBookUI extends JPanel {
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 	}
+	/**
+	 * Put in the genre combo box all the genres that in database(from the genres ArrayList)
+	 */
 	public void BringGenreTCB()
 	{
 		for(int i=0;i<GenresET.size();i++)
 		comboBoxGenres.addItem(GenresET.get(i).getGenreTitle());
 	}
+	/** Put in the subject combo box all the subject that bond to the genre that selected.
+	 * @param Title - the genre title of the genre that selected in the genre combo box - String.
+	 */
 	public void SetSubjects(String Title)
 	{
 		comboBoxSubject.removeAllItems();;

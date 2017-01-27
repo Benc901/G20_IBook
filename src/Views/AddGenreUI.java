@@ -21,6 +21,10 @@ public class AddGenreUI extends JPanel{
 	{
 		return this.txtGenreName.getText();
 	}
+	/**The constrctor of the GUI Class AddGenreUI
+	 * Build a GUI panel to the action AddGenre
+	 * 
+	 */
 	public AddGenreUI() {
 		// TODO Auto-generated constructor stub
 		//*** DO NOT DELETE! ***//

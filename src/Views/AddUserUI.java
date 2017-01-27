@@ -12,10 +12,9 @@ import javax.swing.JTextField;
 
 import graphics.GUIimage;
 
+
 public class AddUserUI extends JPanel{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	public JButton btnBack;
 	public JButton btnAddUser;
@@ -27,6 +26,10 @@ public class AddUserUI extends JPanel{
 	private JTextField txtLastname;
 	private JTextField txtEmail;
 	
+	/**The constrctor of the GUI Class AddUserUI
+	 * Build a GUI panel to the action AddUser
+	 * 
+	 */
 	public AddUserUI() {
 		// TODO Auto-generated constructor stub
 		setBackground(new Color(153, 204, 204));
