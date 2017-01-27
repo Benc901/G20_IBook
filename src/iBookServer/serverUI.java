@@ -24,14 +24,13 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.alee.laf.optionpane.WebOptionPane;
 
-import CommonUI.CommonIF;
 import ocsf.server.ConnectionToClient;
 /*
 import com.alee.laf.button.WebButton;
 import com.alee.laf.optionpane.WebOptionPane;
 */
 
-public class serverUI extends JFrame implements CommonIF {
+public class serverUI extends JFrame{
 	
 	private JPanel contentPane;
 	public IBookServer server;
@@ -216,8 +215,7 @@ public class serverUI extends JFrame implements CommonIF {
 		String newTextToAppend = newText + "\n" + currentText;
 		textArea.setText(newTextToAppend);		
 	}
-	
-	@Override
+
 	public void display(String message) {
 		String currentText = textArea.getText();
 		String newText = new Date() + " - " + message;
