@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -1473,9 +1474,14 @@ public void SetBooksFiles(){
 	byte[] fileBytes;
 	byte[] fileBytes1;
 	byte[] fileBytes2;
+	String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+/*
 	File file=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.pdf");
 	File file1=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.docx");
-	File file2=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.fb2");
+	File file2=new File(this.getClass().getClassLoader().getResource("").getPath()+"/1.fb2");*/
+	File file=new File(path+"/1.pdf");
+	File file1=new File(path+"/1.docx");
+	File file2=new File(path+"/1.fb2");
 	if (file.isFile() && file1.isFile() && file2.isFile()) {
 		try {
 		DataInputStream diStream = new DataInputStream(new FileInputStream(file));

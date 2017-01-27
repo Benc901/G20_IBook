@@ -21,12 +21,12 @@ import Entities.UserET;
 import graphics.GUIimage;
 import graphics.GUIimagejpg;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 public class ReaderUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	public WebButton btnSearchReview;
-	private JPanel panel;
 	public JLabel lblUsername;
 	public JLabel lblUsernameVar;
 	public JLabel lblEmail;
@@ -37,7 +37,8 @@ public class ReaderUI extends JPanel {
 	public WebButton btnEnablePublish;
 	public WebButton wbtnLibririan;
 	public WebButton wbtnManagerMenu;
-	public JButton btnRenew;
+	public WebButton btnRenew;
+	private JLabel label;
 	
 	/**
 	 * Create the application.
@@ -54,84 +55,85 @@ public class ReaderUI extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		//btnHeatingFuel.setIcon(new GUIimage("heating_fuel",20,25).image);
-		
-		panel = new JPanel();
-		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBackground(SystemColor.window);
-		panel.setBounds(282, 203, 335, 271);
-		add(panel);
-		panel.setLayout(null);
-		
 		profile = new JLabel("");
-		profile.setBounds(127, 21, 123, 125);
+		profile.setBounds(226, 431, 80, 76);
+		add(profile);
 		profile.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.add(profile);
 		
 
 		
 		profile.setIcon(new GUIimagejpg("/" +userET.getPhoto(),profile.getWidth(),profile.getHeight()).image);
-		
-		lblUsername = new JLabel("Name:");
-		lblUsername.setBounds(15, 162, 61, 16);
-		panel.add(lblUsername);
-		
-		lblUsernameVar = new JLabel(userET.getFirstName()+" "+userET.getLastName());
-		lblUsernameVar.setBounds(127, 162, 198, 16);
-		panel.add(lblUsernameVar);
-		
-
-		lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(15, 190, 74, 16);
-		panel.add(lblEmail);
-		
-		lblTelephonVAR = new JLabel(userET.getEmail());
-		lblTelephonVAR.setBounds(127, 190, 198, 16);
-		panel.add(lblTelephonVAR);
 		
 		
 		
 		//*** DO NOT DELETE! - END ***//
 		
 		btnSearchBook = new WebButton("Search book");
-		btnSearchBook.setBounds(58, 203, 146, 54);
+		btnSearchBook.setBounds(36, 222, 146, 50);
 		add(btnSearchBook);
 		
 		
 		btnSearchReview = new WebButton("Search review");
-		btnSearchReview.setBounds(58, 273, 146, 54);
+		btnSearchReview.setBounds(36, 283, 146, 50);
 		add(btnSearchReview);
 		
 		btnEnablePublish = new WebButton("Publish review");
-		btnEnablePublish.setBounds(58, 343, 146, 54);
+		btnEnablePublish.setBounds(36, 344, 146, 50);
 		add(btnEnablePublish);
 		if(userET.getConfirm()==0) btnEnablePublish.setText("Enable payment");
 		
 		
 		btnLogout = new WebButton("   Logout");
-		btnLogout.setBounds(58, 413, 146, 54);
+		btnLogout.setText("Logout");
+		btnLogout.setBounds(36, 466, 146, 41);
 		add(btnLogout);
 		
 		btnLogout.setIcon(new GUIimage("logout",20,25).image);
 		
-		btnRenew = new JButton("Renew subscription");
-		btnRenew.setBounds(58, 482, 146, 23);
+		btnRenew = new WebButton("Renew subscription");
+		btnRenew.setBounds(36, 405, 146, 50);
 		add(btnRenew);
 		
 		JLabel lblNewLabel = new JLabel("Welcome  "+userET.getFirstName()+" "+userET.getLastName());
+		lblNewLabel.setForeground(UIManager.getColor("textHighlight"));
 		lblNewLabel.setFont(new Font("OpenSansHebrew-Regular", Font.BOLD, 26));
-		lblNewLabel.setBounds(282, 150, 335, 41);
+		lblNewLabel.setBounds(178, 149, 335, 41);
 		add(lblNewLabel);
 		
 		if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9){
 		wbtnLibririan = new WebButton("Libririan menu");
-		wbtnLibririan.setBounds(282, 490, 146, 30);
+		wbtnLibririan.setBounds(494, 472, 146, 35);
 		add(wbtnLibririan);}
 		
 		if(userET.getPermission()==4 || userET.getPermission()==9){
 		wbtnManagerMenu = new WebButton("Manager menu");
-		wbtnManagerMenu.setBounds(471, 490, 146, 30);
+		wbtnManagerMenu.setBounds(494, 431, 146, 35);
 		add(wbtnManagerMenu);}
+		
+		lblUsername = new JLabel("User:");
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblUsername.setBounds(316, 477, 61, 16);
+		add(lblUsername);
+		
+		lblUsernameVar = new JLabel(userET.getFirstName()+" "+userET.getLastName());
+		lblUsernameVar.setBounds(351, 477, 198, 16);
+		add(lblUsernameVar);
+		
+
+		lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEmail.setBounds(316, 491, 74, 16);
+		add(lblEmail);
+		
+		lblTelephonVAR = new JLabel(userET.getEmail());
+		lblTelephonVAR.setBounds(351, 491, 198, 16);
+		add(lblTelephonVAR);
+		
+		label = new JLabel("");
+		//label.setBorder(new LineBorder(new Color(0, 0, 0)));
+		label.setBounds(232, 222, 408, 172);
+		add(label);
+		label.setIcon(new GUIimagejpg("/reader" ,label.getWidth(),label.getHeight()).image);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
