@@ -21,8 +21,10 @@ public class LibririanUI extends JPanel {
 	public JButton btnCreview;
 	public JButton btnAdduser;
 	
-	/**The constrctor of the GUI Class AddBookUI
-	 * Build a GUI panel to the action AddBook
+	/**The constrctor of the GUI Class LibririanUI
+	 * Build a GUI panel to the Libririan window to choose between the actions of the librarian.
+	 * create a Libririan controller to deal with all actions in the Librarian panel and his sub-panels.
+	 *
 	 * @throws URISyntaxException 
 	 * 
 	 */
