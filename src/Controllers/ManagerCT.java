@@ -208,19 +208,20 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==bookpopularityFrame.btnTotalRank){
-				bookpopularityFrame.profile.setText("");
+				bookpopularityFrame.profile.setIcon(null);
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
 				bookpopularityFrame.lblGenere.setText("");
+				bookpopularityFrame.btnVButton.setText("");
+				bookpopularityFrame.btnVButton.setOpaque(false);
+				bookpopularityFrame.btnVButton.setContentAreaFilled(false);
+				bookpopularityFrame.btnVButton.setBorderPainted(false);
+				bookpopularityFrame.comboBox.removeAllItems();
+				bookpopularityFrame.comboBox.setEnabled(false);
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
 					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
-				else{
-					bookpopularityFrame.btnVButton.setText("");
-					bookpopularityFrame.btnVButton.setOpaque(false);
-					bookpopularityFrame.btnVButton.setContentAreaFilled(false);
-					bookpopularityFrame.btnVButton.setBorderPainted(false);
+				else
 					showBookRank(0);// Total rank	
-				}
 			}
 			else if(e.getSource()==bookpopularityFrame.btnGenreRank){
 				bookpopularityFrame.profile.setIcon(null);
