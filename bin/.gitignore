@@ -6,6 +6,7 @@
 /Controllers/
 <<<<<<< HEAD
 /iBookServer/
+<<<<<<< HEAD
 /Entities/
 =======
 /DBEx.png
@@ -69,3 +70,6 @@
 /1.fb2
 /1.pdf
 /reader.jpg
+=======
+/Views/
+>>>>>>> refs/heads/ori
