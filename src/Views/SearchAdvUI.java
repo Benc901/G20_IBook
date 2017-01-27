@@ -29,6 +29,12 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Class of gui extends JPanel
+ * frame with few fields that the user should select and insert text for searching any book
+ * after the user press the result of book details shown on the table inside the screen
+ * advanced search by few text fields that the user want to search by all of them together
+ */
 public class SearchAdvUI extends JPanel {
 	 public JButton btnBack;
 	 public JButton btnSearch;

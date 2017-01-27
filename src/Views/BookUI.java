@@ -19,6 +19,11 @@ import Entities.BookET;
 import graphics.GUIimage;
 import graphics.GUIimagejpg;
 
+/**
+ * Class of gui extends JPanel
+ * frame that show book details 
+ * with button to purchase if the user have confirmed to do that
+ */
 public class BookUI extends JPanel {
 	public JButton btnBack;
 	public JButton btnGetbook;
@@ -88,12 +93,12 @@ public class BookUI extends JPanel {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==btnBack){// if start:
-					if(BookCT.bookCT.flag==1) MainUI.MV.setView(BookCT.bookCT.searchadvFrame);
+					if(BookCT.bookCT.flag==1) MainUI.MV.setView(BookCT.bookCT.searchadvFrame); // check if the user search the book in regular search or in advanced search
 					else MainUI.MV.setView(BookCT.bookCT.searchFrame);
 				}
 			}
 		});
-		if(UserCT.userCT.userET.getConfirm()==1 && UserCT.userCT.userET.getPermission()<6){
+		if(UserCT.userCT.userET.getConfirm()==1 && UserCT.userCT.userET.getPermission()<6){// check if the user can purchase the book
 		btnGetbook = new JButton("Get this book");
 		btnGetbook.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnGetbook.setBounds(297, 480, 360, 35);

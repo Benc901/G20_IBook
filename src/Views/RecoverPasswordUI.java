@@ -18,6 +18,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 
+/**
+ * Class of gui extends JPanel
+ * frame that user should insert his user name to recover his password by the mail
+ */
 public class RecoverPasswordUI extends JPanel{
 	public JTextField textField;
 	public JButton btnBack;

@@ -14,6 +14,11 @@ import javax.swing.JTextArea;
 import Controllers.ReviewCT;
 import graphics.GUIimage;
 
+/**
+ * Class of gui extends JPanel
+ * frame that have form that user select the book he want to write review about him
+ * and rate the book and write the review
+ */
 public class PublishReviewUI extends JPanel{
 	public JButton btnBack ;
 	public JButton btnPublish ;

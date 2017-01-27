@@ -19,6 +19,10 @@ import Entities.ReviewET;
 import graphics.GUIimage;
 import graphics.GUIimagejpg;
 
+/**
+ * Class of gui extends JPanel
+ * frame that show the details about the review that the user select
+ */
 public class ReviewUI extends JPanel {
 	private JTextField textField;
 	private JButton btnBack;

@@ -33,12 +33,22 @@ import Entities.SubjectET;
 import Entities.UserET;
 import ocsf.server.ConnectionToClient;
 
+/**
+ *class of the connection to the sql data base
+ *
+ */
+/**
+ * @author 1
+ *
+ */
+/**
+ * @author 1
+ *
+ */
 public class mysqlConnection {
 	Connection con;
 	private serverUI window;
-	//final private String url = "jdbc:mysql://localhost/database";
-	//final private String username = "root";
-	//final private String password = "1234";
+
 	final private String url = "jdbc:mysql://localhost:3306/test";
 	final private String username;
 	final private String password;
@@ -64,7 +74,7 @@ public class mysqlConnection {
 			display("SQLException: " + ex.getMessage());
 			catched=true;
 		}
-		if(!catched){
+		if(!catched){//set on the server frame the status of the sql connection 
 			
 			  window.lblSQL.setText("Online");
 			  window.lblSQL.setForeground(Color.GREEN);
@@ -74,6 +84,14 @@ public class mysqlConnection {
 		}
 	}
 	
+/**Function that get the user entitiy with user name and password
+ * and check if the user exist and check if the user still connect
+ * and return the correct message
+ * if the user exist and not online , we set his status to online 
+ * and build all the other fields of the user return the full user entity
+ * @param obj - user entity with user name and password field only
+ * @return User entity or number that mean specific messaage tothe client about failed login
+ */
 public Object login(Object obj) {
 		
 		UserET returnObj = (UserET) obj;
@@ -125,6 +143,13 @@ public Object login(Object obj) {
 		
 	}// End login	
 
+/**Recover Password by user name
+ * Function that get user entity with only user name field and check if the user name exist
+ * if he exist we set his email and password to the user entity instance
+ * and send him the password to the mail
+ * @param obj - user entity with username field inside
+ * @return user entity or number that mean message to the client about wrong user names
+ */
 public Object RecoverPassword(Object obj) {
 
 	UserET returnObj=(UserET)obj;
@@ -150,6 +175,10 @@ public Object RecoverPassword(Object obj) {
 	return returnObj;
 }
 	
+/**Function that logout the user from the system and set him offline status
+ * @param obj - User entity
+ * @return - message if the logout success
+ */
 public Object logout(Object obj) {
 	UserET returnObj = (UserET) obj;
 	try {
@@ -167,6 +196,11 @@ public Object logout(Object obj) {
 	
 }//End logout
 
+	/**Function that search in the database books by text and columns
+	 * @param text - the text that client insert for search
+	 * @param cb - the column that the client search in
+	 * @return ArrayList of books entities ,result by the search
+	 */
 	public Object SearchBook(String text,ArrayList<Integer> cb){
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
 		int dup=0;
@@ -207,7 +241,11 @@ public Object logout(Object obj) {
 		}
 		return returnObj;
 	}
-	
+	/**Function that search in the database reviews by text and columns
+	 * @param text - the text that client insert for search
+	 * @param cb - the column that the client search in
+	 * @return ArrayList of reviews entities ,result by the search
+	 */
 	public Object SearchReview(String text,String cb){
 		ArrayList<ReviewET> returnObj=new ArrayList<ReviewET>();
 		try {
@@ -242,6 +280,11 @@ public Object logout(Object obj) {
 	
 
 	
+	/**Function that insert to the data base payment application
+	 * @param details - array list with data about the payment application
+	 * @param user - user entity with the details about the user who send the application
+	 * @return number that mean if the insert application success
+	 */
 	public int EnablePayment(ArrayList<Object> details,UserET user){
 	
 		try {
@@ -276,6 +319,11 @@ public Object logout(Object obj) {
 		return 1;
 	}
 	
+	/**Function that set in the data base that the user purchase the book
+	 * @param user - the user who purchased the book
+	 * @param book - the book that the user purchased
+	 * @return number that mean if the purchase success and if not, the number means why its failed
+	 */
 	public int GetBook(UserET user,BookET book){
 		try {
 			PreparedStatement iStmt = con
@@ -330,6 +378,10 @@ public Object logout(Object obj) {
 		return 1;
 	}
 	
+	/**Function that check on the data base which books user purchase and still not publish review about them
+	 * @param id - the id of the user
+	 * @return - Array list with books 
+	 */
 	public Object BookList(int id){
 		ArrayList<Integer> booklist1=new ArrayList <Integer>();
 		ArrayList<String> booklist2=new ArrayList <String>();
@@ -361,6 +413,10 @@ public Object logout(Object obj) {
 
 	}
 	
+	/**Function that check the status of the payment application
+	 * @param id - the id of the user
+	 * @return the status of the application
+	 */
 	public int CheckApplication(int id){
 		try {
 			PreparedStatement pStmt = con
@@ -379,6 +435,10 @@ public Object logout(Object obj) {
 		return 1;
 	}
 	
+	/**Function that insert into the database review details that user publish
+	 * @param review - review 
+	 * @return number that mean if the publish review success
+	 */
 	public int PublishReview(ReviewET review){
 		ReviewET reviewET=review;
 		try {
@@ -528,7 +588,11 @@ public Object logout(Object obj) {
 			return 0;			
 		}
 	}
-	
+	/**Function that search in the database books by text and columns
+	 * advanced search check if the text inside the requested columns together
+	 * @param tf -the column that the client search in and the text
+	 * @return ArrayList of books entities ,result by the search
+	 */
 	public Object SearchAdv(ArrayList<String> tf){
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
 		int dup=0;
@@ -571,6 +635,10 @@ public Object logout(Object obj) {
 		return returnObj;
 	}
 	
+	/** Function that check on database and return the genres of requested book
+	 * @param bookId - the book id that we want his genres
+	 * @return String with genres
+	 */
 	public String BuildStructure(int bookId){
 		
 		try {
@@ -816,6 +884,9 @@ public Object logout(Object obj) {
 	}
 	
 	
+	/**Function that close the connection with the database with server
+	 * 
+	 */
 	public void closeSqlConnection(){
 
 		
@@ -883,6 +954,10 @@ public Object logout(Object obj) {
 		}
 	}
 
+	/**Function that Insert to databse the date of search of specific book and update the search count of the book
+	 * @param bookId
+	 * @return number that mean if the insert success
+	 */
 	public int ViewBook(int bookId){
 		try{
 			PreparedStatement qStmt = con
@@ -909,6 +984,9 @@ public Object logout(Object obj) {
 		}
 		return 1;
 	}
+	/**Function that check which payment applications didnt confirmed yet 
+	 * @return the list of Reader entity with details of payment
+	 */
 	public Object GetPaymentList(){
 		ArrayList<ReaderET> reader=new ArrayList<ReaderET>();
 		try{
@@ -926,6 +1004,12 @@ public Object logout(Object obj) {
 		}
 		return reader;
 	}
+	
+	/**Function that set the status of payment application
+	 * @param id - the user id for recognize the application
+	 * @param confirm - the status we want to set to the application
+	 * @return number that mean if the update success
+	 */
 	public int pConfirm(int id,int confirm){
 		try{
 			PreparedStatement qStmt = con
@@ -947,6 +1031,9 @@ public Object logout(Object obj) {
 		return 1;
 	}
 	
+/**Function that display messge on server log screen
+ * @param message
+ */
 private void display(String message) {
 	window.display(message);
 	
@@ -1127,6 +1214,9 @@ public int PairingBook(BookET BookToPair)
 		return -1;
 	}
 }
+/**Function that check on database which review still not confirmed
+ * @return Array list of review entities which are not confirmed yet
+ */
 public Object GetReviewList(){
 	ArrayList<ReviewET> review=new ArrayList<ReviewET>();
 	try{
@@ -1150,6 +1240,11 @@ public Object GetReviewList(){
 	}
 	return review;
 }
+/**Function that set the status of review to confirm or reject
+ * @param id - the id of the review
+ * @param confirm - the status of the review confirm or reject
+ * @return number that mean if the update success
+ */
 public int rConfirm(int id,int confirm){
 	try{
 		PreparedStatement qStmt = con
@@ -1448,21 +1543,12 @@ public int RemoveSubject(HashMap<Integer,Object> Titles)
 		return -1;
 	}
 }
-public int sendfile(FileEvent fileEvent){
-	try{
-		
-		String sql = "INSERT INTO files (id, file) VALUES (?, ?)";
-		PreparedStatement stmt = con.prepareStatement(sql);
-	    stmt.setInt(1, 1);
-	    stmt.setBytes(2, fileEvent.getFileData());
-	    stmt.execute();
-	}catch(SQLException e)
-	{
-		e.printStackTrace();
-		return 0;
-	}
-	return 1;
-}
+
+/**Function that get from the database files of books by specific format
+ * and return the file in byte array
+ * @param fileEvent - instance of FileEvent with details and data of the book file 
+ * @return fileEvent - the same file with the byte array of the book file
+ */
 public FileEvent Download(FileEvent fileEvent){
 	try{
 		int col=0;
@@ -1487,6 +1573,11 @@ public FileEvent Download(FileEvent fileEvent){
 	}
 	return fileEvent;
 }
+/**Function that Set new subscription to user who confirmed his payment method
+ * the function check if its possible
+ * @param details - the details of the subscription request
+ * @return - number that mean if the request success
+ */
 public int RenewSub(ArrayList<Object> details){
 	
 	try {
@@ -1517,6 +1608,9 @@ public int RenewSub(ArrayList<Object> details){
 
 	return 1;
 }
+/**Function that check if the library stuff have an notifications about reviews they have to confirm
+ * @return the number of the review are not confirmed yet
+ */
 public int CheckNotif(){
 	int count=0;
 	try{
@@ -1532,6 +1626,9 @@ public int CheckNotif(){
 	}
 	return count;
 }
+/**
+ * Set the book file in blob fields on the data base when the server restart
+ */
 public void SetBooksFiles(){
 	byte[] fileBytes;
 	byte[] fileBytes1;

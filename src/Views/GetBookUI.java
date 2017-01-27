@@ -23,6 +23,12 @@ import java.awt.event.ActionListener;
 
 
 
+/**
+ * Class of gui extends JPanel
+ * frame of that user want to purchase book 
+ * and he decide the format of the book
+ * and decide the path where he want to save the book file in his computer
+ */
 public class GetBookUI extends JPanel{
 	public JComboBox cbFormat; 
 	public JButton btnBack;
@@ -68,7 +74,7 @@ public class GetBookUI extends JPanel{
 		add(path);
 		path.setColumns(10);
 		
-		JButton btnBrowse = new JButton("Browse");
+		JButton btnBrowse = new JButton("Browse"); // when user press he have to decide the path where he want to save the book file
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();

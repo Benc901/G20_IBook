@@ -36,6 +36,10 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+/**
+ * class that show progress bar 
+ *
+ */
 public class InfiniteProgressPanel extends JComponent implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

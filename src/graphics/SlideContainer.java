@@ -9,6 +9,10 @@ import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
+/**
+ * Class that change the panel in slide motion
+ *
+ */
 public class SlideContainer extends JLayeredPane {
 
 	private static final long serialVersionUID = 1L;

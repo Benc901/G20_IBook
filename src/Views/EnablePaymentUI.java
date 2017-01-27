@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 
 import graphics.GUIimage;
 
+/**
+ * Class of gui extends JPanel
+ * frame with form that user insert details for payment application
+ */
 public class EnablePaymentUI extends JPanel{
 	public JButton btnBack;
 	public JTextField tfCnumber;

@@ -132,7 +132,10 @@ public class MainUI {
 		});
     
 	}
-	public void setView(JPanel panel) { //מתודת החלפת פנלים
+	/**function that get panel and set him on the Main JFrame and switch between the frames
+	 * @param panel - the frame we want on the screen right now
+	 */
+	public void setView(JPanel panel) { 
 		
 		if (MV.loadingPanel.isVisible())
 			MV.loadingPanel.setVisible(false);
@@ -156,29 +159,3 @@ public class MainUI {
 
 
 
-
-
-
-/*
- 
- 
- 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int locationX = dim.width /2-(677/2); 
-		int	locationY = dim.height/2-(562/2);
-		
-		if(GasServer.ChangeTitleBool){
-//			frame.setBounds(690, 100, 677, 562);
-			frame.setBounds(locationX, locationY, 677, 562);
-			frame.setTitle("Server - My Gas");
-			GasServer.ChangeTitleBool = false;
-		}
-		else{ 
-			frame.setTitle("Client - My Gas");
-//			frame.setBounds(10, 100, 677, 562);
-			frame.setBounds(locationX,locationY ,677, 562);
-		}
- 
- 
- 
- 
- */

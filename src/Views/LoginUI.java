@@ -23,6 +23,15 @@ import graphics.GUIimage;
 import graphics.InfiniteProgressPanel;
 
 
+/**
+ * Class of gui extends JPanel
+ * frame of the login form that user insert his user name and password to login
+ * the user insert the details for connection too, ip and port
+ */
+/**
+ * @author 1
+ *
+ */
 public class LoginUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -202,6 +211,9 @@ public class LoginUI extends JPanel {
 		
 	}
 
+	/**
+	 * Clear the fields of the form
+	 */
 	public void clearFields() {
 		textFieldUserName.setText("");
 		pwdPassword.setText("");

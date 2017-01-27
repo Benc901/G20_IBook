@@ -19,6 +19,10 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Class of gui extends JPanel
+ *frame that the library stuff edit the review before confirmation
+ */
 public class EditReviewUI extends JPanel{
 	public JButton btnBack ;
 	public JButton btnConfirm ;

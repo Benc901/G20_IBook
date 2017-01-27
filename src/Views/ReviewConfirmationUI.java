@@ -15,6 +15,11 @@ import Entities.ReaderET;
 import graphics.GUIimage;
 import javax.swing.JButton;
 
+/**
+ * Class of gui extends JPanel
+ * frame that show to the user the list of the reviews that still not confirmed yet
+ * and the user select the review and can press confirm / reject or edit the review and confirm
+ */
 public class ReviewConfirmationUI extends JPanel  {
 	 public JTable Orderstable;
 	 public DefaultTableModel model;

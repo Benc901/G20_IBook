@@ -16,7 +16,12 @@ import javax.swing.table.DefaultTableModel;
 
 import Controllers.BookCT;
 import graphics.GUIimage;
-
+/**
+ * Class of gui extends JPanel
+ * frame with few fields that the user should select and insert text for searching any book
+ * after the user press the result of book details shown on the table inside the screen
+ * regular search
+ */
 public class SearchBookUI extends JPanel {
 	 public JButton btnBack;
 	 public JButton btnSearch;

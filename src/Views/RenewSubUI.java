@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 
 import graphics.GUIimage;
 
+/**
+ * Class of gui extends JPanel
+ * frame that user can choose the subscription he want to renew
+ */
 public class RenewSubUI extends JPanel{
 	public JButton btnBack;
 	public JButton btnRenew;

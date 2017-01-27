@@ -23,6 +23,12 @@ import graphics.GUIimagejpg;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
+/**
+ * Class of gui extends JPanel
+ * frame of the main menu of all the kind users
+ * and the frame check the permission of the user 
+ * and set the buttons by the user entity details
+ */
 public class ReaderUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;

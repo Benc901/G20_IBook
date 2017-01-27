@@ -7,7 +7,10 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
+/**
+ * Class that set photo from format .jpg and get it from specific path or URL
+ *
+ */
 public class GUIimagejpg extends ImageIcon {
 
 	private static final long serialVersionUID = 1L;

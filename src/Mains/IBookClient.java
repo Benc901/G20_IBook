@@ -25,6 +25,13 @@ public class IBookClient extends ObservableClient {
 		}
 	}
 	
+	/**function that check if the static instance of IBookClient is null
+	 * if true create new instance and save it on the static field
+	 * if false return the static instance
+	 * @param host - ip to connect
+	 * @param port - port foe connect
+	 * @return IBookClient instance
+	 */
 	public static IBookClient getInstance(String host, int port) {
 		if(firstInstance == null) {
 			firstInstance = new IBookClient(host, port);
@@ -63,6 +70,9 @@ public class IBookClient extends ObservableClient {
 		notifyObservers(obj);
 	}
 
+	/**function that return the IBookClient static instance if not null
+	 * @return IBookClient static instance
+	 */
 	public static IBookClient getInstance() {
 		if(firstInstance == null) {
 			System.out.println("The instance of the client was not created yet"); //No reason to print that. 

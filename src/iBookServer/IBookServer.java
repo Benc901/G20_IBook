@@ -24,12 +24,9 @@ import ocsf.server.*;
 
 
 /**
- * <b>GHeathServer</b> - the server side main class. responsible of handle the 
- *<br> communication between the DB, through the JDBC driver, and the client side.
- *<br><br>
+ * the server side main class. responsible of handle the 
+ *communication between the DB, through the JDBC driver, and the client side.
  *{@code extends AbstractServer} - from OCSF framework
- *
- * @author G11
  *@see ocsf.server.AbstractServer
  */
 public class IBookServer extends AbstractServer {
@@ -52,8 +49,7 @@ public class IBookServer extends AbstractServer {
 	static mysqlConnection sqlCon;
 
 	/**
-	 * <b>Constructor</b> - Initialize the server
-	 * 
+	 * Constructor Initialize the server
 	 * @param port
 	 */
 	public IBookServer(int port) {
@@ -64,10 +60,12 @@ public class IBookServer extends AbstractServer {
 		
 		HashMap<String, Object> returnObj = new HashMap<String, Object>(); 
 		
-		Map<String, Object> map = (HashMap<String, Object>) obj; 
-		String op = (String) map.get("op");
+		Map<String, Object> map = (HashMap<String, Object>) obj; //the hashmap we got from the client
+		String op = (String) map.get("op");//the action that the client request from the server
 		
-		switch (op) {
+		switch (op) {/*in every case the server call to the relevant function
+					 *and get the result from DB and set it in hash map 
+					 */
 			case "Login": 
 				display(" : " + op, client);
 				returnObj.put("op", "Login");
@@ -268,7 +266,7 @@ public class IBookServer extends AbstractServer {
 				break;
 		}
 		
-		try {
+		try {//return the result from the data base in hash map
 			client.sendToClient(returnObj);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -277,6 +275,10 @@ public class IBookServer extends AbstractServer {
 	}
 
 	
+	/**
+	 * The main class of server
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		int port = 0;      // Port to listen on
 		
@@ -314,6 +316,9 @@ public class IBookServer extends AbstractServer {
 	}
 
 	
+	/**function that try to build the server to listen clients
+	 * @param port - the connection port
+	 */
 	public static void StartServer(int port){
 		
 		
@@ -336,6 +341,9 @@ public class IBookServer extends AbstractServer {
 		window.lblIp.setText(IP);
 	}
 	
+/**
+ * function that stop the server from listen clients
+ */
 public static void StopServer(){
 		
 		boolean catched = false;
@@ -358,6 +366,10 @@ public static void StopServer(){
 	}
 	
 
+/**function that build the connection between the server and the sql
+ * @param username - user name for database connect
+ * @param password - password for database connect
+ */
 public static void ConnectToSQL(String username,String password){
 	try {
 
@@ -371,6 +383,11 @@ public static void ConnectToSQL(String username,String password){
 		
 }
 
+	/**
+	 * function that display message on log screen
+	 * @param message - the message shown on log screen
+	 * @param client - which client do the action
+	 */
 	private static void display(String message, ConnectionToClient client) {
 		window.display(message, client);
 		

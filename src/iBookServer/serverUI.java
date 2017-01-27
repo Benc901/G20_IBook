@@ -25,10 +25,13 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import com.alee.laf.optionpane.WebOptionPane;
 
 import ocsf.server.ConnectionToClient;
-/*
-import com.alee.laf.button.WebButton;
-import com.alee.laf.optionpane.WebOptionPane;
-*/
+
+
+/**
+ * Class of gui,extends JFrame
+ *Server panel
+ *
+ */
 
 public class serverUI extends JFrame{
 	
@@ -43,6 +46,10 @@ public class serverUI extends JFrame{
 	public JLabel lblIp;
 	private JButton stopBtn;
 	
+	/**
+	 * Constructor initialize the JFrame
+	 * @param server1 - IBookserver class perform,for build connecting
+	 */
 	public serverUI(IBookServer server1){
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -52,7 +59,7 @@ public class serverUI extends JFrame{
 		        }
 		    }
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		    
 		}
 		getContentPane().setBackground(SystemColor.menu);
 		this.server=server1;
@@ -154,7 +161,7 @@ public class serverUI extends JFrame{
 				}
 			}
 		});
-		
+		//initialize the sql database from sql file
 		JButton tglbtnRestart = new JButton("<html>Load<br>&nbsp;SQL</html>");
 		tglbtnRestart.setBounds(247, 262, 80, 55);
 		getContentPane().add(tglbtnRestart);
@@ -209,6 +216,11 @@ public class serverUI extends JFrame{
 		
 	}
 	
+	/**
+	 * function that display message on log screen
+	 * @param message - the message shown on log screen
+	 * @param client - which client do the action
+	 */
 	public void display(String message, ConnectionToClient client) {
 		String currentText = textArea.getText();
 		String newText = new Date() + " - " + client + " - " + message;
@@ -216,6 +228,10 @@ public class serverUI extends JFrame{
 		textArea.setText(newTextToAppend);		
 	}
 
+	/**
+	 * function that display message on log screen
+	 * @param message - the message shown on log screen
+	 */
 	public void display(String message) {
 		String currentText = textArea.getText();
 		String newText = new Date() + " - " + message;

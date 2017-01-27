@@ -15,6 +15,11 @@ import Entities.ReaderET;
 import graphics.GUIimage;
 import javax.swing.JButton;
 
+/**
+ * Class of gui extends JPanel
+ * frame that show us table with list of all the payment applications
+ * that still not confirmed by the library stuff
+ */
 public class PaymentConfirmationUI extends JPanel  {
 	 public JTable Orderstable;
 	 public DefaultTableModel model;
@@ -80,13 +85,16 @@ public class PaymentConfirmationUI extends JPanel  {
 		
 		Orderstable.addMouseListener(new java.awt.event.MouseAdapter() {
 		    @Override
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {//set the number of the row of the selected applications
 		        row = Orderstable.rowAtPoint(evt.getPoint());
-		        System.out.println(row);
+
   
 		    }
 		});
 	}
+	/** set the row that the user select
+	 * @param i - the row number
+	 */
 	public void setrow(int i){
 		this.row=i;
 	}
