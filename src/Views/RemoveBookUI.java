@@ -44,10 +44,12 @@ public class RemoveBookUI extends JPanel{
 		txtBookId = new JTextField();
 		txtBookId.setBounds(210, 269, 217, 30);
 		add(txtBookId);
-		
+		txtBookId.setText("");
 		btnRBook = new JButton("Delete");
 		btnRBook.setBounds(439, 269, 89, 30);
 		add(btnRBook);
+		
+		
 		
 		JLabel lblAddUserTo = new JLabel("Remove Book From DB");
 		lblAddUserTo.setFont(new Font("Lucida Grande", Font.BOLD, 22));

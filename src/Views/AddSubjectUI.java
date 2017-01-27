@@ -88,6 +88,7 @@ public class AddSubjectUI extends JPanel{
 				lblBackground.setBounds(0, 0, 671, 533);
 				lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 				add(lblBackground);
+				clearFields();
 	}
 	public void BringGenreTCB()
 	{

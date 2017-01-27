@@ -102,6 +102,7 @@ public class PairingBookUI extends JPanel{
 		txtIdBooks = new JTextField();
 		txtIdBooks.setBounds(210, 202, 217, 30);
 		add(txtIdBooks);
+		txtIdBooks.setText("");
 		
 		comboBoxGenre = new JComboBox();
 		comboBoxGenre.setBounds(210, 266, 217, 30);
