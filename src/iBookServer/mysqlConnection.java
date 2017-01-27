@@ -690,58 +690,80 @@ public Object logout(Object obj) {
 		return returnObj;
 	}
 	
+	public Map<String, Object> updateGeneresInComboBox(int bId){
+		
+		Map<String,Object> returnObj = new HashMap<String,Object>();
+		String[] genereNameArray = null;
+		int numOfRows;
+		int numOfGenere;
+		
+		try{
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT genere_id FROM test.pairing WHERE book_id = ? ");
+			pStmt.setInt(1, bId);
+			ResultSet rs = pStmt.executeQuery();
+			if (!rs.isBeforeFirst()) { // Checks if ResultSet is empty (The book does not exist in the system).
+					display("The book does not exist in the system");
+					return null;
+			}
+			else{
+				ArrayList<Integer> genereIdArray = new ArrayList<Integer>();
+				rs.last();
+				numOfRows = rs.getRow();
+				rs.beforeFirst();
+				rs.next();
+				for(int i = 0 ; i < numOfRows ; i++){
+					if(genereIdArray.contains(rs.getInt(1)))
+						rs.next();
+					else{
+						genereIdArray.add(rs.getInt(1));
+						rs.next();
+					}
+				}
+				genereNameArray = new String[numOfGenere = genereIdArray.size()];
+				for(int i = 0 ; i < numOfGenere ; i++){
+					pStmt = con
+							.prepareStatement("SELECT title FROM test.genere where id = ?");
+					pStmt.setInt(1, genereIdArray.get(i));
+					rs = pStmt.executeQuery();
+					rs.next();
+					genereNameArray[i] = rs.getString(1);
+				}
+				returnObj.put("genereIdArr", genereIdArray);
+				returnObj.put("genereNameArr", genereNameArray);
+				return returnObj;
+					
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
-	public BookET BookRank(int bId, int choice){
+	public BookET BookRank(int bId){
 		
 		BookET returnObj = null;
 		int count = 1;
-		String myTemp;
 		
 		try {/*choice = 0 - Total Rank, 1 - Genre Rank */
-			if(choice == 0){
-				PreparedStatement pStmt = con
-						.prepareStatement("SELECT * FROM test.books order by numOfPurchace DESC ");
-				ResultSet rs = pStmt.executeQuery();
-				while(rs.next()){
-					if(rs.getInt(1) == bId){
-						returnObj = new BookET(rs.getInt(1),
-								rs.getString(2),rs.getString(3),
-								rs.getString(4),rs.getString(5),
-								rs.getString(6),rs.getString(7),
-								rs.getString(8),rs.getString(9),
-								rs.getString(10),rs.getInt(11),
-								rs.getInt(12),rs.getInt(13),
-								count,0,rs.getInt(16));
-						return returnObj;
-					}
-					else
-						count++;
+			PreparedStatement pStmt = con
+					.prepareStatement("SELECT * FROM test.books order by numOfPurchace DESC ");
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()){
+				if(rs.getInt(1) == bId){
+					returnObj = new BookET(rs.getInt(1),
+							rs.getString(2),rs.getString(3),
+							rs.getString(4),rs.getString(5),
+							rs.getString(6),rs.getString(7),
+							rs.getString(8),rs.getString(9),
+							rs.getString(10),rs.getInt(11),
+							rs.getInt(12),rs.getInt(13),
+							count,0,rs.getInt(16));
+					return returnObj;
 				}
-			}else if(choice == 1){
-				PreparedStatement pStmt = con
-						.prepareStatement("SELECT books.genre FROM test.books WHERE id = ?;");
-				pStmt.setInt(1, bId);
-				ResultSet rs = pStmt.executeQuery();
-				rs.next();
-				myTemp = rs.getString(1);
-				pStmt = con.prepareStatement("SELECT * FROM test.books WHERE genre = ? order by numOfPurchace DESC;");
-				pStmt.setString(1, myTemp);
-				rs = pStmt.executeQuery();
-				while(rs.next()){
-					if(rs.getInt(1) == bId){
-						returnObj = new BookET(rs.getInt(1),
-								rs.getString(2),rs.getString(3),
-								rs.getString(4),rs.getString(5),
-								rs.getString(6),rs.getString(7),
-								rs.getString(8),rs.getString(9),
-								rs.getString(10),rs.getInt(11),
-								rs.getInt(12),rs.getInt(13),
-								0,count,rs.getInt(16));
-						return returnObj;
-					}
-					else
-						count++;
-				}
+				else
+					count++;
 			}
 		}
 		catch (SQLException e) {
@@ -750,6 +772,47 @@ public Object logout(Object obj) {
 		}
 		return returnObj;
 	}
+	
+	public BookET BookRank(int bId, String gener, Map<String, Object> genreArrList) {
+		
+		BookET returnObj = null;
+		int count; /*1*/
+		String tempString;
+		ArrayList<Integer> genereIdArray = (ArrayList<Integer>)genreArrList.get("genereIdArr");
+		String[] genereNameArray = (String[])genreArrList.get("genereNameArr");
+		
+		try {
+			for(count = 0;count<genereNameArray.length;count++)
+				if(genereNameArray[count].equals(gener))
+					break;
+			PreparedStatement pStmt = con
+				.prepareStatement("SELECT * FROM (SELECT distinct book_id as bId FROM test.pairing where genere_id = ?) AS T1 JOIN (SELECT * FROM test.books) AS T2 ON T1.bId = T2.id order by numOfPurchace DESC");
+			pStmt.setInt(1, ((ArrayList<Integer>) genreArrList.get("genereIdArr")).get(count));
+			ResultSet rs = pStmt.executeQuery();
+			count = 1;
+			while(rs.next()){
+				if(rs.getInt(1) == bId){
+					returnObj = new BookET(rs.getInt(2),
+							rs.getString(3),rs.getString(4),
+							rs.getString(5),rs.getString(6),
+							rs.getString(7),rs.getString(8),
+							rs.getString(9),rs.getString(10),
+							rs.getString(11),rs.getInt(12),
+							rs.getInt(13),rs.getInt(14),
+							0,count,rs.getInt(17));
+					return returnObj;
+				}
+				else
+					count++;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return returnObj; // book isn't exists	
+		}
+		return returnObj;
+	}
+	
 	
 	public void closeSqlConnection(){
 
@@ -1401,5 +1464,6 @@ public FileEvent Download(FileEvent fileEvent){
 	}
 	return fileEvent;
 }
+
 
 }

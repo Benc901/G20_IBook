@@ -3,6 +3,7 @@ package Controllers;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ public class ManagerCT implements Observer, ActionListener {
 	public static UserReportUI userreportFrame;
 	public static BookReportUI bookreportFrame;
 	public static BookPopularityUI bookpopularityFrame;
+	public static Map<String, Object> returnedHash;
 	
 	public ManagerCT(ManagerUI manager){
 		this.managerFrame = manager;
@@ -197,6 +199,8 @@ public class ManagerCT implements Observer, ActionListener {
 			bookpopularityFrame.btnTotalRank.addActionListener((ActionListener)this);
 			bookpopularityFrame.btnGenreRank.addActionListener((ActionListener)this);
 			bookpopularityFrame.btnBack.addActionListener((ActionListener)this);
+			bookpopularityFrame.comboBox.addActionListener((ActionListener)this);
+			bookpopularityFrame.btnVButton.addActionListener((ActionListener)this);
 			MainUI.MV.setView(bookpopularityFrame);
 		}
 		if(bookpopularityFrame!=null){
@@ -204,16 +208,34 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==bookpopularityFrame.btnTotalRank){
+				bookpopularityFrame.profile.setText("");
+				bookpopularityFrame.lblNewBookName.setText("");
+				bookpopularityFrame.lblAuthor.setText("");
+				bookpopularityFrame.lblGenere.setText("");
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
 					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
-				else
+				else{
+					bookpopularityFrame.btnVButton.setText("");
+					bookpopularityFrame.btnVButton.setOpaque(false);
+					bookpopularityFrame.btnVButton.setContentAreaFilled(false);
+					bookpopularityFrame.btnVButton.setBorderPainted(false);
 					showBookRank(0);// Total rank	
+				}
 			}
 			else if(e.getSource()==bookpopularityFrame.btnGenreRank){
+				bookpopularityFrame.profile.setIcon(null);
+				bookpopularityFrame.lblNewBookName.setText("");
+				bookpopularityFrame.lblAuthor.setText("");
+				bookpopularityFrame.lblGenere.setText("");
+				bookpopularityFrame.lblRank.setText("");
+				bookpopularityFrame.comboBox.setEnabled(true);
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
 					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
 				else
-					showBookRank(1); // genre rank
+					updateGeneresInComboBox(Integer.parseInt((String)bookpopularityFrame.textField.getText()));
+			}
+			else if(e.getSource()==bookpopularityFrame.btnVButton){
+					showBookRank(1);// Genre rank	
 			}
 		}
 		
@@ -227,7 +249,6 @@ public class ManagerCT implements Observer, ActionListener {
 
 		else {
 			Map<String, Object> map = (HashMap<String, Object>) obj;
-			Map<String, Object> returnedHash;
 			String op = (String) map.get("op");
 			
 			// what operation was made in the server and how to respond.
@@ -339,6 +360,23 @@ public class ManagerCT implements Observer, ActionListener {
 				}
 				break;
 				
+				
+			case "updateGeneresInComboBox":
+				
+				if((returnedHash = (HashMap<String, Object>) map.get("obj")) == null)
+					JOptionPane.showMessageDialog(null,"The book does not exist !");	
+				else{
+					String[] tempString = (String[])returnedHash.get("genereNameArr");
+					bookpopularityFrame.comboBox.removeAllItems();
+					for(int i = 0 ; i < tempString.length ; i++)
+						bookpopularityFrame.comboBox.addItem(tempString[i]);
+					bookpopularityFrame.btnVButton.setText("Ok");
+					bookpopularityFrame.btnVButton.setOpaque(true);
+					bookpopularityFrame.btnVButton.setContentAreaFilled(true);
+					bookpopularityFrame.btnVButton.setBorderPainted(true);
+				}
+			break;
+				
 			case "BookRank":
 				
 				if(map.get("obj") == null)
@@ -352,7 +390,7 @@ public class ManagerCT implements Observer, ActionListener {
 					if(temp.getBGenreRank() == 0)
 						bookpopularityFrame.lblRank.setText("Total Rank : " + temp.getBTotalRank());
 					else
-						bookpopularityFrame.lblRank.setText("Genere Rank : " + temp.getBGenreRank());
+						bookpopularityFrame.lblRank.setText("Books rank in requested genre " + "\"" + (String)bookpopularityFrame.comboBox.getSelectedItem() + "\"" + " : " + temp.getBGenreRank());
 				}
 			break;
 		
@@ -409,10 +447,22 @@ public class ManagerCT implements Observer, ActionListener {
 		client.handleMessageFromUI(hmap);
 	}
 	
+	public void updateGeneresInComboBox(int bId){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "updateGeneresInComboBox");
+		hmap.put("BId", bId); /* Book ID */
+		
+		client.handleMessageFromUI(hmap);
+	}
+	
 	public void showBookRank(int choice){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "BookRank");
 		hmap.put("choice", choice); /* 0 - Total Rank, 1 - Genre Rank */
+		if(choice == 1){
+			hmap.put("genre", (String)bookpopularityFrame.comboBox.getSelectedItem());
+			hmap.put("genreArrList", returnedHash);
+		}
 		hmap.put("obj", (String) bookpopularityFrame.textField.getText());
 
 		client.handleMessageFromUI(hmap);
