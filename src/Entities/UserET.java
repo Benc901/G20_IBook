@@ -1,7 +1,10 @@
 package Entities;
 
 import java.io.Serializable;
-
+/**
+ * class of user entity with all the user details by the database user table
+ *
+ */
 public class UserET implements Serializable {
 
 	private String userName;
@@ -34,6 +37,9 @@ public class UserET implements Serializable {
 		this.passWord=passWord;
 		
 	}
+	/*
+	 * kind of half constructor with all the fields except user name and password
+	 */
 public void SetFromSQL(int id,int permission,String firstName,String lastName,String email,String photo,int confirm){
 		this.id=id;
 		this.permission=permission;

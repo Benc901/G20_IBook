@@ -3,6 +3,10 @@ package Entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * class of book entity with all the books details by the database books table
+ *
+ */
 public class BookET implements Serializable {
 		private int bID;
 		private String bTitle;

@@ -2,7 +2,10 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * class of genre entity with all the genre details by the database genre table
+ *
+ */
 public class GenreET implements Serializable{
 	private int Gid;
 	private String GenreTitle;

@@ -19,7 +19,10 @@ import Views.*;
 
 
 
-
+/**
+ * Class that control all the actions of  Librarian menu.
+ *
+ */
 public class LibrarianCT implements Observer, ActionListener{
 	
 	public static LibrarianCT librarianCT;
@@ -76,14 +79,15 @@ public class LibrarianCT implements Observer, ActionListener{
 	
 
 	
-	/* (non-Javadoc)
+	/* 
+	 * Function the recognize events from all the librarian actions UI
+	 * do the action that the event needs and send to the relevant function
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==libririanFrame.btnAdduser){
+		if(e.getSource()==libririanFrame.btnAdduser){//Create the add user frame
 			adduserFrame = new AddUserUI();
 			adduserFrame.btnBack.addActionListener((ActionListener)this);
 			adduserFrame.btnAddUser.addActionListener((ActionListener)this);
@@ -94,7 +98,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			BringGandS();
 			
 		}
-		if(e.getSource()==libririanFrame.btnCstructure){
+		if(e.getSource()==libririanFrame.btnCstructure){//Create the add control structure frame
 			CStructFrame = new ControlstructureUI();
 			CStructFrame.btnBack.addActionListener((ActionListener)this);
 			CStructFrame.btnPBook.addActionListener((ActionListener)this);
@@ -111,7 +115,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			if(e.getSource()==CStructFrame.btnBack)
 				MainUI.MV.setView(libririanFrame);
-			if(e.getSource()==CStructFrame.btnSdivision)
+			if(e.getSource()==CStructFrame.btnSdivision)//Create the add user frame
 			{
 				SDivisionFrame = new SettingDivisionUI();
 				SDivisionFrame.btnBack.addActionListener((ActionListener)this);
@@ -203,7 +207,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(IUpdateFrame!=null)
 		{
-			if(e.getSource()==IUpdateFrame.btnUBook)
+			if(e.getSource()==IUpdateFrame.btnUBook)//Create the add update frame
 			{
 				UpdateBFrame=new UpdateBookUI();
 				UpdateBFrame.btnBack.addActionListener((ActionListener)this);
@@ -211,7 +215,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.btnUpdate.addActionListener((ActionListener)this);
 				MainUI.MV.setView(UpdateBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnRBook)
+			else if(e.getSource()==IUpdateFrame.btnRBook)//Create the remove book frame
 			{
 				
 				RemoveBFrame=new RemoveBookUI(BooksET);
@@ -219,7 +223,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				RemoveBFrame.btnRBook.addActionListener((ActionListener)this);
 				MainUI.MV.setView(RemoveBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnAddBook)
+			else if(e.getSource()==IUpdateFrame.btnAddBook) //Create the add book frame
 			{
 				AddBFrame=new AddBookUI(genresET);
 				AddBFrame.btnBack.addActionListener((ActionListener)this);
@@ -292,7 +296,8 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 	}
 
-	/* (non-Javadoc)
+	/* function that get the result from the database and recognize the result kind
+	 * and set the details depending on the case
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -736,12 +741,23 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to get all the payment applications that are not confirmed yet.
+	 */
 	public void GetPaymentList()
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "GetPaymentList");
 		client.handleMessageFromUI(hmap);
 	}
+	
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to confirm payment of user
+	 * check if the user select applications before he pressed "confirm"
+	 * @param confirm - the specific application row
+	 */
 	public void pConfirm(int confirm)
 	{
 		if(paymentFrame.row<0) JOptionPane.showMessageDialog(null, "please select application", "please select application", JOptionPane.ERROR_MESSAGE);
@@ -755,12 +771,22 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 
 	}
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to get all the review confirm applications that are not confirmed yet.
+	 */
 	public void GetReviewList()
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "GetReviewList");
 		client.handleMessageFromUI(hmap);
 	}
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to confirm review of user
+	 * check if the user select applications before he pressed "confirm"
+	 * @param confirm - the specific application row
+	 */
 	public void rConfirm(int confirm)
 	{
 		if(reviewFrame.row<0) JOptionPane.showMessageDialog(null, "please select application", "please select application", JOptionPane.ERROR_MESSAGE);
@@ -774,6 +800,11 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 
 	}
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to confirm review of user and edit his review
+	 * @param review - the specific review application with the changed details
+	 */
 	public void	EditReview(ReviewET review)
 	{
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -883,6 +914,12 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+	
+	/**
+	 * function that get three books file in format : pdf ,doc and fb2 and convert them to byte array
+	 * and put the in class FileEvent before the send to the server for new book
+	 * @return ArrayList of FileEvents with three books file to upload to the database for the new user
+	 */
 	public ArrayList<FileEvent> SendBooktoDB(){
 		ArrayList<FileEvent> fileEvents=new ArrayList<FileEvent>();
 		

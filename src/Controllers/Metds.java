@@ -6,9 +6,7 @@ import javax.swing.JOptionPane;
 
 
 /**
- * <b>Metds</b> - A class of statics methods which provides validation tests for the user input.
- * 
- * @author G11
+ * class of statics methods which provides validation tests for the user input.
  *
  */
 public class Metds 
@@ -17,12 +15,12 @@ public class Metds
 	static final Pattern idPattern = Pattern.compile("[0-9]+");
 	
 	/**
-	 * <b>isUserValid</b> - this methods checks for username correctness.
-	 * <br>The username can <b>ONLY</b> contains english letters and numbers.
-	 * <br> 
+	 * isUserValid - this methods checks for username correctness.
+	 * The username can ONLY contains english letters and numbers.
+	 * 
 	 * @param str - the username input. 
 	 * @return
-	 * 		<b>Boolean</b> value. <b>True</b> if the username is valid, <b>False</b> otherwise.
+	 * 		Boolean value. True if the username is valid, False otherwise.
 	 */
 	public static Boolean isUserValid(String str)
 	{
@@ -40,12 +38,11 @@ public class Metds
 	}//End isUserValid
 	
 	/**
-	 * <b>isPasswordValid</b> - this methods checks for password correctness.
-	 * <br>The password can <b>NOT</b> contains spaces.
-	 * <br> 
+	 * isPasswordValid</b> - this methods checks for password correctness.
+	 * The password can NOT contains spaces.
 	 * @param str - the password input. 
 	 * @return
-	 * 		<b>Boolean</b> value. <b>True</b> if the password is valid, <b>False</b> otherwise.
+	 * 		Boolean value. True if the password is valid, False otherwise.
 	 */
 	public static Boolean isPasswordValid(String str) 
 	{
@@ -64,11 +61,11 @@ public class Metds
 	
 	
 	/**
-	 * <b>isIDValid</b> - Static method that checks if patient id is valid.
-	 * <br>Means that the id is not empty and contains only digits.
+	 * isIDValid - Static method that checks if patient id is valid.
+	 * Means that the id is not empty and contains only digits.
 	 *  
-	 * @param str - <em>(String)</em> The patient id.
-	 * @return <b>Boolean</b> value. <b>True</b> if the id is valid, <b>False</b> otherwise.
+	 * @param str - (String) The patient id.
+	 * @return Boolean value. True if the id is valid, False otherwise.
 	 */
 	public static Boolean isIDValid(String str) 
 	{
@@ -87,12 +84,11 @@ public class Metds
 	
 	
 	/**
-	 * <b>isEMailValid</b> - this methods checks for the email correctness.
-	 * <br>The email can <b>NOT</b> contains spaces.
-	 * <br> 
+	 * isEMailValid - this methods checks for the email correctness.
+	 * The email can NOT contains spaces.
 	 * @param str - the email input. 
 	 * @return
-	 * 		<b>Boolean</b> value.  <b>True</b> if the email is valid, <b>False</b> otherwise.
+	 * 		Boolean value.  True if the email is valid, False otherwise.
 	 */
 	public static Boolean isEMailValid(String str)
 	{	
@@ -110,11 +106,11 @@ public class Metds
 
 	
 	/**
-	 * <b>isEmptyDiagnosis</b> - Checks if the diagnosis string pass to it is empty.
+	 * isEmptyDiagnosis - Checks if the diagnosis string pass to it is empty.
 	 * 
-	 * @param text - <em>(String)</em> The diagnosis text
+	 * @param text -(String) The diagnosis text
 	 * 
-	 * @return <b>Boolean</b> value. <b>False</b> if the text is empty, <b>True</b> otherwise.
+	 * @return Boolean value. False if the text is empty, True otherwise.
 	 */
 	public static boolean isEmptyDiagnosis(String text) {
 		if(text.equals("")) {
@@ -124,4 +120,4 @@ public class Metds
 		return true;
 	}
 	
-}//End Metds
+}

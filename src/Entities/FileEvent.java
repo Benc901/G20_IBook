@@ -2,6 +2,11 @@ package Entities;
 
 import java.io.Serializable;
 
+/**
+ * Class of FileEvent entity that have fields about file data and data of book
+ * with this class we can transform book file from client to server and from server to client 
+ *
+ */
 public class FileEvent implements Serializable {
 	
 	public FileEvent() {

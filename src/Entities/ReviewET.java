@@ -1,7 +1,10 @@
 package Entities;
 
 import java.io.Serializable;
-
+/**
+ * class of review entity with all the review details by the database review table
+ *
+ */
 public class ReviewET implements Serializable {
 	private int id;
 	private int bookId;

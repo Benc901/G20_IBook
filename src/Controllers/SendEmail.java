@@ -7,11 +7,23 @@ import javax.mail.internet.MimeMessage;
 
 import java.util.*;
 
+/**
+ * Class with static function that send mail the user
+ *
+ */
 public class SendEmail {
 	
 	// mail: 		ibookserverg20@gmail.com
 	// password: 	g20ibookserver
 	
+	/**
+	 * Function that send mail to the user
+	 * @param from -the mail of Ibook system
+	 * @param pass -the password of the Ibook system mail
+	 * @param to - the user mail
+	 * @param subject - the subject of the mail
+	 * @param body - the message 
+	 */
 	public static void sendFromGMail(String from, String pass, String to, String subject, String body) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";

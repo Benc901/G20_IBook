@@ -1,5 +1,9 @@
 package Entities;
-
+/**
+ * class of reader entity with all the reader details by the database reader table
+ * extends user entity
+ *
+ */
 public class ReaderET extends UserET {
 	
 	public int subscription;

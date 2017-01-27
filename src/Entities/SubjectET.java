@@ -2,7 +2,10 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * class of subject entity with all the subject details by the database subject table
+ *
+ */
 public class SubjectET implements Serializable{
 	
 	private int Sid;
