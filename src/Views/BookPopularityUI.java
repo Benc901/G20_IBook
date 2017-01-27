@@ -3,6 +3,8 @@ package Views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,8 +17,11 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 
+import Controllers.BookCT;
 import graphics.GUIimage;
 import graphics.GUIimagejpg;
+import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class BookPopularityUI extends JPanel {
 	public JLabel lblBookRating;
@@ -28,6 +33,8 @@ public class BookPopularityUI extends JPanel {
 	public JLabel lblAuthor;
 	public JLabel lblGenere;
 	public JLabel lblRank;
+	public JComboBox comboBox;
+	public JButton btnVButton;
 	public JButton btnBack;
 	public JTextField textField;
 
@@ -55,19 +62,19 @@ public class BookPopularityUI extends JPanel {
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(92, 211, 86, 30);
+		textField.setBounds(89, 211, 86, 30);
 		textField.setColumns(10);
 		add(textField);
 		
 		
 		btnTotalRank = new JButton("Overall ranking");
 		btnTotalRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTotalRank.setBounds(195, 211, 130, 30);
+		btnTotalRank.setBounds(185, 211, 123, 30);
 		add(btnTotalRank);
 		
 		btnGenreRank = new JButton("Rating by genre");
 		btnGenreRank.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnGenreRank.setBounds(342, 211, 130, 30);
+		btnGenreRank.setBounds(318, 211, 130, 30);
 		add(btnGenreRank);
 		
 		profile = new JLabel("");
@@ -94,17 +101,30 @@ public class BookPopularityUI extends JPanel {
 		lblRank.setBounds(240, 393, 350, 35);
 		add(lblRank);
 		
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBox.setBounds(458, 211, 140, 30);
+		//comboBox.removeAllItems();
+		comboBox.setEnabled(false);
+		add(comboBox);
+		
 		btnBack = new JButton("Back");
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnBack.setBounds(31, 489, 89, 30);
 		add(btnBack);
 		
+		btnVButton = new JButton("");
+		btnVButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnVButton.setBounds(608, 211, 49, 30);
+		add(btnVButton);
+		btnVButton.setOpaque(false);
+		btnVButton.setContentAreaFilled(false);
+		btnVButton.setBorderPainted(false);
+		 
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setBounds(0, 0, 671, 533);
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 		
-		
 	}
-	
 }

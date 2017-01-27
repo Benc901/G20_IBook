@@ -1,9 +1,14 @@
 /2.pdf
+<<<<<<< HEAD
 /Analytics.png
 /Background.png
 /CheckOrder.png
 /CommonUI/
+=======
+/profile_picture.jpg
+>>>>>>> refs/heads/Gidi_final_bitches
 /Controllers/
+<<<<<<< HEAD
 <<<<<<< HEAD
 /iBookServer/
 <<<<<<< HEAD
@@ -21,7 +26,10 @@
 /Percent.png
 /SQL-start.sql
 >>>>>>> refs/heads/master
+=======
+>>>>>>> refs/heads/Gidi_final_bitches
 /Views/
+<<<<<<< HEAD
 /aprov.png
 /ben.jpg
 /blurBG.png
@@ -73,3 +81,8 @@
 =======
 /Views/
 >>>>>>> refs/heads/ori
+=======
+/iBookServer/
+/v-008.jpg
+/Entities/
+>>>>>>> refs/heads/Gidi_final_bitches

@@ -243,10 +243,18 @@ public class IBookServer extends AbstractServer {
 				returnObj.put("op", "BookReport");
 				returnObj.put("obj", sqlCon.BookReport(Integer.parseInt((String) map.get("obj")),(int)map.get("choice"),(String) map.get("from"),(String) map.get("to")));	
 				break; // in obj we have the hashmap returned from BookReport in mysqlConnection
+			case "updateGeneresInComboBox":
+				display(" : " + op, client);
+				returnObj.put("op", "updateGeneresInComboBox");
+				returnObj.put("obj", sqlCon.updateGeneresInComboBox((int)map.get("BId")));	
+				break;	
 			case "BookRank":
 				display(" : " + op, client);
 				returnObj.put("op", "BookRank");
-				returnObj.put("obj", sqlCon.BookRank(Integer.parseInt((String) map.get("obj")),(int)map.get("choice")));	
+				if((int)map.get("choice") == 0)
+					returnObj.put("obj", sqlCon.BookRank(Integer.parseInt((String) map.get("obj"))));	
+				else
+					returnObj.put("obj", sqlCon.BookRank(Integer.parseInt((String) map.get("obj")),(String) map.get("genre"),(Map<String, Object>) map.get("genreArrList")));	
 				break;	
 			case "RenewSub":	
 				display(" : " + op, client);
