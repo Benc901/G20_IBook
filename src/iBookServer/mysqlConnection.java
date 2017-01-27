@@ -1029,7 +1029,6 @@ public Object BringGandS()
 				Genre.get(Genre.size()-1).SetSubject(rs2.getInt(1), rs2.getString(3), rs2.getInt(2));
 			}
 		}
-		display(" "+ Genre.size());
 		return Genre;
 	}catch(SQLException e){
 	e.printStackTrace();
