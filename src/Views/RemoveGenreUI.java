@@ -14,8 +14,13 @@ import javax.swing.JComboBox;
 
 import Entities.GenreET;
 
+/**Class of gui extends JPanel. 
+ * Build a GUI panel to the action RemoveGenre for the library stuff.
+ * 
+ */
 public class RemoveGenreUI extends JPanel {
-	
+
+	private static final long serialVersionUID = 1L;
 	public JButton btnBack;
 	public JButton btnRemove;
 	private ArrayList<GenreET> GenresET;

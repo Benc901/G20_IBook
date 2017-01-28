@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
  *frame that the library stuff edit the review before confirmation
  */
 public class EditReviewUI extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	public JButton btnBack ;
 	public JButton btnConfirm ;
 	public JTextArea textArea ;

@@ -15,6 +15,10 @@ import javax.swing.JComboBox;
 
 import Entities.GenreET;
 
+/**Class of gui extends JPanel. 
+ * Build a GUI panel to the action AddSubject for the library stuff.
+ * 
+ */
 public class AddSubjectUI extends JPanel{
 	public JButton btnBack;
 	private JTextField txtSubjectName;

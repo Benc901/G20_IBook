@@ -16,8 +16,13 @@ import javax.swing.JSeparator;
 
 import Entities.GenreET;
 
+/**Class of gui extends JPanel. 
+ * Build a GUI panel to the action RemoveSubject for the library stuff.
+ * 
+ */
 public class RemoveSubjectUI extends JPanel{
-	
+
+	private static final long serialVersionUID = 1L;
 	public JButton btnBack;
 	public JButton btnRemove;
 	private ArrayList<GenreET> GenresET;

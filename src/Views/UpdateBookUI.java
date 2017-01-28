@@ -14,9 +14,13 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**Class of gui extends JPanel. 
+ * Build a GUI panel to the action UpdateBook for the library stuff.
+ * 
+ */
 public class UpdateBookUI extends JPanel {
 	
-	
+	private static final long serialVersionUID = 1L;
 	public JButton btnBack;
 	public JButton btnChoose;
 	public JButton btnUpdate;

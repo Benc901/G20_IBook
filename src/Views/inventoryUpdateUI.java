@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+/**Class of gui extends JPanel - inventoryUpdateUI.
+ * Build a GUI panel to choose several options: 
+ * AddBook , RemoveBook , UpdateBook - for the library stuff.
+ * 
+ */
 public class inventoryUpdateUI extends JPanel
 {
 	private static final long serialVersionUID = 1L;

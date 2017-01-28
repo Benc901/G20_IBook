@@ -911,6 +911,16 @@ public Object logout(Object obj) {
 			  window.lblSQL.setForeground(Color.GREEN);
 		}
 	}
+	
+	/**Get user entity to put in database in user table.
+	 * 
+	 * First - retrieve from the database the max user id that the next id will be for the new user to add.
+	 * Second - check if the userName already exist in database (show a massage if exist).
+	 * Second - insert the user to the database to the user table(if not exist already).
+	 * 
+	 * @param obj - (get an object - in the function goes through casting) need to get a User entity to check and add to database to user table - UserET.
+	 * @return -1 if SQLException , 0 if the userName exist already in database , 1 if succeed add the user to database in user table.
+	 */
 	public int AddUser(Object obj) {
 		UserET user = (UserET) obj;
 		try
@@ -1039,6 +1049,13 @@ private void display(String message) {
 	
 }
 
+/**Get book id (Bid) to bring the book with this id.
+ * First - retrieve book from books table (with this Bid) from the database(from books table).
+ * second - put book details in a new book entity(BookET).
+ * 
+ * @param Bid - book id to bring this book from database - Integer.
+ * @return -1 if SQLException , 0 if not exist book with Bid=book id in database , BookET of the book from the database from books table if succeed to bring it.
+ */
 public Object BringBook(int Bid) {
 	BookET bookET;
 	try {
@@ -1065,6 +1082,13 @@ public Object BringBook(int Bid) {
 	}
 	
 }
+
+/**Get book entity for update book details in database.
+ * First - update the fields of the book entity in the database in books table.
+ * 
+ * @param bookET - book entity with the updated fields to insert to database in books table - BookET.
+ * @return false if SQLException , true if succeed to update the fields in the books table.
+ */
 public boolean UpdateBook(BookET bookET)
 {
 	//Update book function
@@ -1092,6 +1116,12 @@ public boolean UpdateBook(BookET bookET)
 	}
 	
 }
+/**
+ * First - retrieve all genres from genere table in the database and enter them all to ArrayList of GenreET.
+ * Second - for every Genre entity retrieve all subject that pair with.
+ * 
+ * @return 0 if SQLException , ArrayList of all Genres entities(and in every GenreET a ArrayList of SubjectET of every subject pair with) from genere table and subject table.
+ */
 public Object BringGandS()
 {
 	ArrayList<GenreET> Genre = new ArrayList<GenreET>();
@@ -1123,6 +1153,16 @@ public Object BringGandS()
 }
 	
 }
+
+/**Get entity of book to add and ArrayList of FileEvent of the path to the book files(pdf,doc,fb2).
+ * 
+ * First - retrieve from the database the max book id that the next id will be for the new book to add.
+ * Second - insert the book to the data base to the book table.
+ *  
+ * @param fileEvents - ArrayList of FileEvent of the path to the book files(pdf,doc,fb2).
+ * @param newBook - the book entity to add to the database.
+ * @return -1 if SQLException or if the pair function not succeed , 1 if the book add to the books table and pair function succeed to pair the book. 
+ */
 public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 {
 	try
@@ -1171,6 +1211,14 @@ public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 	}
 	
 }
+/**Get entity of book to add a pair to it.
+ * First - check if the book exist in the database.(if not show a massage)
+ * Second - retrieve from the database the genre id and subject id to pair the book to them.
+ * Third - insert a row of pair of the book with the genre and the subject in the pairing table.
+ * 
+ * @param BookToPair - book entity(BookET) of the book to pair(PAIR the genre and the subject in the BookET)
+ * @return 0 if the book not exist in database , -1 if SQLException , 1 if success insert a pair to database.
+ */
 public int PairingBook(BookET BookToPair)
 {
 	int Gid=0,Sid=0;

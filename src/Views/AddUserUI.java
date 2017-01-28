@@ -12,7 +12,10 @@ import javax.swing.JTextField;
 
 import graphics.GUIimage;
 
-
+/**Class of gui extends JPanel. 
+ * Build a GUI panel to the action AddUser for the library stuff.
+ * 
+ */
 public class AddUserUI extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
