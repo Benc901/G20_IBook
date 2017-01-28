@@ -24,6 +24,11 @@ public class RemoveBookUI extends JPanel{
 	public JTextField txtBookId;
 	public ArrayList<BookET> books;
 	
+	/**The constrctor of the GUI Class RemoveBookUI
+	 * Build a GUI panel to the action RemoveBook
+	 * 
+	 * @param booksET - ArrayList of BookET of all books in database.
+	 */
 	public RemoveBookUI(ArrayList<BookET> booksET) {
 		// TODO Auto-generated constructor stub
 		

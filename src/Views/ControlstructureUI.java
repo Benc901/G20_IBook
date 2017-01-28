@@ -16,6 +16,11 @@ public class ControlstructureUI extends JPanel{
 	public JButton btnBack;
 	public JButton btnSdivision;
 	
+	/**The constrctor of the GUI Class ControlstructureUI.   
+	 * Build a GUI panel to choose several options: 
+	 * PairBook , SettingDivision.
+	 * 
+	 */
 	public ControlstructureUI()
 	{
 		setBackground(new Color(153, 204, 204));

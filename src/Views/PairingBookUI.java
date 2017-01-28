@@ -79,7 +79,12 @@ public class PairingBookUI extends JPanel{
 	private JLabel lblNewLabel_1;
 	private JLabel lblGenre;
 	private JLabel lblSubject;
-	
+	/**The constrctor of the GUI Class PairingBookUI
+	 * Build a GUI panel to the action PairingBook
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 * @param booksET - ArrayList of BookET of all books in database
+	 */
 	public PairingBookUI(ArrayList<BookET> booksET,ArrayList<GenreET> genresET)
 	{
 		GenresET=genresET;
@@ -161,11 +166,17 @@ public class PairingBookUI extends JPanel{
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 	}
+	/**
+	 * Put in the genre combo box all the genres that in database(from the genres ArrayList)
+	 */
 	public void BringGenreTCB()
 	{
 		for(int i=0;i<GenresET.size();i++)
 		comboBoxGenre.addItem(GenresET.get(i).getGenreTitle());
 	}
+	/** Put in the subject combo box all the subject that bond to the genre that selected.
+	 * @param Title - the genre title of the genre that selected in the genre combo box - String.
+	 */
 	public void SetSubjects(String Title)
 	{
 		comboBoxSubject.removeAllItems();;

@@ -33,7 +33,11 @@ public class RemoveSubjectUI extends JPanel{
 	public JComboBox getComboBoxGenres() {
 		return GenrescomboBox;
 	}
-	
+	/**The constrctor of the GUI Class RemoveSubjectUI
+	 * Build a GUI panel to the action RemoveSubject
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 */
 	public RemoveSubjectUI(ArrayList<GenreET> genresET) {
 		// TODO Auto-generated constructor stub
 		GenresET=genresET;
@@ -96,13 +100,17 @@ public class RemoveSubjectUI extends JPanel{
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 	}
-	
+	/**
+	 * Put in the genre combo box all the genres that in database(from the genres ArrayList)
+	 */
 	public void BringGenreTCB()
 	{
 		for(int i=0;i<GenresET.size();i++)
 			GenrescomboBox.addItem(GenresET.get(i).getGenreTitle());
 	}
-	
+	/** Put in the subject combo box all the subject that bond to the genre that selected.
+	 * @param Title - the genre title of the genre that selected in the genre combo box - String.
+	 */
 	public void SetSubjects(String Title)
 	{
 		SubjectcomboBox.removeAllItems();;

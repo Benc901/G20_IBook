@@ -28,6 +28,11 @@ public class UpdateBookUI extends JPanel {
 	private JTextArea txtASummary;
 	private JTextField txtKwords;
 	
+	/**The constrctor of the GUI Class UpdateBookUI.
+	 * Build a GUI panel to the action UpdateBook.
+	 * 
+	 * 
+	 */
 	public UpdateBookUI()
 	{
 		this.setBounds(0, 0, 677, 562);
