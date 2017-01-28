@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import Controllers.LibrarianCT;
+import Controllers.UserCT;
 import graphics.GUIimage;
 
 public class LibririanUI extends JPanel {
@@ -38,18 +39,18 @@ public class LibririanUI extends JPanel {
 		
 		
 		//*** DO NOT DELETE! - END ***//
-		
+		if(UserCT.userET.getPermission()!=2 && UserCT.userET.getPermission()!=7){
 		btnAdduser = new JButton("Add user");
 		btnAdduser.setBounds(196, 200, 146, 54);
-		add(btnAdduser);
+		add(btnAdduser);}
 		
-		
-		btnCpayment = new JButton("Payment confirmation");
+		if(UserCT.userET.getPermission()!=2 && UserCT.userET.getPermission()!=7){
+		btnCpayment = new JButton("<HTML><center>Payment<br> confirmation</HTML>");
 		btnCpayment.setBounds(196, 270, 146, 54);
-		add(btnCpayment);
+		add(btnCpayment);}
 		
-		btnCreview = new JButton("Review confirmation");
-		btnCreview.setBounds(196, 340, 146, 54);
+		btnCreview = new JButton("<HTML><center>Review<br> confirmation</HTML>");
+		btnCreview.setBounds(280, 340, 146, 54);
 		add(btnCreview);
 
 		
@@ -58,13 +59,15 @@ public class LibririanUI extends JPanel {
 		lblNewLabel.setBounds(273, 149, 335, 41);
 		add(lblNewLabel);
 		
+		if(UserCT.userET.getPermission()!=2 && UserCT.userET.getPermission()!=7){
 		btnIupdate = new JButton("Inventory update");
 		btnIupdate.setBounds(365, 200, 146, 54);
-		add(btnIupdate);
+		add(btnIupdate);}
 		
+		if(UserCT.userET.getPermission()!=2 && UserCT.userET.getPermission()!=7){
 		btnCstructure = new JButton("Control structure");
 		btnCstructure.setBounds(365, 270, 146, 54);
-		add(btnCstructure);
+		add(btnCstructure);}
 		
 		
 		btnBack = new JButton("Back");

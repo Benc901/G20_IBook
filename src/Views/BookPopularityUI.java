@@ -31,7 +31,6 @@ public class BookPopularityUI extends JPanel {
 	public JLabel profile;
 	public JLabel lblNewBookName;
 	public JLabel lblAuthor;
-	public JLabel lblGenere;
 	public JLabel lblRank;
 	public JComboBox comboBox;
 	public JButton btnVButton;
@@ -91,10 +90,7 @@ public class BookPopularityUI extends JPanel {
 		lblAuthor.setBounds(240, 301, 350, 35);
 		add(lblAuthor);
 		
-		lblGenere = new JLabel("");
-		lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGenere.setBounds(240, 347, 350, 35);
-		add(lblGenere);
+		
 		
 		lblRank = new JLabel("");
 		lblRank.setFont(new Font("Tahoma", Font.PLAIN, 16));

@@ -46,7 +46,7 @@ public class BookUI extends JPanel {
 		lblAuthor.setBounds(297, 214, 250, 20);
 		add(lblAuthor);
 		
-		JLabel lblGenere = new JLabel("Genere: "+book.getBGenre());
+		JLabel lblGenere = new JLabel("Genre: "+book.getBGenre());
 		lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblGenere.setBounds(297, 245, 250, 20);
 		add(lblGenere);

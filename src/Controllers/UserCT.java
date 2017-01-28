@@ -263,7 +263,7 @@ public class UserCT implements Observer, ActionListener {
 							readerFrame.btnSearchReview.addActionListener((ActionListener) this);
 							readerFrame.btnEnablePublish.addActionListener((ActionListener) this);
 							readerFrame.btnRenew.addActionListener((ActionListener) this);
-							if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9)
+							if(userET.getPermission()==2||userET.getPermission()==3|| userET.getPermission()==4 ||userET.getPermission()==7|| userET.getPermission()==8 ||userET.getPermission()==9)
 								readerFrame.wbtnLibririan.addActionListener((ActionListener) this);
 							if(userET.getPermission()==4 || userET.getPermission()==9)
 								readerFrame.wbtnManagerMenu.addActionListener((ActionListener) this);

@@ -211,7 +211,7 @@ public class ManagerCT implements Observer, ActionListener {
 				bookpopularityFrame.profile.setText("");
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
-				bookpopularityFrame.lblGenere.setText("");
+				
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
 					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
 				else{
@@ -226,7 +226,7 @@ public class ManagerCT implements Observer, ActionListener {
 				bookpopularityFrame.profile.setIcon(null);
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
-				bookpopularityFrame.lblGenere.setText("");
+				
 				bookpopularityFrame.lblRank.setText("");
 				bookpopularityFrame.comboBox.setEnabled(true);
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
@@ -386,7 +386,7 @@ public class ManagerCT implements Observer, ActionListener {
 					bookpopularityFrame.profile.setIcon(new GUIimagejpg("/books/" +temp.getBPhoto(),bookpopularityFrame.profile.getWidth(),bookpopularityFrame.profile.getHeight()).image);
 					bookpopularityFrame.lblNewBookName.setText("Book Name : " + temp.getBTitle());
 					bookpopularityFrame.lblAuthor.setText("Author : "+ temp.getBAuthor());
-					bookpopularityFrame.lblGenere.setText("Genere : " + temp.getBGenre());
+					
 					if(temp.getBGenreRank() == 0)
 						bookpopularityFrame.lblRank.setText("Total Rank : " + temp.getBTotalRank());
 					else

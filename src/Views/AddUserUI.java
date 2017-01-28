@@ -38,11 +38,11 @@ public class AddUserUI extends JPanel{
 		add(separator);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(40, 458, 104, 58);
+		btnBack.setBounds(40, 458, 104, 30);
 		add(btnBack);
 		
 		 btnAddUser = new JButton("Add User");
-		btnAddUser.setBounds(535, 458, 104, 58);
+		btnAddUser.setBounds(535, 458, 104, 30);
 		add(btnAddUser);
 		
 		JLabel lblUserName = new JLabel("User Name: ");

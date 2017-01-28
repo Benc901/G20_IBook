@@ -69,10 +69,11 @@ public class LibrarianCT implements Observer, ActionListener{
 		client = IBookClient.getInstance();
 		this.libririanFrame=frame;
 		//BringBooks();
+		if(UserCT.userET.getPermission()!=2 && UserCT.userET.getPermission()!=7){
 		libririanFrame.btnCstructure.addActionListener((ActionListener)this);
 		libririanFrame.btnAdduser.addActionListener((ActionListener)this);
 		libririanFrame.btnIupdate.addActionListener((ActionListener)this);
-		libririanFrame.btnCpayment.addActionListener((ActionListener)this);
+		libririanFrame.btnCpayment.addActionListener((ActionListener)this);}
 		libririanFrame.btnCreview.addActionListener((ActionListener)this);
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
