@@ -84,11 +84,12 @@ public class LibrarianCT implements Observer, ActionListener{
 	 * Function the recognize events from all the librarian actions UI
 	 * do the action that the event needs and send to the relevant function
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==libririanFrame.btnAdduser){//Create the add user frame
+		if(e.getSource()==libririanFrame.btnAdduser){
 			adduserFrame = new AddUserUI();
 			adduserFrame.btnBack.addActionListener((ActionListener)this);
 			adduserFrame.btnAddUser.addActionListener((ActionListener)this);
@@ -161,14 +162,22 @@ public class LibrarianCT implements Observer, ActionListener{
 			if(e.getSource()==RemoveSubjectFrame.btnBack)
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==RemoveSubjectFrame.btnRemove)
-				RemoveSubject(RemoveSubjectFrame.getComboBoxGenres().getSelectedIndex()+1,(String) RemoveSubjectFrame.getComboBoxSubject().getSelectedItem());
+			{
+				if(RemoveSubjectFrame.getComboBoxGenres().getSelectedItem()==null || RemoveSubjectFrame.getComboBoxSubject().getSelectedItem()==null) 
+					JOptionPane.showMessageDialog(null, "Please Choose Genre and Subject");
+				else RemoveSubject(RemoveSubjectFrame.getComboBoxGenres().getSelectedIndex()+1,(String) RemoveSubjectFrame.getComboBoxSubject().getSelectedItem());
+			}
 		}
 		if(RemoveGenreFrame!=null)
 		{
 			if(e.getSource()==RemoveGenreFrame.btnBack)
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==RemoveGenreFrame.btnRemove)
-				RemoveGenre(RemoveGenreFrame.getComboBoxGenres().getSelectedIndex()+1);
+			{
+				if(RemoveGenreFrame.getComboBoxGenres().getSelectedItem()==null) 
+					JOptionPane.showMessageDialog(null, "Please Choose Genre");
+				else RemoveGenre(RemoveGenreFrame.getComboBoxGenres().getSelectedIndex()+1);
+			}
 		}
 		if(AddSubjectFrame!=null)
 		{
@@ -176,7 +185,9 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==AddSubjectFrame.btnAdd)
 			{
-				AddSubject(new SubjectET(0, AddSubjectFrame.getSubjectTitle(), (AddSubjectFrame.getComboBoxGenres().getSelectedIndex())+1));
+				if(AddSubjectFrame.getSubjectTitle().equals("") || AddSubjectFrame.getComboBoxGenres().getSelectedItem()==null)
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+				else AddSubject(new SubjectET(0, AddSubjectFrame.getSubjectTitle(), (AddSubjectFrame.getComboBoxGenres().getSelectedIndex())+1));
 			}
 		}
 		if(AddGenreFrame!=null)
@@ -185,7 +196,9 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==AddGenreFrame.btnAdd)
 			{
-				AddGenre(new GenreET(0,AddGenreFrame.getGenreTitle()));
+				if(AddGenreFrame.getGenreTitle().equals(""))
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+				else AddGenre(new GenreET(0,AddGenreFrame.getGenreTitle()));
 			}
 		}
 		if(PairingFrame!=null)
@@ -193,7 +206,11 @@ public class LibrarianCT implements Observer, ActionListener{
 			if(e.getSource()==PairingFrame.btnBack)
 				MainUI.MV.setView(CStructFrame);
 			if(e.getSource()==PairingFrame.btnPairBook)
-				PairBook();
+			{
+				if(PairingFrame.txtIdBooks.getText().equals("")||PairingFrame.getComboGenre().getSelectedItem()==null||PairingFrame.getComboSubject().getSelectedItem()==null)
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+				else {PairBook();}
+			}
 		}
 		if(e.getSource()==libririanFrame.btnCpayment){
 			GetPaymentList();
@@ -208,7 +225,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(IUpdateFrame!=null)
 		{
-			if(e.getSource()==IUpdateFrame.btnUBook)//Create the add update frame
+			if(e.getSource()==IUpdateFrame.btnUBook)
 			{
 				UpdateBFrame=new UpdateBookUI();
 				UpdateBFrame.btnBack.addActionListener((ActionListener)this);
@@ -216,7 +233,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.btnUpdate.addActionListener((ActionListener)this);
 				MainUI.MV.setView(UpdateBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnRBook)//Create the remove book frame
+			else if(e.getSource()==IUpdateFrame.btnRBook)
 			{
 				
 				RemoveBFrame=new RemoveBookUI(BooksET);
@@ -224,7 +241,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				RemoveBFrame.btnRBook.addActionListener((ActionListener)this);
 				MainUI.MV.setView(RemoveBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnAddBook) //Create the add book frame
+			else if(e.getSource()==IUpdateFrame.btnAddBook)
 			{
 				AddBFrame=new AddBookUI(genresET);
 				AddBFrame.btnBack.addActionListener((ActionListener)this);
@@ -237,9 +254,14 @@ public class LibrarianCT implements Observer, ActionListener{
 			if(e.getSource()==UpdateBFrame.btnBack)
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==UpdateBFrame.btnChoose)
+			{ 
+				//if(Integer.UpdateBFrame.getTxtBid())
 				BringBook(UpdateBFrame.getTxtBid());
+			}
 			if(e.getSource()==UpdateBFrame.btnUpdate)
-				UpdateBook();
+				if(UpdateBFrame.getTxtTitle().getText().equals("") || UpdateBFrame.getTxtAuthor().getText().equals("") || UpdateBFrame.getTxtContent().getText().equals("") || UpdateBFrame.getTxtLan().getText().equals("")|| UpdateBFrame.getTxtASummary().getText().equals("") || UpdateBFrame.getTxtKwords().getText().equals(""))
+					JOptionPane.showMessageDialog(null, "Please fill all fields");	
+				else UpdateBook();
 		}
 		if(RemoveBFrame!=null)
 		{
@@ -247,7 +269,9 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==RemoveBFrame.btnRBook)
 			{
-				DeleteBook(Integer.parseInt(RemoveBFrame.txtBookId.getText()));
+				if(RemoveBFrame.txtBookId.getText().equals(""))
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+				else DeleteBook(Integer.parseInt(RemoveBFrame.txtBookId.getText()));
 			}
 		}
 		if(AddBFrame!=null)
@@ -255,7 +279,11 @@ public class LibrarianCT implements Observer, ActionListener{
 			if(e.getSource()==AddBFrame.btnBack)
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==AddBFrame.btnAddBook)
-				AddBook();
+			{
+				if(AddBFrame.getTxtTitle().getText().equals("")|| AddBFrame.getTxtAuthor().getText().equals("")|| AddBFrame.getTxtLan().getText().equals("")|| AddBFrame.getTxtASummary().getText().equals("")|| AddBFrame.getTxtContent().getText().equals("")|| AddBFrame.getTxtKwords().getText().equals("")|| ((String)AddBFrame.getComboBoxGenres().getSelectedItem()).equals("") || ((String)AddBFrame.getComboBoxSubject().getSelectedItem()).equals("")|| AddBFrame.getTxtPrice().getText().equals(""))
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+					else AddBook();
+			}
 		}
 		if(adduserFrame!=null){
 		if(e.getSource()==adduserFrame.btnBack){
@@ -263,7 +291,9 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(e.getSource()==adduserFrame.btnAddUser)
 		{
-			AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
+			if(adduserFrame.GetUserName().equals("")|| adduserFrame.GetUserPassword().equals("")|| adduserFrame.GetFirstName().equals("")|| adduserFrame.GetLastName().equals("")|| adduserFrame.GetEmail().equals(""))
+				JOptionPane.showMessageDialog(null, "Please fill all fields");
+			else AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
 		}
 		}
 		if(paymentFrame!=null){
@@ -742,6 +772,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
+
 	/**
 	 * Function prepares the data and sent to the server
 	 * about to get all the payment applications that are not confirmed yet.
@@ -752,7 +783,6 @@ public class LibrarianCT implements Observer, ActionListener{
 		hmap.put("op", "GetPaymentList");
 		client.handleMessageFromUI(hmap);
 	}
-	
 	/**
 	 * Function prepares the data and sent to the server
 	 * about to confirm payment of user
@@ -915,7 +945,6 @@ public class LibrarianCT implements Observer, ActionListener{
 		
 		client.handleMessageFromUI(hmap);
 	}
-	
 	/**
 	 * function that get three books file in format : pdf ,doc and fb2 and convert them to byte array
 	 * and put the in class FileEvent before the send to the server for new book

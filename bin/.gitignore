@@ -7,8 +7,40 @@
 /books/
 /graphics/
 /iBookServer/
+<<<<<<< HEAD
 /publish.png
 /renew.png
 /reviews.png
 /search.png
 /searchr.png
+=======
+/Controllers/
+/Entities/
+/Views/
+/v-008.jpg
+/Mains/
+/books/
+/graphics/
+/CheckOrder.png
+/MainLogo - עותק.png
+/MainLogo1.png
+/SQL-start.sql
+/blurBG.png
+/blurFuelingView.png
+/fueling_icon.png
+/heating_fuel.png
+/heating_fuel2.png
+/inventory.png
+/lowlevel.png
+/msg.png
+/nfc.png
+/nfcicon.png
+/order.png
+/receipt.png
+/receipt2.png
+/refresh.png
+/report.png
+/show report.png
+/think.jpg
+/white.png
+>>>>>>> refs/heads/ori2.1

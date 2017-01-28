@@ -27,7 +27,11 @@ public class RemoveGenreUI extends JPanel {
 	public JComboBox getComboBoxGenres() {
 		return GenrescomboBox;
 	}
-	
+	/**The constrctor of the GUI Class RemoveGenreUI
+	 * Build a GUI panel to the action RemoveGenre
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 */
 	public RemoveGenreUI(ArrayList<GenreET> genresET) {
 		// TODO Auto-generated constructor stub
 		
@@ -75,7 +79,9 @@ public class RemoveGenreUI extends JPanel {
 		lblBackground.setIcon(new GUIimage("Background",lblBackground.getWidth(),lblBackground.getHeight()).image);
 		add(lblBackground);
 	}
-	
+	/**
+	 * Put in the genre combo box all the genres that in database(from the genres ArrayList)
+	 */
 	public void BringGenreTCB()
 	{
 		for(int i=0;i<GenresET.size();i++)

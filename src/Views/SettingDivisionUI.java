@@ -18,6 +18,11 @@ public class SettingDivisionUI extends JPanel{
 	public JButton btnRGenre;
 	public JButton btnRSubject;
 	
+	/**The constrctor of the GUI Class SettingDivisionUI.   
+	 * Build a GUI panel to choose several options: 
+	 * AddGenre , AddSubject , RemoveGenre , RemoveSubject.
+	 * 
+	 */
 	public SettingDivisionUI()
 	{
 		//*** DO NOT DELETE! ***//
