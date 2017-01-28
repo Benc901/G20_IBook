@@ -297,7 +297,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben',0),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany',1),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori',1),(4,'Gidi','1234',4,1,'Gidi','Buks','Gidi@gmail.com','gidi',0);
+INSERT INTO `user` VALUES (1,'Ben','1234',1,0,'Ben','Cohen','benc901@gmail.com','ben',0),(2,'Shany','1234',2,0,'Shany','Avital','Shanyavital@gmail.com','shany',1),(3,'Ori','1234',3,0,'Ori','Sayda','Ori@gmail.com','ori',1),(4,'Gidi','1234',4,0,'Gidi','Buks','Gidi@gmail.com','gidi',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
