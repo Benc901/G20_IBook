@@ -39,22 +39,22 @@ public class PublishReviewUI extends JPanel{
 		add(lblPublishReview);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(131, 214, 163, 20);
+		comboBox.setBounds(131, 214, 238, 25);
 		add(comboBox);
 		
 		JLabel lblBookName = new JLabel("Book name :");
 		lblBookName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBookName.setBounds(41, 212, 80, 20);
+		lblBookName.setBounds(41, 212, 80, 25);
 		add(lblBookName);
 		
 		JLabel lblRate = new JLabel("Rate :");
 		lblRate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblRate.setBounds(41, 247, 80, 20);
+		lblRate.setBounds(41, 247, 80, 25);
 		add(lblRate);
 		
 		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
-		comboBox_1.setBounds(131, 249, 42, 20);
+		comboBox_1.setBounds(131, 249, 42, 25);
 		add(comboBox_1);
 		
 		JLabel lblReview = new JLabel("Review :");

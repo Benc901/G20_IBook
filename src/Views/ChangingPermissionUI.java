@@ -51,7 +51,7 @@ public class ChangingPermissionUI extends JPanel {
 		
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
 		comboBox.setBounds(362, 234, 44, 30);
 		add(comboBox);
 		

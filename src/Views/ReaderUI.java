@@ -79,21 +79,21 @@ public class ReaderUI extends JPanel {
 		btnSearchBook = new WebButton("Search book");
 		btnSearchBook.setBounds(36, 222, 146, 50);
 		add(btnSearchBook);
-		btnSearchBook.setIcon(new GUIimage("search",20,25).image);
+		btnSearchBook.setIcon(new GUIimage("search",25,25).image);
 		
 		
 		btnSearchReview = new WebButton("Search review");
 		btnSearchReview.setBounds(36, 283, 146, 50);
 		add(btnSearchReview);
-		btnSearchReview.setIcon(new GUIimage("searchr",20,25).image);
+		btnSearchReview.setIcon(new GUIimage("searchr",30,30).image);
 		
 		btnEnablePublish = new WebButton("Publish review");
 		btnEnablePublish.setBounds(36, 344, 146, 50);
 		add(btnEnablePublish);
-		btnEnablePublish.setIcon(new GUIimage("publish",20,25).image);
+		btnEnablePublish.setIcon(new GUIimage("publish",25,25).image);
 		if(userET.getConfirm()==0) {
-			btnEnablePublish.setText("Enable payment");
-			btnEnablePublish.setIcon(new GUIimage("dollar",20,25).image);
+			btnEnablePublish.setText("<Html>Enable<br> payment</Html>");
+			btnEnablePublish.setIcon(new GUIimage("dollar",30,33).image);
 		}
 		
 		
@@ -107,7 +107,7 @@ public class ReaderUI extends JPanel {
 		btnRenew = new WebButton("<Html>Renew<br> subscription</Html>");
 		btnRenew.setBounds(36, 405, 146, 50);
 		add(btnRenew);
-		btnRenew.setIcon(new GUIimage("renew",30,33).image);
+		btnRenew.setIcon(new GUIimage("renew",20,25).image);
 		
 		JLabel lblNewLabel = new JLabel("Welcome,");
 		lblNewLabel.setForeground(Color.BLACK);
@@ -118,12 +118,14 @@ public class ReaderUI extends JPanel {
 		if(userET.getPermission()==2||userET.getPermission()==3|| userET.getPermission()==4 ||userET.getPermission()==7|| userET.getPermission()==8 ||userET.getPermission()==9){
 		wbtnLibririan = new WebButton("Libririan menu");
 		wbtnLibririan.setBounds(499, 466, 146, 41);
-		add(wbtnLibririan);}
+		add(wbtnLibririan);
+		wbtnLibririan.setIcon(new GUIimage("librarian",30,33).image);}
 		
 		if(userET.getPermission()==4 || userET.getPermission()==9){
 		wbtnManagerMenu = new WebButton("Manager menu");
 		wbtnManagerMenu.setBounds(270, 466, 146, 41);
-		add(wbtnManagerMenu);}
+		add(wbtnManagerMenu);
+		wbtnManagerMenu.setIcon(new GUIimage("manager",20,25).image);}
 		
 		label_1 = new JLabel(userET.getFirstName()+" "+userET.getLastName());
 		label_1.setForeground(Color.BLACK);
@@ -157,9 +159,9 @@ public class ReaderUI extends JPanel {
 		
 		label = new JLabel("");
 		//label.setBorder(new LineBorder(new Color(0, 0, 0)));
-		label.setBounds(225, 270, 408, 172);
+		label.setBounds(225, 255, 408, 187);
 		add(label);
-		label.setIcon(new GUIimagejpg("/reader" ,label.getWidth(),label.getHeight()).image);
+		label.setIcon(new GUIimagejpg("/reader1" ,label.getWidth(),label.getHeight()).image);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(36, 205, 604, 12);

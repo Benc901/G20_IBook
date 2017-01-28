@@ -272,7 +272,7 @@ public class UserCT implements Observer, ActionListener {
 							JOptionPane.showMessageDialog(null,
 									"The manager freeze your account,\n you cant get books,\n please contact with lib stuff",
 									"Freeze", JOptionPane.ERROR_MESSAGE);
-							if(userET.getPermission()==3|| userET.getPermission()==4 || userET.getPermission()==8 ||userET.getPermission()==9)
+							if(userET.getPermission()==2||userET.getPermission()==3|| userET.getPermission()==4 ||userET.getPermission()==7|| userET.getPermission()==8 ||userET.getPermission()==9)
 								CheckNotif();
 				}
 				break;
