@@ -10,8 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+/**Class of gui extends JPanel - SettingDivisionUI.
+ * Build a GUI panel to choose several options: 
+ * AddGenre , AddSubject , RemoveGenre , RemoveSubject - for the library stuff.
+ * 
+ */
 public class SettingDivisionUI extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	public JButton btnAddGenre;
 	public JButton btnBack;
 	public JButton btnAddSubject;

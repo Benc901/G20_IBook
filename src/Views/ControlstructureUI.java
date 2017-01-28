@@ -10,8 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+/**Class of gui extends JPanel - ControlstructureUI.
+ * Build a GUI panel to choose several options: 
+	 * PairBook , SettingDivision - for the library stuff.
+ * 
+ */
 public class ControlstructureUI extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	public JButton btnPBook;
 	public JButton btnBack;
 	public JButton btnSdivision;
