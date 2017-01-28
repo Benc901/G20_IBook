@@ -18,10 +18,6 @@ import javax.swing.JTextField;
 import Entities.BookET;
 import Entities.GenreET;
 
-/**Class of gui extends JPanel. 
- * Build a GUI panel to the action PairingBook for the library stuff.
- * 
- */
 public class PairingBookUI extends JPanel{
 	
 	public JButton btnBack;

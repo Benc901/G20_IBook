@@ -2,7 +2,6 @@ package Views;
 
 import graphics.GUIimage;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,14 +21,9 @@ import javax.swing.JFileChooser;
 import Entities.GenreET;
 import Entities.SubjectET;
 
-
-/**Class of gui extends JPanel. 
- * Build a GUI panel to the action AddBook for the library stuff.
- * 
- */
 public class AddBookUI extends JPanel {
 	
-	private static final long serialVersionUID = 1L;
+
 	public JButton btnBack;
 	public JButton btnAddBook;
 	private JTextField txtTitle;
@@ -120,6 +114,11 @@ public class AddBookUI extends JPanel {
 	public void setGenresET(ArrayList<GenreET> genresET) {
 		GenresET = genresET;
 	}
+	/**The constrctor of the GUI Class AddBookUI
+	 * Build a GUI panel to the action AddBook
+	 * 
+	 * @param genresET - ArrayList of GenreET of all genres in database.
+	 */
 	public AddBookUI(ArrayList<GenreET> genresET)
 	{
 		GenresET=genresET;

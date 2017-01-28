@@ -17,13 +17,8 @@ import javax.swing.JTextField;
 
 import Entities.BookET;
 
-/**Class of gui extends JPanel. 
- * Build a GUI panel to the action RemoveBook for the library stuff.
- * 
- */
 public class RemoveBookUI extends JPanel{
-
-	private static final long serialVersionUID = 1L;
+	
 	public JButton btnBack;
 	public JButton btnRBook;
 	public JTextField txtBookId;

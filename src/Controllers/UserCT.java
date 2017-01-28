@@ -136,7 +136,7 @@ public class UserCT implements Observer, ActionListener {
 				if(readerFrame.btnEnablePublish.getText()=="Publish review"){ //create the publish review frame
 					BookList();
 				}
-				else if(readerFrame.btnEnablePublish.getText()=="Enable payment"){//create the enable payment frame
+				else if(readerFrame.btnEnablePublish.getText()=="<Html>Enable<br> payment</Html>"){//create the enable payment frame
 					CheckApplication();
 				}
 			}

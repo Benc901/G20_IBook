@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
-/**Class of gui extends JPanel. 
- * Build a GUI panel to the action AddGenre.
- * 
- */
 public class AddGenreUI extends JPanel{
 	
 	public JButton btnBack;

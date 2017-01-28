@@ -12,12 +12,6 @@ import Controllers.LibrarianCT;
 import Controllers.UserCT;
 import graphics.GUIimage;
 
-/**Class of gui extends JPanel - LibririanUI.
- * Build a GUI panel to choose several options: 
- * {@link PaymentConfirmationUI} , {@link ReviewConfirmationUI} , {@link ControlstructureUI} , {@link inventoryUpdateUI}, {@link AddUserUI} - for the library stuff.
- * create a Libririan controller to deal with all actions in the Librarian panel and his sub-panels.
- * 
- */
 public class LibririanUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;

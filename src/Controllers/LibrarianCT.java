@@ -50,7 +50,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	public ArrayList<ReaderET> readers;
 	public ArrayList<ReviewET> reviews;
 	public static ArrayList<BookET> BooksET;
-	public static int check=0; // for the result of BringGandS function - for the return Which frame ask the call.
+	public static int check=0;
 	int id;
 	
 	
@@ -89,7 +89,7 @@ public class LibrarianCT implements Observer, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==libririanFrame.btnAdduser){//Create the add user frame
+		if(e.getSource()==libririanFrame.btnAdduser){
 			adduserFrame = new AddUserUI();
 			adduserFrame.btnBack.addActionListener((ActionListener)this);
 			adduserFrame.btnAddUser.addActionListener((ActionListener)this);
@@ -128,7 +128,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			}
 		}
-		if(SDivisionFrame!=null)// Check if SDivisionFrame is created yet.
+		if(SDivisionFrame!=null)
 		{
 			if(e.getSource()==SDivisionFrame.btnBack)
 				MainUI.MV.setView(CStructFrame);
@@ -163,7 +163,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==RemoveSubjectFrame.btnRemove)
 			{
-				if(RemoveSubjectFrame.getComboBoxGenres().getSelectedItem()==null || RemoveSubjectFrame.getComboBoxSubject().getSelectedItem()==null) //check if the fields are empty and if not call to RemoveSubject function
+				if(RemoveSubjectFrame.getComboBoxGenres().getSelectedItem()==null || RemoveSubjectFrame.getComboBoxSubject().getSelectedItem()==null) 
 					JOptionPane.showMessageDialog(null, "Please Choose Genre and Subject");
 				else RemoveSubject(RemoveSubjectFrame.getComboBoxGenres().getSelectedIndex()+1,(String) RemoveSubjectFrame.getComboBoxSubject().getSelectedItem());
 			}
@@ -174,7 +174,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==RemoveGenreFrame.btnRemove)
 			{
-				if(RemoveGenreFrame.getComboBoxGenres().getSelectedItem()==null) //check if the fields are empty and if not call to RemoveGenre function
+				if(RemoveGenreFrame.getComboBoxGenres().getSelectedItem()==null) 
 					JOptionPane.showMessageDialog(null, "Please Choose Genre");
 				else RemoveGenre(RemoveGenreFrame.getComboBoxGenres().getSelectedIndex()+1);
 			}
@@ -185,7 +185,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==AddSubjectFrame.btnAdd)
 			{
-				if(AddSubjectFrame.getSubjectTitle().equals("") || AddSubjectFrame.getComboBoxGenres().getSelectedItem()==null) //check if the fields are empty and if not call to AddSubject function
+				if(AddSubjectFrame.getSubjectTitle().equals("") || AddSubjectFrame.getComboBoxGenres().getSelectedItem()==null)
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				else AddSubject(new SubjectET(0, AddSubjectFrame.getSubjectTitle(), (AddSubjectFrame.getComboBoxGenres().getSelectedIndex())+1));
 			}
@@ -196,7 +196,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(SDivisionFrame);
 			if(e.getSource()==AddGenreFrame.btnAdd)
 			{
-				if(AddGenreFrame.getGenreTitle().equals(""))//check if the fields are empty and if not call to AddGenre function
+				if(AddGenreFrame.getGenreTitle().equals(""))
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				else AddGenre(new GenreET(0,AddGenreFrame.getGenreTitle()));
 			}
@@ -207,7 +207,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(CStructFrame);
 			if(e.getSource()==PairingFrame.btnPairBook)
 			{
-				if(PairingFrame.txtIdBooks.getText().equals("")||PairingFrame.getComboGenre().getSelectedItem()==null||PairingFrame.getComboSubject().getSelectedItem()==null)//check if the fields are empty and if not call to PairBook function
+				if(PairingFrame.txtIdBooks.getText().equals("")||PairingFrame.getComboGenre().getSelectedItem()==null||PairingFrame.getComboSubject().getSelectedItem()==null)
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				else {PairBook();}
 			}
@@ -225,7 +225,7 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(IUpdateFrame!=null)
 		{
-			if(e.getSource()==IUpdateFrame.btnUBook)//Create the UpdateBook frame
+			if(e.getSource()==IUpdateFrame.btnUBook)
 			{
 				UpdateBFrame=new UpdateBookUI();
 				UpdateBFrame.btnBack.addActionListener((ActionListener)this);
@@ -233,7 +233,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.btnUpdate.addActionListener((ActionListener)this);
 				MainUI.MV.setView(UpdateBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnRBook)//Create the RemoveBook frame
+			else if(e.getSource()==IUpdateFrame.btnRBook)
 			{
 				
 				RemoveBFrame=new RemoveBookUI(BooksET);
@@ -241,7 +241,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				RemoveBFrame.btnRBook.addActionListener((ActionListener)this);
 				MainUI.MV.setView(RemoveBFrame);
 			}
-			else if(e.getSource()==IUpdateFrame.btnAddBook)//Create the AddBook frame
+			else if(e.getSource()==IUpdateFrame.btnAddBook)
 			{
 				AddBFrame=new AddBookUI(genresET);
 				AddBFrame.btnBack.addActionListener((ActionListener)this);
@@ -255,10 +255,11 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==UpdateBFrame.btnChoose)
 			{ 
+				//if(Integer.UpdateBFrame.getTxtBid())
 				BringBook(UpdateBFrame.getTxtBid());
 			}
 			if(e.getSource()==UpdateBFrame.btnUpdate)
-				if(UpdateBFrame.getTxtTitle().getText().equals("") || UpdateBFrame.getTxtAuthor().getText().equals("") || UpdateBFrame.getTxtContent().getText().equals("") || UpdateBFrame.getTxtLan().getText().equals("")|| UpdateBFrame.getTxtASummary().getText().equals("") || UpdateBFrame.getTxtKwords().getText().equals(""))//check if the fields are empty and if not call to UpdateBook function
+				if(UpdateBFrame.getTxtTitle().getText().equals("") || UpdateBFrame.getTxtAuthor().getText().equals("") || UpdateBFrame.getTxtContent().getText().equals("") || UpdateBFrame.getTxtLan().getText().equals("")|| UpdateBFrame.getTxtASummary().getText().equals("") || UpdateBFrame.getTxtKwords().getText().equals(""))
 					JOptionPane.showMessageDialog(null, "Please fill all fields");	
 				else UpdateBook();
 		}
@@ -268,7 +269,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==RemoveBFrame.btnRBook)
 			{
-				if(RemoveBFrame.txtBookId.getText().equals(""))//check if the fields are empty and if not call to DeleteBook function
+				if(RemoveBFrame.txtBookId.getText().equals(""))
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				else DeleteBook(Integer.parseInt(RemoveBFrame.txtBookId.getText()));
 			}
@@ -279,7 +280,6 @@ public class LibrarianCT implements Observer, ActionListener{
 				MainUI.MV.setView(IUpdateFrame);
 			if(e.getSource()==AddBFrame.btnAddBook)
 			{
-				//check if the fields are empty and if not call to AddBook function
 				if(AddBFrame.getTxtTitle().getText().equals("")|| AddBFrame.getTxtAuthor().getText().equals("")|| AddBFrame.getTxtLan().getText().equals("")|| AddBFrame.getTxtASummary().getText().equals("")|| AddBFrame.getTxtContent().getText().equals("")|| AddBFrame.getTxtKwords().getText().equals("")|| ((String)AddBFrame.getComboBoxGenres().getSelectedItem()).equals("") || ((String)AddBFrame.getComboBoxSubject().getSelectedItem()).equals("")|| AddBFrame.getTxtPrice().getText().equals(""))
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 					else AddBook();
@@ -291,7 +291,6 @@ public class LibrarianCT implements Observer, ActionListener{
 		}
 		if(e.getSource()==adduserFrame.btnAddUser)
 		{
-			//check if the fields are empty and if not call to AddUser function
 			if(adduserFrame.GetUserName().equals("")|| adduserFrame.GetUserPassword().equals("")|| adduserFrame.GetFirstName().equals("")|| adduserFrame.GetLastName().equals("")|| adduserFrame.GetEmail().equals(""))
 				JOptionPane.showMessageDialog(null, "Please fill all fields");
 			else AddUser(adduserFrame.GetUserName(), adduserFrame.GetUserPassword(), adduserFrame.GetFirstName(), adduserFrame.GetLastName(), adduserFrame.GetEmail());
@@ -342,11 +341,9 @@ public class LibrarianCT implements Observer, ActionListener{
 		Map<String, Object> map = (HashMap<String, Object>) obj;
 
 		String op = (String) map.get("op");
-		// what operation was made in the server and how to respond.
 		switch (op) 
 		{
-		
-		case "AddUser":// Show a massage dialog if AddUser was Succeeded or not and why not 
+		case "AddUser": 
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
@@ -359,12 +356,12 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert user to DB", "Insert user to DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			break;
-		case "BringBook":// Show a massage dialog if BringBook was Succeeded or not and why not 
+		case "BringBook":
 			if (map.get("obj") instanceof Integer)
 			{
 				massage=(int)map.get("obj");
@@ -378,7 +375,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					UpdateBFrame.clearFields();
 				}	
 			}
-			else {//Put the result from the database in the fields of the UpdateBook panel.
+			else {
 				bookET = (BookET)map.get("obj");
 				UpdateBFrame.getTxtTitle().setText(bookET.getBTitle());
 				UpdateBFrame.getTxtAuthor().setText(bookET.getBAuthor());
@@ -388,7 +385,7 @@ public class LibrarianCT implements Observer, ActionListener{
 				UpdateBFrame.getTxtASummary().setText(bookET.getBSummary());
 			}
 			break;
-		case "UpdateBook":// Show a massage dialog if UpdateBook did Succeeded or not and why not 
+		case "UpdateBook":
 			if ((boolean)map.get("obj") == false) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
@@ -396,12 +393,12 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if((boolean)map.get("obj") == true)
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The book is update in DB", "The book is update in DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			break;
-		case "BringGandS":// Show a massage dialog if BringGandS did Succeeded or not and why not 
+		case "BringGandS":
 			if(map.get("obj") instanceof Integer){
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 			}
@@ -409,7 +406,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				genresET=(ArrayList<GenreET>)map.get("obj");
 				switch(check){
-				case 1:{//Create the Add Genre frame
+				case 1:{
 					AddGenreFrame = new AddGenreUI();
 					AddGenreFrame.btnAdd.addActionListener((ActionListener)this);
 					AddGenreFrame.btnBack.addActionListener((ActionListener)this);
@@ -418,7 +415,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					break;
 				}
 				
-				case 2:{//Create the Add Subject frame
+				case 2:{
 					AddSubjectFrame = new AddSubjectUI(genresET);
 					AddSubjectFrame.btnBack.addActionListener((ActionListener)this);
 					AddSubjectFrame.btnAdd.addActionListener((ActionListener)this);
@@ -426,7 +423,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					check=0;
 					break;
 				}
-				case 3:{//Create the Remove Genre frame
+				case 3:{
 					RemoveGenreFrame = new RemoveGenreUI(genresET);
 					RemoveGenreFrame.btnBack.addActionListener((ActionListener)this);
 					RemoveGenreFrame.btnRemove.addActionListener((ActionListener)this);
@@ -434,7 +431,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					check=0;
 					break;
 				}
-				case 4:{//Create the Remove Subject frame
+				case 4:{
 					RemoveSubjectFrame = new RemoveSubjectUI(genresET);
 					RemoveSubjectFrame.btnBack.addActionListener((ActionListener)this);
 					RemoveSubjectFrame.btnRemove.addActionListener((ActionListener)this);
@@ -442,7 +439,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					check=0;
 					break;
 				}
-				case 5:{//Create the Pairing Book frame
+				case 5:{
 					PairingFrame = new PairingBookUI(BooksET, genresET);
 					PairingFrame.btnBack.addActionListener((ActionListener)this);
 					PairingFrame.btnPairBook.addActionListener((ActionListener)this);
@@ -450,7 +447,7 @@ public class LibrarianCT implements Observer, ActionListener{
 					check=0;
 					break;
 				}
-				case 6:{//Create the Inventory Update frame
+				case 6:{
 					IUpdateFrame= new inventoryUpdateUI();
 					IUpdateFrame.btnBack.addActionListener((ActionListener)this);
 					IUpdateFrame.btnAddBook.addActionListener((ActionListener)this);
@@ -464,11 +461,11 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 		break;
 		}		
-		case "AddBook":{// Show a massage dialog if AddBook did Succeeded or not and why not 
+		case "AddBook":{
 			id=(int)map.get("obj");
 			if((int)map.get("obj")!=(-1))
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
@@ -518,27 +515,27 @@ public class LibrarianCT implements Observer, ActionListener{
 			break;
 		}
 		case "rConfirm":
-			MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
-			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
-			break;
-		case "EditReview":// Show a massage dialog if BringBook was Succeeded or not and why not 
 			MainUI.MV.setView(libririanFrame);
 			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
 			break;
-		case "BringBooks":{// Show a massage dialog if BringBook was Succeeded or not and why not 
+		case "EditReview":
+			MainUI.MV.setView(libririanFrame);
+			JOptionPane.showMessageDialog(null, "Success", "Success", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		case "BringBooks":{
 			if(map.get("obj") instanceof Integer){
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
-				BooksET=(ArrayList<BookET>)map.get("obj");//set the result of the BringBooks in the ArrayList bookET.
+				BooksET=(ArrayList<BookET>)map.get("obj");
 			}
 			break;
 		}
-		case "DeleteBook":{// Show a massage dialog if DeleteBook did Succeeded or not and why not 
+		case "DeleteBook":{
 			if((int)map.get("obj")==1)
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The Book Remove From DB", "The Book Remove From DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
@@ -552,24 +549,24 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			break;
 		}
-		case "PairBook":{// Show a massage dialog if PairBook did Succeeded or not and why not 
+		case "PairBook":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
 			}
 			if((int)map.get("obj")==0)
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Fails
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The Book not exist in DB!", "The Book not exist in DB!", JOptionPane.INFORMATION_MESSAGE);
 			}
 			 if((int)map.get("obj") == 1)
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Success Pairing the book in DB", "Success Pairing the book in DB", JOptionPane.INFORMATION_MESSAGE);
 			}
 			break;
 		}
-		case "AddGenre":{// Show a massage dialog if AddGenre did Succeeded or not and why not 
+		case "AddGenre":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
@@ -582,13 +579,13 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			if ((int)map.get("obj")==1) 
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Genre to DB", "Insert Genre to DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			break;
 		}
-		case "AddSubject":{// Show a massage dialog if AddSubject did Succeeded or not and why not 
+		case "AddSubject":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);
@@ -601,13 +598,13 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Subject to DB", "Insert Subject to DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			break;
 		}
-		case "RemoveGenre":{// Show a massage dialog if RemoveGenre did Succeeded or not and why not 
+		case "RemoveGenre":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
@@ -618,13 +615,13 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The genre delete from DB", "The genre delete from DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			break;
 		}
-		case "RemoveSubject":{// Show a massage dialog if RemoveSubject did Succeeded or not and why not 
+		case "RemoveSubject":{
 			if ((int)map.get("obj") == -1) 
 			{
 				JOptionPane.showMessageDialog(null, "Fail to connect the DB", "Fail to connect the DB", JOptionPane.ERROR_MESSAGE);	
@@ -635,7 +632,7 @@ public class LibrarianCT implements Observer, ActionListener{
 			}
 			else if ((int)map.get("obj")==1) 
 			{
-				MainUI.MV.setView(libririanFrame);//Go to libririan frame if Succeeded
+				MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "The subject delete from DB", "The subject delete from DB", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
