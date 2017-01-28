@@ -211,6 +211,7 @@ public class ManagerCT implements Observer, ActionListener {
 				bookpopularityFrame.profile.setIcon(null);
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
+				bookpopularityFrame.lblRank.setText("");
 				bookpopularityFrame.btnVButton.setText("");
 				bookpopularityFrame.btnVButton.setOpaque(false);
 				bookpopularityFrame.btnVButton.setContentAreaFilled(false);
