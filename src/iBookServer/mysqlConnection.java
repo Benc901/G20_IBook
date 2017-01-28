@@ -485,6 +485,12 @@ public Object logout(Object obj) {
 		
 	}
 	
+	/**Function that hides any book from the readers without having to remove the book from the database.
+	 * @param bookId - the id of the book to hide\UnHide
+	 * @param choice - In order to differentiate between Hide & UnHide the book from the users. (0 - UnHidden, 1 - Hide)
+	 * @return int - reflects what happened in the func, Hidden(1), UnHidden(4), Already hidden(2), Already UnHidden (3), book isn't exists (0)
+	 */
+	
 	public int HideBook(String bookId, int choice){
 		
 		try {
@@ -525,6 +531,13 @@ public Object logout(Object obj) {
 		return 0;
 	}
 
+	/**Function that freeze user to connect to the system. (Because there are only five types of system privileges, if the privilege over 5 the user is freezed)
+	 * @param userId - the id of the user to freeze\UnFreeze
+	 * @param choice - In order to differentiate between freeze & UnFreeze the user from the system. (0 - UnFreeze, 1 - freeze)
+	 * @return int - reflects what happened in the func, freezed(1), UnFreezed(4), Already freezed(2), Already UnFreezed (3), user isn't exists (0)
+	 */
+	
+	
 	public int FreezeUser(String userId,int choice){
 		
 		try {
@@ -564,6 +577,12 @@ public Object logout(Object obj) {
 		}
 		return 0;
 	}
+	
+	/**Function that Change Permission for users in the system.
+	 * @param userId - the id of the user to Change Permission.
+	 * @param newPer - the new permission that gave to the user. 
+	 * @return int - reflects what happened in the func,( 1 - the user permission changed Successfully, 0 - the user isn't exists in the DB.
+	 */
 	
 	public int ChangePermission(String userId, int newPer){
 		
@@ -658,6 +677,13 @@ public Object logout(Object obj) {
 				return null;
 			}
 	}
+
+	/**Function that returns user bought books report in a desirable period
+	 * @param userId - the id of the requested user books report.
+	 * @param fromDate - From which date
+	 * @param toDate - Until what date
+	 * @return ArrayList<BookET> - return the requested books fot the user in the desirable period to view of management. (return null if the user does not purchased books yet).
+	 */
 	
 	public ArrayList<BookET> UserReport(String userId, String fromDate, String toDate){
 		ArrayList<BookET> returnObj = new ArrayList<BookET>();
@@ -687,6 +713,16 @@ public Object logout(Object obj) {
 		}
 		return returnObj;
 	}
+	
+	/**Function that returns books purchased\searched report in a desirable period.
+	 * @param bId - the id of the requested book for report. 
+	 * @param choice - report by purchased (0), report by searched (1).
+	 * @param fromDate - From which date
+	 * @param toDate - Until what date
+	 * @return HashMap that contain ( 1 - DefaultCategoryDataset object that contain the data set for the bar chart displaying in the management panel.
+	 * 2 - the choice by purchased (0) or by searched (1) to update the panel right.)
+	 */
+	
 	
 	public Object BookReport(int bId, int choice, String fromDate, String toDate){
 		
@@ -760,6 +796,12 @@ public Object logout(Object obj) {
 		return returnObj;
 	}
 	
+	/**Auxiliary function that returns the genres related to a specific book to display to the manager in the panel for choice
+	 * @param bId - the id of the requested book to get related genres list. 
+	 * @return HashMap that contain ( 1 - genereIdArr <ArrayList>, arraylist that contain the genre's id's respectively to the genre's name's in the array of the name.
+	 * 2 - genereNameArray string array that contain the genre's names's respectively to the genre's id's in the arraylist of the id's.
+	 */
+	
 	public Map<String, Object> updateGeneresInComboBox(int bId){
 		
 		Map<String,Object> returnObj = new HashMap<String,Object>();
@@ -811,6 +853,11 @@ public Object logout(Object obj) {
 		}
 	}
 	
+	/**Function that returns book total rank in the library.
+	 * @param bId - the id of the requested book for report. 
+	 * @return BookET that contain the book details, for displaying in the manager panel.
+	 */
+	
 	public BookET BookRank(int bId){
 		
 		BookET returnObj = null;
@@ -842,6 +889,15 @@ public Object logout(Object obj) {
 		}
 		return returnObj;
 	}
+	
+	/**override the function BookRank above that returns book genre rank in the library.
+	 * @param bId - the id of the requested book for report. 
+	 * @param gener - the requested genre to rank in.
+	 * @param genreArrList - array of the genres that related to the book.
+	 * @param toDate - Until what date
+	 * @return BookET that contain the book details, for displaying in the manager panel.
+	 */
+	
 	
 	public BookET BookRank(int bId, String gener, Map<String, Object> genreArrList) {
 		

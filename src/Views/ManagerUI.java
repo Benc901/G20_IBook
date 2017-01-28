@@ -22,13 +22,16 @@ public class ManagerUI extends JPanel {
 	public WebButton btnPbook;
 	public WebButton btnUreport;
 	public WebButton btnAFreezing;
-	/*
-	 * Create the application.
+	
+	/**The constrctor of the GUI Class ManagerUI
+	 * Build a GUI panel to the Manager window to choose between the actions of the Manager.
+	 * create a Manager controller to deal with all actions in the Manager panel and his sub-panels.
+	 *
 	 * @throws URISyntaxException 
+	 * 
 	 */
+	
 	public ManagerUI() {
-		
-		//*** DO NOT DELETE! ***//
 		
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -36,10 +39,6 @@ public class ManagerUI extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
-		
-		
-		
-		//*** DO NOT DELETE! - END ***//
 		
 		btnUreport = new WebButton("User report");
 		btnUreport.setText("User report");

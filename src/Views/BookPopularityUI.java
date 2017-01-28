@@ -31,14 +31,16 @@ public class BookPopularityUI extends JPanel {
 	public JLabel profile;
 	public JLabel lblNewBookName;
 	public JLabel lblAuthor;
+
 	public JLabel lblRank;
 	public JComboBox comboBox;
 	public JButton btnVButton;
 	public JButton btnBack;
 	public JTextField textField;
 
-	/**
-	 * Create the panel.
+	/**The constrctor of the GUI Class BookPopularityUI
+	 * Build a GUI panel to the action Book Popularity.
+	 * 
 	 */
 	
 	public BookPopularityUI() {
@@ -90,17 +92,14 @@ public class BookPopularityUI extends JPanel {
 		lblAuthor.setBounds(240, 301, 350, 35);
 		add(lblAuthor);
 		
-		
-		
 		lblRank = new JLabel("");
 		lblRank.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblRank.setBounds(240, 393, 350, 35);
+		lblRank.setBounds(240, 347, 350, 35);
 		add(lblRank);
 		
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setBounds(458, 211, 140, 30);
-		//comboBox.removeAllItems();
 		comboBox.setEnabled(false);
 		add(comboBox);
 		

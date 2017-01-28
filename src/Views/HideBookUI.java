@@ -17,9 +17,12 @@ public class HideBookUI extends JPanel {
 	public JButton btnHide;
 	public JButton btnUnhide;
 	public JButton btnBack;
-	/**
-	 * Create the panel.
+
+	/**The constrctor of the GUI Class HideBookUI
+	 * Build a GUI panel to the action Hide Book.
+	 * 
 	 */
+	
 	public HideBookUI() {
 		
 		this.setBounds(0, 0, 677, 562);

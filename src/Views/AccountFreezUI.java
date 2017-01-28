@@ -17,9 +17,12 @@ public class AccountFreezUI extends JPanel {
 	public JButton btnFreeze;
 	public JButton btnUnFreeze;
 	public JButton btnBack;
-	/**
-	 * Create the panel.
+
+	/**The constrctor of the GUI Class AccountFreezUI
+	 * Build a GUI panel to the action Account Freeze.
+	 * 
 	 */
+	
 	public AccountFreezUI() {
 		
 		this.setBounds(0, 0, 677, 562);

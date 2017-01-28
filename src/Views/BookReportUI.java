@@ -44,8 +44,9 @@ public class BookReportUI extends JPanel {
 	public CategoryAxis domainAxis;
 	
 	
-	/**
-	 * Create the panel.
+	/**The constrctor of the GUI Class BookReportUI
+	 * Build a GUI panel to the action Book Report.
+	 * 
 	 */
 	
 	public BookReportUI() {
@@ -186,6 +187,11 @@ public class BookReportUI extends JPanel {
 		add(lblBackground);
 		
 	}
+	
+	/**Method of the GUI Class ChangingPermissionUI
+	 * insert to the inside panel of the ChangingPermissionUI new pane for the Bar chart.
+	 * 
+	 */
 	
 	public void setExtraPanel(){
 		panel.setLayout(new BorderLayout(0, 0));

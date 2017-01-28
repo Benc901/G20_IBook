@@ -37,9 +37,12 @@ public class UserReportUI extends JPanel {
 	public JLabel labelSleh2;
 	public JLabel labelSleh3;
 	public JLabel lblTo;
-	/**
-	 * Create the panel.
+
+	/**The constrctor of the GUI Class UserReportUI
+	 * Build a GUI panel to the action User Report
+	 * 
 	 */
+	
 	public UserReportUI() {
 		setBackground(new Color(153, 204, 204));
 		this.setBounds(0, 0, 677, 562);

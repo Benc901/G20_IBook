@@ -21,9 +21,11 @@ public class ChangingPermissionUI extends JPanel {
 	public JButton btnBack;
 	public JButton btnChange;
 	
-	/**
-	 * Create the panel.
+	/**The constrctor of the GUI Class ChangingPermissionUI
+	 * Build a GUI panel to the action Changing Permission.
+	 * 
 	 */
+	
 	public ChangingPermissionUI() {
 		
 		this.setBounds(0, 0, 677, 562);

@@ -31,6 +31,11 @@ import Views.ManagerUI;
 import Views.UserReportUI;
 import graphics.GUIimagejpg;
 
+/**
+ * Class that control all the actions of manager menu.
+ *
+ */
+
 public class ManagerCT implements Observer, ActionListener {
 	public static ManagerUI managerFrame;
 	public static IBookClient client;
@@ -42,6 +47,16 @@ public class ManagerCT implements Observer, ActionListener {
 	public static BookReportUI bookreportFrame;
 	public static BookPopularityUI bookpopularityFrame;
 	public static Map<String, Object> returnedHash;
+	
+	/**
+	 * The constructor of the manager controller 
+	 * Build a controller that initialize
+	 * Add ActionListener to every button in every panels of the manager
+	 * Change the observer from the user controller to the manager controller
+	 * Get the connection to the server 
+	 * 
+	 * @param manager - the first frame that viewed on the screen in this controller.
+	 */
 	
 	public ManagerCT(ManagerUI manager){
 		this.managerFrame = manager;
@@ -55,6 +70,14 @@ public class ManagerCT implements Observer, ActionListener {
 		managerFrame.btnBreport.addActionListener((ActionListener)this);
 		managerFrame.btnPbook.addActionListener((ActionListener)this);
 	}
+	
+	/* 
+	 * Function the Override event handler func and recognize events from all the manager actions UI
+	 * do the action that the event needs (change panel, create new one in the first time) and send to the relevant function
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * 
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -208,25 +231,25 @@ public class ManagerCT implements Observer, ActionListener {
 				MainUI.MV.setView(managerFrame);
 			}
 			else if(e.getSource()==bookpopularityFrame.btnTotalRank){
-				bookpopularityFrame.profile.setText("");
+				bookpopularityFrame.profile.setIcon(null);
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
-				
+				bookpopularityFrame.lblRank.setText("");
+				bookpopularityFrame.btnVButton.setText("");
+				bookpopularityFrame.btnVButton.setOpaque(false);
+				bookpopularityFrame.btnVButton.setContentAreaFilled(false);
+				bookpopularityFrame.btnVButton.setBorderPainted(false);
+				bookpopularityFrame.comboBox.removeAllItems();
+				bookpopularityFrame.comboBox.setEnabled(false);
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
 					JOptionPane.showMessageDialog(null,"Please enter valid variables");	
-				else{
-					bookpopularityFrame.btnVButton.setText("");
-					bookpopularityFrame.btnVButton.setOpaque(false);
-					bookpopularityFrame.btnVButton.setContentAreaFilled(false);
-					bookpopularityFrame.btnVButton.setBorderPainted(false);
+				else
 					showBookRank(0);// Total rank	
-				}
 			}
 			else if(e.getSource()==bookpopularityFrame.btnGenreRank){
 				bookpopularityFrame.profile.setIcon(null);
 				bookpopularityFrame.lblNewBookName.setText("");
 				bookpopularityFrame.lblAuthor.setText("");
-				
 				bookpopularityFrame.lblRank.setText("");
 				bookpopularityFrame.comboBox.setEnabled(true);
 				if(!ifContainOnlyNum(bookpopularityFrame.textField.getText()))
@@ -241,6 +264,11 @@ public class ManagerCT implements Observer, ActionListener {
 		
 	}
 
+	/* function that get the result from the database and recognize the result kind
+	 * than set the details depending on the case
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	
 	@Override
 	public void update(Observable arg0, Object obj) {
 
@@ -398,6 +426,15 @@ public class ManagerCT implements Observer, ActionListener {
 		}
 	}
 	
+	/**Set the requested book in the database to be hidden\UnHidden.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Hide Book.
+	 * To second compartment put the book id to set from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param choice - to hidden\UnHidden the requested book - Integer.
+	 */
+	
 	public void HideBook(int choice){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "HideBook");
@@ -407,6 +444,16 @@ public class ManagerCT implements Observer, ActionListener {
 		client.handleMessageFromUI(hmap);
 	}
 	
+	/**Set the requested user in the database to be Freeze\UnFreeze.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Freeze User.
+	 * To second compartment put int with the choiced action - ( 0 - Freeze, 1 - UnFreeze.
+	 * To third compartment put the user id to set from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param choice - to Freeze\UnFreeze the requested user - Integer.
+	 */
+	
 	public void FreezeUser(int choice){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "FreezeUser");
@@ -415,6 +462,16 @@ public class ManagerCT implements Observer, ActionListener {
 
 		client.handleMessageFromUI(hmap);
 	}
+	
+	/**Set the requested user permission in the database to new permission.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Change Permission.
+	 * To second compartment put string with the user id to set from database.
+	 * To third compartment put int with the new requested permission for the user.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param choice - to Freeze\UnFreeze the requested user - Integer.
+	 */
 	
 	public void ChangePermission(){
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -426,6 +483,18 @@ public class ManagerCT implements Observer, ActionListener {
 		
 	}
 	
+	/**Returning from the DB list of the books that the user purchased from the system.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - User Report.
+	 * To second compartment put string with the user id to set from database.
+	 * To third compartment put int from which date to start the search.
+	 * To four compartment put int until what date to search.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param fromDate - from which date to start the search. - String.
+	 * @param toDate - until what date to search. - String.
+	 */
+	
 	public void showUserReport(String fromDate, String toDate){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "UserReport");
@@ -435,6 +504,20 @@ public class ManagerCT implements Observer, ActionListener {
 		
 		client.handleMessageFromUI(hmap);
 	}
+	
+	/**Returning from the DB DefaultCategoryDataset that contain set of info about every day that the book have bean purchased or searched.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Book Report.
+	 * To second compartment put int with the choice 0 - By Purchases, 1 - By Searches.
+	 * To third compartment put string with the book id to set from database.
+	 * To four compartment put int from which date to start the search.
+	 * To five compartment put int until what date to search.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param choice - show report (0 - By Purchases, 1 - By Searches )
+	 * @param fromDate - from which date to start the search. - String.
+	 * @param toDate - until what date to search. - String.
+	 */
 	
 	public void showBookReport(int choice, String fromDate, String toDate){
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -447,6 +530,16 @@ public class ManagerCT implements Observer, ActionListener {
 		client.handleMessageFromUI(hmap);
 	}
 	
+	/**Set the genres of requested book in the comboBox for the manager can choice.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Update Generes In ComboBox.
+	 * To second compartment put the book id to set from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param bId - the id of the requested book genre to bring from DB - Integer.
+	 */
+	
+	
 	public void updateGeneresInComboBox(int bId){
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "updateGeneresInComboBox");
@@ -454,6 +547,17 @@ public class ManagerCT implements Observer, ActionListener {
 		
 		client.handleMessageFromUI(hmap);
 	}
+	
+	/**Returning from the DB the book rank, total or by genre rank.
+	 * Build a HashMap of String and Object.
+	 * To first compartment put string with the action name - Book Rank.
+	 * To second compartment put int with the choiced action - ( 0 - Total Rank, 1 - Genre Rank).
+	 * To third & four compartment (only if the manager request the rank by genre) put the requested genre and array of the genre that belong to the requested book
+	 * in the five on third (depending on the manager choice) compartment put string with the book id to set from database.
+	 * Send the HashMap to the server to handle.
+	 * 
+	 * @param choice - show report (0 - by Total Rank, 1 - by Genre Rank)
+	 */
 	
 	public void showBookRank(int choice){
 		Map<String, Object> hmap = new HashMap<String, Object>();
@@ -468,17 +572,47 @@ public class ManagerCT implements Observer, ActionListener {
 		client.handleMessageFromUI(hmap);
 	}
 
+	/**An auxiliary function that returns true if the string contains only numbers.
+	 * @param str - the string to check.
+	 * 
+	 * @return boolean - true if the string contains only numbers, otherwise return false.
+	 */
+	
 	public boolean ifContainOnlyNum(String str){
 		return (str.matches("[0-9]+"));
 	}
+	
+	/**An auxiliary function that returns true if the string that contain date consists only numbers.
+	 * @param dd - the string represent day.
+	 * @param MM - the string represent month.
+	 * @param yyyy - the string represent year. 
+	 * 
+	 * @return boolean - true if the string contains contain date consists only numbers, otherwise return false.
+	 */
 	
 	public boolean ifContainOnlyNum(String dd, String MM, String yyyy){
 		return (dd.matches("[0-9]+") && MM.matches("[0-9]+") && yyyy.matches("[0-9]+"));
 	}
 	
+	/**An auxiliary function that returns true if the string that contain date is valid by the templed we decide (dd-MM-yyyy).
+	 * @param dd - the string represent day.
+	 * @param MM - the string represent month.
+	 * @param yyyy - the string represent year. 
+	 * 
+	 * @return boolean - true if the string contains contain date is valid by the templed we decide (dd-MM-yyyy), otherwise return false.
+	 */
+	
 	public boolean validDate(String dd, String MM, String yyyy){
 		return (dd.matches("[0-9]+") && dd.length()==2 && MM.matches("[0-9]+") && MM.length()==2 && yyyy.matches("[0-9]+") && yyyy.length()==4);
 	}
+	
+	/**An auxiliary function that returns string with date in the templed that the DB is working with (yyyy-MM-dd).
+	 * @param dd - the string represent day.
+	 * @param MM - the string represent month.
+	 * @param yyyy - the string represent year. 
+	 * 
+	 * @return string - return string with date in the templed that the DB is working with (yyyy-MM-dd).
+	 */
 	
 	public String makeString(String dd, String MM, String yyyy){
 		return yyyy + "-" + MM + "-" + dd;
