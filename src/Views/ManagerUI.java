@@ -27,7 +27,6 @@ public class ManagerUI extends JPanel {
 	 * Build a GUI panel to the Manager window to choose between the actions of the Manager.
 	 * create a Manager controller to deal with all actions in the Manager panel and his sub-panels.
 	 *
-	 * @throws URISyntaxException 
 	 * 
 	 */
 	

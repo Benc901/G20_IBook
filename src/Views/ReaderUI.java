@@ -50,7 +50,7 @@ public class ReaderUI extends JPanel {
 	
 	/**
 	 * Create the application.
-	 * @throws URISyntaxException 
+	 * 
 	 */
 	public ReaderUI(UserET userET) {
 		

@@ -90,6 +90,12 @@ public class UserCT implements Observer, ActionListener {
 		client.addObserver(a);
 		client.deleteObserver(b);
 	}
+
+	
+	public LoginUI GetLoginF()
+	{
+		return this.loginFrame;
+	}
 	/* 
 	 * Function the recognize events from all the User UI
 	 * do the action that the event needs and send to the relevant function

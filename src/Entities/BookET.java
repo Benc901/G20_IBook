@@ -51,6 +51,7 @@ public class BookET implements Serializable {
 			this.bGenreRank = bGenreRank;
 			this.price=price;
 		}
+		
 		public int getPrice() {
 			return price;
 		}

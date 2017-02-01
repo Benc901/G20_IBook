@@ -42,7 +42,6 @@ public class MainUI {
 	
 	/**
 	 * Create the application.
-	 * @throws URISyntaxException 
 	 */
 	public MainUI() {
 		initialize();
@@ -51,7 +50,7 @@ public class MainUI {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws URISyntaxException 
+	 * 
 	 */
 	private void initialize() {
 		try {

@@ -231,5 +231,13 @@ public class LoginUI extends JPanel {
 	public String getPassword(){
 		return pwdPassword.getText();
 	}
+	public void setUserName(String name)
+	{
+		textFieldUserName.setText(name);
+	}
+	public void setPassword(String pass)
+	{
+		pwdPassword.setText(pass);
+	}
 }
 

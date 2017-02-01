@@ -11,7 +11,7 @@ import Views.MainUI;
 public class Main {
 	
 	public static String host = "";
-	
+	public static LoginUI frame;
 	/**
 	 * The default port to connect on.
 	 */
@@ -29,7 +29,7 @@ public class Main {
 	      host = "localhost";
 	    }
 		MainUI main=new MainUI();//Create the Main JFrame
-		LoginUI frame = new LoginUI(host,DEFAULT_PORT);//Create the login frame
+		frame = new LoginUI(host,DEFAULT_PORT);//Create the login frame
 		main.setView(frame);//Set the login frame inside
 		
 		

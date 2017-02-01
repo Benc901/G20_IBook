@@ -470,7 +470,7 @@ public class ManagerCT implements Observer, ActionListener {
 	 * To third compartment put int with the new requested permission for the user.
 	 * Send the HashMap to the server to handle.
 	 * 
-	 * @param choice - to Freeze\UnFreeze the requested user - Integer.
+	 * 
 	 */
 	
 	public void ChangePermission(){
@@ -552,7 +552,7 @@ public class ManagerCT implements Observer, ActionListener {
 	 * Build a HashMap of String and Object.
 	 * To first compartment put string with the action name - Book Rank.
 	 * To second compartment put int with the choiced action - ( 0 - Total Rank, 1 - Genre Rank).
-	 * To third & four compartment (only if the manager request the rank by genre) put the requested genre and array of the genre that belong to the requested book
+	 * To third &amp; four compartment (only if the manager request the rank by genre) put the requested genre and array of the genre that belong to the requested book
 	 * in the five on third (depending on the manager choice) compartment put string with the book id to set from database.
 	 * Send the HashMap to the server to handle.
 	 * 

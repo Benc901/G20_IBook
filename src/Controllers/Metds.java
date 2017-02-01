@@ -38,7 +38,7 @@ public class Metds
 	}//End isUserValid
 	
 	/**
-	 * isPasswordValid</b> - this methods checks for password correctness.
+	 * isPasswordValid - this methods checks for password correctness.
 	 * The password can NOT contains spaces.
 	 * @param str - the password input. 
 	 * @return
