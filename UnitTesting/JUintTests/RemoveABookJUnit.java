@@ -11,15 +11,25 @@ import org.junit.Test;
 public class RemoveABookJUnit extends TestCase{
 
 	int zero=0, one=1,nagtive=-1;
-	private mysqlConnection mysql;
 	private serverUI window = new serverUI(new IBookServer(5555));
+	private mysqlConnection mysql = new mysqlConnection(window, "root", "root");
+	
 	@Test
-	public void test() {
-		mysql = new mysqlConnection(window, "root", "root");
+	public void testSuccessRemove() {
+		
+		Assert.assertEquals(mysql.DeleteBook(1), one);
+	}
+	public void testRemoveFailed()
+	{
+		Assert.assertEquals(mysql.DeleteBook(0), zero);
+	}
+	public void testDoubleRemoveFailed()
+	{
 		Assert.assertEquals(mysql.DeleteBook(20), one);
 		Assert.assertEquals(mysql.DeleteBook(20), zero);
-		Assert.assertEquals(mysql.DeleteBook(0), zero);
+	}
+	public void testNagtiveFailed()
+	{
 		Assert.assertEquals(mysql.DeleteBook(-4), zero);
 	}
-
 }

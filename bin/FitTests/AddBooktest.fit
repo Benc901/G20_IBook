@@ -1,26 +1,4 @@
-<html><head><title>Suite AddBooktest.fit run at: Wed Feb 01 21:02:15 IST 2017</title>
-	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="screen"/>
- 	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="print"/>
-<script language="JavaScript" type="text/javascript">
-var collapsableOpenCss = "collapsable"
-var collapsableClosedCss = "hidden"
-var collapsableOpenImg = "images/collapsableOpen.gif"
-var collapsableClosedImg = "images/collapsableClosed.gif"
-function toggleCollapsable(id){
-var div = document.getElementById(id);
-var img = document.getElementById("img" + id);
-if(div.className.indexOf(collapsableClosedCss) != -1) {
-div.className = collapsableOpenCss;
-img.src = collapsableOpenImg;
-} else {
-div.className = collapsableClosedCss;
-img.src = collapsableClosedImg;
-} }
-</script>
-
-</head>
-<body>
-<div> Suite is: C:/Users/ori saida/git/G20_IBook/Tests/Test/AddBooktest.fit</div><div class="test_output_name">Name: AddBooktest.fit</div><div> Suite executed at: Wed Feb 01 21:02:15 IST 2017 Elapsed time: 1 seconds 145 millseconds  </div><table><tr><td></td><td><a href="#-74a9768f:159fb0e4d8c:-8000">AddBooktest.fit</a></td><td class="pass">1 right, 0 wrong, 0 ignored, 0 exceptions</td></tr></table><div class="test_output_name"><a name="-74a9768f:159fb0e4d8c:-8000"/><p>Test file: AddBooktest.fit</p></div><html>
+<html>
 	<head>
 		<meta content="MSHTML 11.00.10570.1001" name="GENERATOR" />
 	</head>
@@ -158,7 +136,7 @@ img.src = collapsableClosedImg;
 					<td class="style1">
 						&nbsp;</td>
 				</tr>
-					<tr>
+				<tr>
 					<td class="style1">
 						enter</td>
 					<td class="style1">
@@ -166,7 +144,7 @@ img.src = collapsableClosedImg;
 					<td class="style1">
 						&nbsp;</td>
 				</tr>
-					<tr>
+				<tr>
 					<td class="style1">
 						enter</td>
 					<td class="style1">
@@ -179,12 +157,9 @@ img.src = collapsableClosedImg;
 						check</td>
 					<td class="style1">
 						checkAddBookTest</td>
-					<td class="style1" class="pass">
+					<td class="style1">
 						true</td>
 				</tr>
-				
 			</tbody>
 		</table></body>
 </html>
-
-</body></html>
