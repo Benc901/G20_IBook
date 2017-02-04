@@ -12,7 +12,7 @@ public class RemoveABookJUnit extends TestCase{
 
 	int zero=0, one=1,nagtive=-1;
 	private serverUI window = new serverUI(new IBookServer(5555));
-	private mysqlConnection mysql = new mysqlConnection(window, "root", "root");
+	private mysqlConnection mysql = new mysqlConnection(window, "root", "1234");
 	
 	@Test
 	public void testSuccessRemove() {

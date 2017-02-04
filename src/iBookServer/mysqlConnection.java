@@ -208,6 +208,8 @@ public Object logout(Object obj) {
 		ArrayList<BookET> returnObj=new ArrayList<BookET>();
 		int dup=0;
 		try {
+			if(text == null || cb == null)
+				return "1";
 			PreparedStatement pStmt = con
 					.prepareStatement("SELECT * FROM test.books b INNER JOIN test.pairing p ON p.book_id= b.id INNER JOIN test.genere g ON p.genere_id= g.id");
 			ResultSet rs = pStmt.executeQuery();
@@ -242,7 +244,10 @@ public Object logout(Object obj) {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return returnObj;
+		if(returnObj.isEmpty())
+			return null;
+		else
+			return returnObj;
 	}
 	/**Function that search in the database reviews by text and columns
 	 * @param text - the text that client insert for search

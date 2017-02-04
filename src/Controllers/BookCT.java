@@ -138,8 +138,8 @@ public class BookCT implements Observer, ActionListener{
 	                    	searchFrame.model.removeRow(i);
 	                    }
 	                }
-	
-					books=(ArrayList<BookET>)map.get("arr");
+					if((books=(ArrayList<BookET>)map.get("arr")) == null)
+						break;
 					for(int i=0 ; i<books.size(); i++){
 						searchFrame.model.addRow(new Object[] {
 								books.get(i).getBID(),books.get(i).getBTitle(),
