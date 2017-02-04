@@ -41,7 +41,7 @@ public class ReaderUI extends JPanel {
 	public WebButton btnSearchBook;
 	public JLabel profile;
 	public WebButton btnEnablePublish;
-	public WebButton wbtnLibririan;
+	public JButton wbtnLibririan;
 	public WebButton wbtnManagerMenu;
 	public WebButton btnRenew;
 	private JLabel label;

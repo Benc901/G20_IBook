@@ -51,8 +51,8 @@ public class LibrarianCT implements Observer, ActionListener{
 	public ArrayList<ReviewET> reviews;
 	public static ArrayList<BookET> BooksET;
 	public static int check=0;
-	int id;
-	
+	public static int id;
+	public ArrayList<FileEvent> fileEvents;
 	
 	/**
 	 * The constructor of the librarian controller 
@@ -282,7 +282,13 @@ public class LibrarianCT implements Observer, ActionListener{
 			{
 				if(AddBFrame.getTxtTitle().getText().equals("")|| AddBFrame.getTxtAuthor().getText().equals("")|| AddBFrame.getTxtLan().getText().equals("")|| AddBFrame.getTxtASummary().getText().equals("")|| AddBFrame.getTxtContent().getText().equals("")|| AddBFrame.getTxtKwords().getText().equals("")|| ((String)AddBFrame.getComboBoxGenres().getSelectedItem()).equals("") || ((String)AddBFrame.getComboBoxSubject().getSelectedItem()).equals("")|| AddBFrame.getTxtPrice().getText().equals(""))
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
-					else AddBook();
+					else 
+						{
+							bookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0,Integer.parseInt(AddBFrame.getTxtPrice().getText()));
+							fileEvents=SendBooktoDB();
+							AddBook(bookET);
+						
+						}
 			}
 		}
 		if(adduserFrame!=null){
@@ -465,9 +471,8 @@ public class LibrarianCT implements Observer, ActionListener{
 			id=(int)map.get("obj");
 			if((int)map.get("obj")!=(-1))
 			{
-				MainUI.MV.setView(libririanFrame);
+				//MainUI.MV.setView(libririanFrame);
 				JOptionPane.showMessageDialog(null, "Insert Book to DB", "Insert Book to DB", JOptionPane.INFORMATION_MESSAGE);
-				
 			}
 			else
 			{
@@ -760,11 +765,8 @@ public class LibrarianCT implements Observer, ActionListener{
 	 * Send the HashMap to the server to handle.
 	 * 
 	 */
-	public void AddBook()
+	public void AddBook(BookET NewBookET)
 	{
-		BookET NewBookET = new BookET(0, AddBFrame.getTxtTitle().getText(), AddBFrame.getTxtAuthor().getText(), AddBFrame.getTxtLan().getText(), AddBFrame.getTxtASummary().getText(), AddBFrame.getTxtContent().getText(), AddBFrame.getTxtKwords().getText(), (String)AddBFrame.getComboBoxGenres().getSelectedItem(),(String)AddBFrame.getComboBoxSubject().getSelectedItem(), "BookProfile", 0, 0, 0, 0, 0,Integer.parseInt(AddBFrame.getTxtPrice().getText()));
-		ArrayList<FileEvent> fileEvents=new ArrayList<FileEvent>();
-		fileEvents=SendBooktoDB();
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("op", "AddBook");
 		hmap.put("obj", NewBookET);

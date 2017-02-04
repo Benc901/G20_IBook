@@ -84,32 +84,36 @@ public class AddBookUI extends JPanel {
 	public ArrayList<GenreET> getGenresET() {
 		return GenresET;
 	}
-	public void setTxtTitle(JTextField txtTitle) {
-		this.txtTitle = txtTitle;
+	public void setTxtTitle(String string) {
+		this.txtTitle.setText(string);
 	}
-	public void setTxtAuthor(JTextField txtAuthor) {
-		this.txtAuthor = txtAuthor;
+	public void setTxtAuthor(String txtAuthor) {
+		this.txtAuthor.setText(txtAuthor);
 	}
-	public void setTxtLan(JTextField txtLan) {
-		this.txtLan = txtLan;
+	public void setTxtLan(String txtLan) {
+		this.txtLan.setText(txtLan);
 	}
-	public void setTxtContent(JTextField txtContent) {
-		this.txtContent = txtContent;
+	public void setTxtContent(String txtContent) {
+		this.txtContent.setText(txtContent);
 	}
-	public void setTxtASummary(JTextArea txtASummary) {
-		this.txtASummary = txtASummary;
+	public void setTxtASummary(String txtASummary) {
+		this.txtASummary.setText(txtASummary);
 	}
-	public void setTxtKwords(JTextField txtKwords) {
-		this.txtKwords = txtKwords;
+	public void setTxtKwords(String txtKwords) {
+		this.txtKwords.setText(txtKwords);
 	}
-	public void setTxtPhoto(JTextField txtPhoto) {
-		this.txtPhoto = txtPhoto;
+	public void setTxtPhoto(String txtPhoto) {
+		this.txtPhoto.setText(txtPhoto);
 	}
-	public void setComboBoxGenres(JComboBox comboBoxGenres) {
-		this.comboBoxGenres = comboBoxGenres;
+	public void setTxtPrice(String Bprice)
+	{
+		this.txtPrice.setText(Bprice);
 	}
-	public void setComboBoxSubject(JComboBox comboBoxSubject) {
-		this.comboBoxSubject = comboBoxSubject;
+	public void setComboBoxGenres(String comboBoxGenres) {
+		this.comboBoxGenres.setSelectedItem((String)comboBoxGenres);
+	}
+	public void setComboBoxSubject(String comboBoxSubject) {
+		this.comboBoxSubject.setSelectedItem((String)comboBoxSubject);
 	}
 	public void setGenresET(ArrayList<GenreET> genresET) {
 		GenresET = genresET;

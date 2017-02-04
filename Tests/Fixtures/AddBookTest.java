@@ -1,9 +1,11 @@
 package Fixtures;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Views.AddBookUI;
@@ -16,13 +18,14 @@ import Controllers.LibrarianCT;
 import Controllers.UserCT;
 import Entities.BookET;
 import Entities.FileEvent;
+import Entities.GenreET;
 import Entities.UserET;
 import Mains.Main;
 import fit.ActionFixture;
 
 public class AddBookTest extends ActionFixture {
 	
-	private IBookServer iserver;
+	final public static int DEFAULT_PORT = 5555;
 	private LibririanUI libFrame;
 	private LoginUI loginFrame;
 	private UserET userET;
@@ -31,20 +34,28 @@ public class AddBookTest extends ActionFixture {
 	private mysqlConnection mysql;
 	private serverUI window;
 	private ArrayList<FileEvent> fileEvents;
-	private LibrarianCT libCT ;
-	private UserCT userCT;
+	private static LibrarianCT libCT ;
+	private static UserCT userCoT;
 	
 	public AddBookTest()
 	{
-		//Main main= new Main();
+		String host="localhost";
 		
-		iserver = new IBookServer(5555);
-		window = new serverUI(iserver);
-		mysql = new mysqlConnection(window, "root", "root");
+			//iserver = new IBookServer(5555);
+			//window = new serverUI(iserver);
+		//mysql = new mysqlConnection(window, "root", "root");
+		loginFrame = new LoginUI(host, DEFAULT_PORT);
+		userCoT=UserCT.userCT;
+		userCoT.GetLoginF().setUserName("ori");
+		userCoT.GetLoginF().setPassword("1234");
+		userCoT.GetLoginF().btnLogin.doClick();
+		//userCoT.readerFrame.wbtnLibririan.doClick();
+		userCoT.libririanFrame=new LibririanUI();
+		
 		fileEvents=new ArrayList<FileEvent>();
 		bookET = new BookET();
-		bookET.setBPhoto("BookProfile");
 		
+		libCT=LibrarianCT.librarianCT;
 	}
 	public void setTitle(String title)
 	{
@@ -168,8 +179,20 @@ public class AddBookTest extends ActionFixture {
 	}
 	public boolean checkAddBookTest()
 	{	
-		if(mysql.AddBook(bookET, fileEvents)>0)
+		bookET.setBID(0);
+		bookET.setBNumOfSearch(0);
+		bookET.setBNumOfPurchace(0);
+		bookET.setBTotalRank(0);
+		bookET.setBGenreRank(0);
+		bookET.setBHidden(0);
+		bookET.setBPhoto("BookProfile");
+		libCT.fileEvents=fileEvents;
+		
+		libCT.AddBook(bookET);
+		
+		if(libCT.id==-1)
+			return false;
+		else 
 			return true;
-		else return false;
 	}
 }

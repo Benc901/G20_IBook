@@ -56,7 +56,7 @@ public class UserCT implements Observer, ActionListener {
 	private static SearchReviewUI searchreviewFrame;
 	private static PublishReviewUI publishreviewFrame;
 	private static EnablePaymentUI enablepaymentFrame;
-	private static LibririanUI libririanFrame;
+	public static LibririanUI libririanFrame;
 	private static RecoverPasswordUI recoverpasswordFrame;
 	private static ManagerUI managerFrame;
 	public static int port;
@@ -261,8 +261,7 @@ public class UserCT implements Observer, ActionListener {
 				
 				else
 				{
-					userET = (UserET) map.get("obj");
-
+							userET = (UserET) map.get("obj");
 							readerFrame=new ReaderUI(userET);
 							readerFrame.btnLogout.addActionListener((ActionListener) this);
 							readerFrame.btnSearchBook.addActionListener((ActionListener) this);

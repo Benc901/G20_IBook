@@ -1229,6 +1229,7 @@ public int AddBook(BookET newBook,ArrayList<FileEvent> fileEvents)
 		if(rs.next())
 			id=(int) rs.getObject(1);
 			id+=1;
+			
 			newBook.setBID(id);
 			String SQL = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(SQL);
@@ -1779,6 +1780,22 @@ public void SetBooksFiles(){
 		System.out.println("path specified is not pointing to a file");
 		}
 }
-
+public int GetMaxBid()
+{
+	try
+	{
+		Statement rStmt = con.createStatement();
+		rStmt.execute("SELECT MAX(id) FROM books");
+		ResultSet rs = rStmt.getResultSet();
+		int id=0;
+		if(rs.next())
+			id=(int) rs.getObject(1);
+		return id;
+	}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+}
 
 }
