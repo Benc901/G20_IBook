@@ -1,0 +1,116 @@
+<html><head><title>Suite PublishReviewTest.fit run at: Sun Feb 05 02:48:31 IST 2017</title>
+	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="screen"/>
+ 	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="print"/>
+<script language="JavaScript" type="text/javascript">
+var collapsableOpenCss = "collapsable"
+var collapsableClosedCss = "hidden"
+var collapsableOpenImg = "images/collapsableOpen.gif"
+var collapsableClosedImg = "images/collapsableClosed.gif"
+function toggleCollapsable(id){
+var div = document.getElementById(id);
+var img = document.getElementById("img" + id);
+if(div.className.indexOf(collapsableClosedCss) != -1) {
+div.className = collapsableOpenCss;
+img.src = collapsableOpenImg;
+} else {
+div.className = collapsableClosedCss;
+img.src = collapsableClosedImg;
+} }
+</script>
+
+</head>
+<body>
+<div> Suite is: D:/Users/Gidi/git/Lab-proj/Tests/FitTests/PublishReviewTest.fit</div><div class="test_output_name">Name: PublishReviewTest.fit</div><div> Suite executed at: Sun Feb 05 02:48:31 IST 2017 Elapsed time: 2 seconds 519 millseconds  </div><table><tr><td></td><td><a href="#fd0a14d:15a0bbe66c3:-8000">PublishReviewTest.fit</a></td><td class="pass">1 right, 0 wrong, 0 ignored, 0 exceptions</td></tr></table><div class="test_output_name"><a name="fd0a14d:15a0bbe66c3:-8000"/><p>Test file: PublishReviewTest.fit</p></div><html>
+<head>
+	<title></title>
+	<meta content="MSHTML 11.00.10570.1001" name="GENERATOR" />
+</head>
+<body>
+<p><u><strong>Publish Review</strong></u></p>
+
+<p><strong><u>Use case description:</u></strong></p>
+
+<p>Publishing review of the book that user previously purchased with essential values:</p>
+
+<p>BookId (int), Book Name&nbsp;(String), User ID(int), User name(String), User photo(String), Review(String),&nbsp; Rate(int).</p>
+
+<p>The check if all fields are filled tested in the controller, not call to the function until all fields are filled.</p>
+
+<p><u><strong>Test 1: Publish Review</strong></u></p>
+
+<p>a. Choosing a bookId from purchased list books - 1.</p>
+
+<p>b.&nbsp;Choosing book name - Robin hobb.</p>
+
+<p>c. Inesrt&nbsp;user ID - 2.</p>
+
+<p>d. Inesrt&nbsp;user name&nbsp;- Shany.</p>
+
+<p>e. Inesrt&nbsp;user photo- /Shany.png.</p>
+
+<p>f.&nbsp; Insert review - Good Book !!!.</p>
+
+<p>g.&nbsp; Insert rate - 4.</p>
+
+<p>h. check if the enter of the review to the database succeeded - return true.</p>
+
+<p>&nbsp;</p>
+
+<div id="cke_pastebin">&nbsp;</div>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">fit.ActionFixture</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">Fixtures.PublishReviewTest</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setBookId</td>
+			<td class="style1">1</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setBookName</td>
+			<td class="style1">Robin hobb</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setUserId</td>
+			<td class="style1">2</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setUserName</td>
+			<td class="style1">Shany</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setUserPhoto</td>
+			<td class="style1">/Shany.png</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setReview</td>
+			<td class="style1">Good Book !!!</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setRate</td>
+			<td class="style1">4</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkPublishReviewTest</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
+
+</body></html>

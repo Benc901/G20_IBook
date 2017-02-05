@@ -53,8 +53,8 @@ public class UserCT implements Observer, ActionListener {
 	public static UserET userET;
 	public static ReaderET readerET;
 	private static SearchBookUI searchbookFrame;
-	private static SearchReviewUI searchreviewFrame;
-	private static PublishReviewUI publishreviewFrame;
+	public static SearchReviewUI searchreviewFrame;
+	public static PublishReviewUI publishreviewFrame;
 	private static EnablePaymentUI enablepaymentFrame;
 	public static LibririanUI libririanFrame;
 	private static RecoverPasswordUI recoverpasswordFrame;

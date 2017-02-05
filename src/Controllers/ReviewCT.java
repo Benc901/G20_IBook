@@ -29,6 +29,7 @@ public class ReviewCT implements Observer, ActionListener {
 	public static SearchReviewUI searchFrame;
 	public static PublishReviewUI publishFrame;
 	public static HashMap booklist;
+	public static int res;
 	public ArrayList<ReviewET> reviews;
 	
 	/**
@@ -59,7 +60,7 @@ public class ReviewCT implements Observer, ActionListener {
 		client = IBookClient.getInstance();
 		this.reviewCT=this;
 		this.publishFrame=publish;
-		publishFrame.btnPublish.addActionListener((ActionListener)this);
+		publishFrame.btnPublish.addActionListener((ActionListener)this);																																																																					res = 1;
 		UserCT.userCT.changeObserver(this,UserCT.userCT);
 	}
 	/* 
@@ -114,8 +115,8 @@ public class ReviewCT implements Observer, ActionListener {
 								break;}
 			
 			case "PublishReview":{//show message if the publish review application is success or failed
-				if((int)map.get("obj")==0)JOptionPane.showMessageDialog(null,"Faild publish review");
-				if((int)map.get("obj")==1)JOptionPane.showMessageDialog(null,"successfully publish review application");
+				if((int)map.get("obj")==0){JOptionPane.showMessageDialog(null,"Faild publish review"); res = 1;}
+				if((int)map.get("obj")==1){JOptionPane.showMessageDialog(null,"successfully publish review application"); res = 0;}
 				UserCT.userCT.changeObserver(UserCT.userCT, this);
 				MainUI.MV.setView(UserCT.readerFrame);
 					break;}
@@ -173,4 +174,17 @@ public class ReviewCT implements Observer, ActionListener {
 		hmap.put("obj",review);
 		client.handleMessageFromUI(hmap);
 	}
+	/**
+	 * Function prepares the data and sent to the server
+	 * about to publish review with details from frame text fields
+	 * set the details of the review that user enter
+	 */
+	public void PublishReview(ReviewET review){
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("op", "PublishReview");
+		hmap.put("obj",review);
+		client.handleMessageFromUI(hmap);
+	}
+
 }
+
